@@ -49,8 +49,16 @@
 }
 
 h1 {
-    /* font-family: "Outfit Black"; */
     font-family: "YoungSerif Regular";
+    font-size: 40px;
+    font-weight: 400;
+    margin-top: 28px;
+    margin-bottom: 15px;
+}
+
+p {
+    font-family: "Outfit Regular";
+    line-height: 24px;
 }
 
 * {
