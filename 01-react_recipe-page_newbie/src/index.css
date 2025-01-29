@@ -1,3 +1,58 @@
+@font-face {
+    font-family: "Outfit Black";
+    src: url("/outfit/Outfit-Black.ttf");
+}
+
+@font-face {
+    font-family: "Outfit Bold";
+    src: url("/outfit/Outfit-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Outfit ExtraBold";
+    src: url("/outfit/Outfit-ExtraBold.ttf");
+}
+
+@font-face {
+    font-family: "Outfit ExtraLight";
+    src: url("/outfit/Outfit-ExtraLight.ttf");
+}
+
+@font-face {
+    font-family: "Outfit Light";
+    src: url("/outfit/Outfit-Light.ttf");
+}
+
+@font-face {
+    font-family: "Outfit Medium";
+    src: url("/outfit/Outfit-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Outfit Regular";
+    src: url("/outfit/Outfit-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Outfit SemiBold";
+    src: url("/outfit/Outfit-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Outfit Thin";
+    src: url("/outfit/Outfit-Thin.ttf");
+}
+
+@font-face {
+    font-family: "YoungSerif Regular";
+    src: url("/young-serif/YoungSerif-Regular.ttf");
+}
+
+h1 {
+    /* font-family: "Outfit Black"; */
+    font-family: "YoungSerif Regular";
+}
+
 * {
     margin: 0;
     padding: 0;
