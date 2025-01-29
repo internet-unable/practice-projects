@@ -4,7 +4,7 @@ const DUMMY_DATA = [
     {
         image: "image-omelette.jpeg",
         title: "Simple Omelette Recipe",
-        description: "An easy and quick dish, perfect for any meal. This classic omelette combines beaten eggs cooked to perfection? optionaly filled with your choice of chesse, vegetables, or meats. ",
+        description: "An easy and quick dish, perfect for any meal. This classic omelette combines beaten eggs cooked to perfection, optionally filled with your choice of cheese, vegetables, or meats. ",
         preparation: {
             title: "Prepataion time",
             items: [
