@@ -6,14 +6,14 @@ const DUMMY_DATA = [
         title: "Simple Omelette Recipe",
         description: "An easy and quick dish, perfect for any meal. This classic omelette combines beaten eggs cooked to perfection, optionally filled with your choice of cheese, vegetables, or meats. ",
         preparation: {
-            title: "Prepataion time",
+            title: "Preparation time",
             items: [
                 {
                     key: "Total",
-                    value: "Approximatlely 10 minutes"
+                    value: "Approximately 10 minutes"
                 },
                 {
-                    key: "Prepataion",
+                    key: "Preparation",
                     value: "5 minutes"
                 },
                 {
@@ -24,7 +24,7 @@ const DUMMY_DATA = [
         },
         ingredients: {
             title: "Ingredients",
-            items: ["2-3 large eggs", "Salt, to tase", "Pepper, to taste", "1 tablespoon of butter or oil", "Optional fillings: cheese, diced vegatables, cooked meats, herbs"]
+            items: ["2-3 large eggs", "Salt, to taste", "Pepper, to taste", "1 tablespoon of butter or oil", "Optional fillings: cheese, diced vegatables, cooked meats, herbs"]
         },
         instructions: {
             title: "Instructions",
