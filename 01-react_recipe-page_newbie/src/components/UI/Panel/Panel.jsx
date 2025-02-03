@@ -8,27 +8,29 @@ export default function Panel({ data }) {
                 <p>{data.description}</p>
             </div>
 
-            <div>
+            <div className="preparation">
                 <h3>{data.preparation.title}</h3>
                 <ul>
                     {data.preparation.items.map(item => (
-                        <li key={item.key}>{item.key}: {item.value}</li>
+                        <li key={item.key}>
+                            <div className="content"><b>{item.key}</b>: {item.value}</div>
+                        </li>
                     ))}
                 </ul>
             </div>
 
-            <div>
+            <div className="ingredients">
                 <h2>{data.ingredients.title}</h2>
                 <ul>
                     {data.ingredients.items.map(item => (
-                        <li key={item}>{item}</li>
+                        <li key={item}>
+                            <div className="content">{item}</div>
+                        </li>
                     ))}
                 </ul>
             </div>
 
-            <div className="divider"></div>
-
-            <div>
+            <div className="instructions">
                 <h2>{data.instructions.title}</h2>
                 <ul>
                     {data.instructions.items.map(item => (
@@ -36,8 +38,6 @@ export default function Panel({ data }) {
                     ))}
                 </ul>
             </div>
-
-            <div className="divider"></div>
 
             <div>
                 <h2>{data.nutrition.title}</h2>
