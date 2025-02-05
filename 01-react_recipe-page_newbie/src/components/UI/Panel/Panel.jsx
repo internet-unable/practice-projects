@@ -34,17 +34,26 @@ export default function Panel({ data }) {
                 <h2>{data.instructions.title}</h2>
                 <ul>
                     {data.instructions.items.map(item => (
-                        <li key={item.key}>{item.key}: {item.value}</li>
+                        <li key={item.key}>
+                            <div className="content"><b>{item.key}</b>: {item.value}</div>
+                        </li>
                     ))}
                 </ul>
             </div>
 
-            <div>
+            <div className="nutrition">
                 <h2>{data.nutrition.title}</h2>
                 <p>{data.nutrition.description}</p>
                 <ul>
                     {data.nutrition.items.map(item => (
-                        <li key={item.key}>{item.key}: {item.value}</li>
+                        <li key={item.key}>
+                            <div className="col col-title">
+                                <span>{item.key}</span>
+                            </div>
+                            <div className="col col-desc">
+                                <span><b>{item.value}</b></span>
+                            </div>
+                        </li>
                     ))}
                 </ul>
             </div>
