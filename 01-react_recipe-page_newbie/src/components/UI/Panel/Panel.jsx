@@ -1,15 +1,16 @@
+import Heading from "../Heading/Headng";
+
 export default function Panel({ data }) {
-    console.log(data);
     return (
         <div className="panel">
             <div>
                 <img src={data.image} />
-                <h1>{data.title}</h1>
+                <Heading tag="h1">{data.title}</Heading>
                 <p>{data.description}</p>
             </div>
 
             <div className="preparation">
-                <h3>{data.preparation.title}</h3>
+                <Heading tag="h3">{data.preparation.title}</Heading>
                 <ul>
                     {data.preparation.items.map(item => (
                         <li key={item.key}>
@@ -20,7 +21,7 @@ export default function Panel({ data }) {
             </div>
 
             <div className="ingredients">
-                <h2>{data.ingredients.title}</h2>
+                <Heading tag="h2">{data.ingredients.title}</Heading>
                 <ul>
                     {data.ingredients.items.map(item => (
                         <li key={item}>
@@ -31,7 +32,7 @@ export default function Panel({ data }) {
             </div>
 
             <div className="instructions">
-                <h2>{data.instructions.title}</h2>
+                <Heading tag="h2">{data.instructions.title}</Heading>
                 <ul>
                     {data.instructions.items.map(item => (
                         <li key={item.key}>
@@ -42,7 +43,7 @@ export default function Panel({ data }) {
             </div>
 
             <div className="nutrition">
-                <h2>{data.nutrition.title}</h2>
+                <Heading tag="h2">{data.nutrition.title}</Heading>
                 <p>{data.nutrition.description}</p>
                 <ul>
                     {data.nutrition.items.map(item => (
