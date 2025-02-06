@@ -1,4 +1,4 @@
-// import { useState, useEffect } from 'react';
+// import Counter from './components/Counter';
 import Panel from './components/UI/Panel/Panel';
 
 const DUMMY_DATA = [
@@ -82,28 +82,9 @@ const DUMMY_DATA = [
 ]
 
 export default function App() {
-    // const [counter, setCounter] = useState(0);
-
-    // useEffect(() => {
-    //     console.log("Effect");
-    // }, []);
-
-    // function handleCounterIncrease() {
-    //     setCounter(counter + 1);
-    // }
-
-    // function handleCounterDecrease() {
-    //     setCounter(counter - 1);
-    // }
-
     return (
         <main>
-            {/* <div>
-                <button onClick={handleCounterIncrease}>Increase counter</button>
-                <span>{counter}</span>
-                <button onClick={handleCounterDecrease}>Decrease counter</button>
-            </div> */}
-
+            {/* <Counter /> */}
             <Panel data={DUMMY_DATA[0]} />
         </main>
     )
