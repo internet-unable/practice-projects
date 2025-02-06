@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "Outfit Black";
-    src: url("/outfit/Outfit-Black.ttf");
+    font-family: "Outfit Regular";
+    src: url("/outfit/Outfit-Regular.ttf");
 }
 
 @font-face {
@@ -9,88 +9,82 @@
 }
 
 @font-face {
-    font-family: "Outfit ExtraBold";
-    src: url("/outfit/Outfit-ExtraBold.ttf");
-}
-
-@font-face {
-    font-family: "Outfit ExtraLight";
-    src: url("/outfit/Outfit-ExtraLight.ttf");
-}
-
-@font-face {
-    font-family: "Outfit Light";
-    src: url("/outfit/Outfit-Light.ttf");
-}
-
-@font-face {
-    font-family: "Outfit Medium";
-    src: url("/outfit/Outfit-Medium.ttf");
-}
-
-@font-face {
-    font-family: "Outfit Regular";
-    src: url("/outfit/Outfit-Regular.ttf");
-}
-
-@font-face {
-    font-family: "Outfit SemiBold";
-    src: url("/outfit/Outfit-SemiBold.ttf");
-}
-
-@font-face {
-    font-family: "Outfit Thin";
-    src: url("/outfit/Outfit-Thin.ttf");
-}
-
-@font-face {
     font-family: "YoungSerif Regular";
     src: url("/young-serif/YoungSerif-Regular.ttf");
+}
+
+:root {
+    --color-white: hsl(0, 0%, 100%);
+
+    --color-stone--100: hsl(30, 54%, 90%);
+    --color-stone--150: hsl(30, 18%, 87%);
+    --color-stone--600: hsl(30, 10%, 34%);
+    --color-stone--900: hsl(24, 5%, 18%);
+
+    --color-brown--800: hsl(14, 45%, 36%);
+
+    --color-rose--50: hsl(330, 100%, 98%);
+    --color-rose--800: hsl(332, 51%, 32%);
+
+    --font-outfit--regular: "Outfit Regular";
+    --font-outfit--bold: "Outfit Bold";
+    --font-young-serif--regular: "YoungSerif Regular";
+}
+
+.color-white {
+    color: var(--color-white);
+}
+
+.color-stone--100 {
+    color: var(--color-stone--100);
+}
+
+.color-stone--150 {
+    color: var(--color-stone--150);
+}
+
+.color-stone--600 {
+    color: var(--color-stone--600);
+}
+
+.color-stone--900 {
+    color: var(--color-stone--900);
+}
+
+.color-brown--800 {
+    color: var(--color-brown--800);
+}
+
+.color-rose--50 {
+    color: var(--color-rose--50);
+}
+
+.color-rose--800 {
+    color: var(--color-rose--800);
+}
+
+.font-outfit--regular {
+    font-family: var(--font-outfit--regular);
+}
+
+.font-outfit--bold {
+    font-family: var(--font-outfit--bold);
+}
+
+.font-young-serif--regular {
+    font-family: var(--font-young-serif--regular);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    /* White */
-    /* color: hsl(0, 0%, 100%); */
-
-    /* Stone 100 */
-    /* color: hsl(30, 54%, 90%); */
-    /* Stone 150 */
-    /* color: hsl(30, 18%, 87%); */
-    /* Stone 600 */
-    /* color: hsl(30, 10%, 34%); */
-    /* Stone 900 */
-    /* color: hsl(24, 5%, 18%); */
-    /* Brown 800 */
-    /* color: hsl(14, 45%, 36%); */
-
-    /* Rose 800 */
-    /* color: hsl(332, 51%, 32%); */
-    /* Rose 50 */
-    /* color: hsl(330, 100%, 98%); */
 }
 
-h1 {
-    font-family: "YoungSerif Regular";
-    font-size: 40px;
-    font-weight: 400;
-    margin-top: 28px;
-    margin-bottom: 15px;
-}
-
-h2 {
-    font-family: "YoungSerif Regular";
-    font-size: 28px;
-    font-weight: 400;
-}
-
-h3 {
-    font-family: "Outfit Bold";
-    font-size: 20px;
-    letter-spacing: -0.2px;
+body {
+    font-family: var(--font-outfit--regular);
+    font-size: 16px;
+    background-color: var(--color-stone--100);
 }
 
 p {
@@ -99,7 +93,7 @@ p {
 }
 
 b {
-    font-family: "Outfit Bold";
+    font-family: var(--font-outfit--bold);
 }
 
 ul {
@@ -108,23 +102,40 @@ ul {
     list-style: none;
 }
 
-body {
-    font-family: "Outfit Regular";
-    font-size: 16px;
-    background-color: hsl(30, 54%, 90%);
-}
-
 main {
     width: 738px;
     margin: 0 auto;
     padding-top: 122px;
     padding-bottom: 129px;
 }
+
+h1 {
+    font-family: var(--font-young-serif--regular);
+    font-size: 40px;
+    font-weight: 400;
+    margin-top: 28px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-family: var(--font-young-serif--regular);
+    font-size: 28px;
+    font-weight: 400;
+    margin-top: 27px;
+    margin-bottom: 18px;
+}
+
+h3 {
+    font-family: var(--font-young-serif--regular);
+    font-size: 20px;
+    letter-spacing: -0.2px;
+    margin-bottom: 14px;
+}
 /* ---------------------------------------------------------------------------------------------------- */
 
 .panel {
     padding: 41px 41px 29px 41px;
-    background-color: hsl(0, 0%, 100%);
+    background-color: var(--color-white);
     border-radius: 25px;
 }
 
@@ -136,18 +147,13 @@ main {
 
 .preparation {
     padding: 24px 28px 28px 28px;
-    background-color: hsl(330, 100%, 98%);
+    background-color: var(--color-rose--50);
     border-radius: 10px;
-}
-
-.preparation h3 {
-    margin-bottom: 14px;
-    color: hsl(332, 51%, 32%);
 }
 
 .preparation ul li::before {
     border-radius: 50%;
-    background-color: hsl(332, 51%, 32%);
+    background-color: var(--color-rose--800);
     top: calc(50% - 2px);
 }
 /* ---------------------------------------------------------------------------------------------------- */
@@ -155,16 +161,9 @@ main {
 .ingredients,
 .instructions,
 .nutrition {
-    margin-top: 27px;
+    /* margin-top: 27px; */
     border-bottom: 1px solid hsl(30, 18%, 87%);
     padding-bottom: 31px;
-}
-
-.ingredients h2,
-.instructions h2,
-.nutrition h2 {
-    color: hsl(14, 45%, 36%);
-    margin-bottom: 18px;
 }
 
 .preparation ul,
@@ -218,7 +217,7 @@ main {
 }
 
 .instructions ul li::before {
-    content: counter(item)".";
+    content: counter(item) ".";
     counter-increment: item;
     font-family: "Outfit Bold";
     color: hsl(14, 45%, 36%);
@@ -254,7 +253,6 @@ main {
 .nutrition ul li .col-title > span {
     padding-left: 32px;
 }
-
 
 .nutrition ul li .col-desc {
     color: hsl(14, 45%, 36%);
