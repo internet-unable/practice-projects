@@ -1,4 +1,14 @@
-import Heading from "../Heading/Headng";
+import styled from "styled-components";
+import Heading from "../Heading/Heading";
+
+const StyledH2 = styled(Heading)`
+    color: var(--color-brown--800);
+`;
+
+const StyledH3 = styled(Heading)`
+    color: var(--color-rose--800);
+    font-family: var(--font-outfit--bold);
+`;
 
 export default function Panel({ data }) {
     return (
@@ -10,7 +20,7 @@ export default function Panel({ data }) {
             </div>
 
             <div className="preparation">
-                <Heading tag="h3">{data.preparation.title}</Heading>
+                <StyledH3 tag="h3">{data.preparation.title}</StyledH3>
                 <ul>
                     {data.preparation.items.map(item => (
                         <li key={item.key}>
@@ -21,7 +31,7 @@ export default function Panel({ data }) {
             </div>
 
             <div className="ingredients">
-                <Heading tag="h2">{data.ingredients.title}</Heading>
+                <StyledH2 tag="h2">{data.ingredients.title}</StyledH2>
                 <ul>
                     {data.ingredients.items.map(item => (
                         <li key={item}>
@@ -32,7 +42,7 @@ export default function Panel({ data }) {
             </div>
 
             <div className="instructions">
-                <Heading tag="h2">{data.instructions.title}</Heading>
+                <StyledH2 tag="h2">{data.instructions.title}</StyledH2>
                 <ul>
                     {data.instructions.items.map(item => (
                         <li key={item.key}>
@@ -43,7 +53,7 @@ export default function Panel({ data }) {
             </div>
 
             <div className="nutrition">
-                <Heading tag="h2">{data.nutrition.title}</Heading>
+                <StyledH2 tag="h2">{data.nutrition.title}</StyledH2>
                 <p>{data.nutrition.description}</p>
                 <ul>
                     {data.nutrition.items.map(item => (
