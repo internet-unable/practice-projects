@@ -1,16 +1,16 @@
 @font-face {
     font-family: "Outfit Regular";
-    src: url("/outfit/Outfit-Regular.ttf");
+    src: url("/fonts/outfit/Outfit-Regular.ttf");
 }
 
 @font-face {
     font-family: "Outfit Bold";
-    src: url("/outfit/Outfit-Bold.ttf");
+    src: url("/fonts/outfit/Outfit-Bold.ttf");
 }
 
 @font-face {
     font-family: "YoungSerif Regular";
-    src: url("/young-serif/YoungSerif-Regular.ttf");
+    src: url("/fonts/young-serif/YoungSerif-Regular.ttf");
 }
 
 :root {
@@ -35,32 +35,60 @@
     color: var(--color-white);
 }
 
+.bg-white {
+    background-color: var(--color-white);
+}
+
 .color-stone--100 {
     color: var(--color-stone--100);
+}
+
+.bg-stone--100 {
+    background-color: var(--color-stone--100);
 }
 
 .color-stone--150 {
     color: var(--color-stone--150);
 }
 
+.bg-stone--150 {
+    background-color: var(--color-stone--150);
+}
+
 .color-stone--600 {
     color: var(--color-stone--600);
+}
+
+.bg-stone--600 {
+    background-color: var(--color-stone--600);
 }
 
 .color-stone--900 {
     color: var(--color-stone--900);
 }
 
+.bg-stone--900 {
+    background-color: var(--color-stone--900);
+}
+
 .color-brown--800 {
     color: var(--color-brown--800);
 }
 
-.color-rose--50 {
-    color: var(--color-rose--50);
+.bg-brown--800 {
+    background-color: var(--color-brown--800);
+}
+
+.bg-rose--50 {
+    background-color: var(--color-rose--50);
 }
 
 .color-rose--800 {
     color: var(--color-rose--800);
+}
+
+.bg-rose--800 {
+    background-color: var(--color-rose--800);
 }
 
 .font-outfit--regular {
@@ -84,6 +112,7 @@
 body {
     font-family: var(--font-outfit--regular);
     font-size: 16px;
+    color: var(--color-stone--900);
     background-color: var(--color-stone--100);
 }
 
@@ -97,167 +126,5 @@ b {
 }
 
 ul {
-    margin: 0;
-    padding: 0;
     list-style: none;
-}
-
-main {
-    width: 738px;
-    margin: 0 auto;
-    padding-top: 122px;
-    padding-bottom: 129px;
-}
-
-h1 {
-    font-family: var(--font-young-serif--regular);
-    font-size: 40px;
-    font-weight: 400;
-    margin-top: 28px;
-    margin-bottom: 15px;
-}
-
-h2 {
-    font-family: var(--font-young-serif--regular);
-    font-size: 28px;
-    font-weight: 400;
-    margin-top: 27px;
-    margin-bottom: 18px;
-}
-
-h3 {
-    font-family: var(--font-young-serif--regular);
-    font-size: 20px;
-    letter-spacing: -0.2px;
-    margin-bottom: 14px;
-}
-/* ---------------------------------------------------------------------------------------------------- */
-
-.panel {
-    padding: 41px 41px 29px 41px;
-    background-color: var(--color-white);
-    border-radius: 25px;
-}
-
-.panel img {
-    width: 100%;
-    border-radius: 15px;
-}
-/* ---------------------------------------------------------------------------------------------------- */
-
-.preparation {
-    padding: 24px 28px 28px 28px;
-    background-color: var(--color-rose--50);
-    border-radius: 10px;
-}
-
-.preparation ul li::before {
-    border-radius: 50%;
-    background-color: var(--color-rose--800);
-    top: calc(50% - 2px);
-}
-/* ---------------------------------------------------------------------------------------------------- */
-
-.ingredients,
-.instructions,
-.nutrition {
-    /* margin-top: 27px; */
-    border-bottom: 1px solid hsl(30, 18%, 87%);
-    padding-bottom: 31px;
-}
-
-.preparation ul,
-.ingredients ul,
-.instructions ul {
-    padding: 0 8px;
-}
-
-.preparation ul li,
-.ingredients ul li,
-.instructions ul li {
-    position: relative;
-}
-
-.preparation ul li::before,
-.ingredients ul li::before,
-.instructions ul li::before {
-    position: absolute;
-    left: 0;
-}
-
-.preparation ul li::before,
-.ingredients ul li::before {
-    content: "";
-    width: 4px;
-    height: 4px;
-}
-
-.preparation ul li .content,
-.ingredients ul li .content,
-.instructions ul li .content {
-    padding-left: 32px;
-    line-height: 24px;
-}
-
-.preparation ul li + li,
-.ingredients ul li + li,
-.instructions ul li + li {
-    margin-top: 8px;
-}
-/* ---------------------------------------------------------------------------------------------------- */
-
-.ingredients ul li::before {
-    background-color: hsl(14, 45%, 36%);
-    top: calc(50% - 2px);
-}
-/* ---------------------------------------------------------------------------------------------------- */
-
-.instructions ul {
-    counter-reset: item;
-}
-
-.instructions ul li::before {
-    content: counter(item) ".";
-    counter-increment: item;
-    font-family: "Outfit Bold";
-    color: hsl(14, 45%, 36%);
-    top: 2px;
-}
-/* ---------------------------------------------------------------------------------------------------- */
-
-.nutrition {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.nutrition p {
-    margin-bottom: 26px;
-}
-
-.nutrition ul li {
-    display: flex;
-    align-items: center;
-    padding-bottom: 13px;
-}
-
-.nutrition ul li + li {
-    border-top: 1px solid hsl(30, 18%, 87%);
-    padding-top: 14px;
-}
-
-.nutrition ul li .col {
-    display: flex;
-    flex: 1;
-}
-
-.nutrition ul li .col-title > span {
-    padding-left: 32px;
-}
-
-.nutrition ul li .col-desc {
-    color: hsl(14, 45%, 36%);
-}
-
-.nutrition ul li .col-desc > span {
-    padding-left: 8px;
 }
