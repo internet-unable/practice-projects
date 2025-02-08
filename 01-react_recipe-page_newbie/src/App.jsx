@@ -1,5 +1,4 @@
-// import Counter from './components/Counter';
-import Panel from './components/UI/Panel/Panel';
+import Recipe from "./components/Pages/Recipe/Recipe";
 
 const DUMMY_DATA = [
     {
@@ -10,48 +9,78 @@ const DUMMY_DATA = [
             title: "Preparation time",
             items: [
                 {
-                    key: "Total",
+                    id: "pre-1",
+                    desc: "Total",
                     value: "Approximately 10 minutes"
                 },
                 {
-                    key: "Preparation",
+                    id: "pre-2",
+                    desc: "Preparation",
                     value: "5 minutes"
                 },
                 {
-                    key: "Cooking",
+                    id: "pre-3",
+                    desc: "Cooking",
                     value: "5 minutes"
                 },
             ]
         },
         ingredients: {
             title: "Ingredients",
-            items: ["2-3 large eggs", "Salt, to taste", "Pepper, to taste", "1 tablespoon of butter or oil", "Optional fillings: cheese, diced vegatables, cooked meats, herbs"]
+            items: [
+                {
+                    id: "ing-1",
+                    value: "2-3 large eggs"
+                },
+                {
+                    id: "ing-2",
+                    value: "Salt, to taste"
+                },
+                {
+                    id: "ing-3",
+                    value: "Pepper, to taste"
+                },
+                {
+                    id: "ing-4",
+                    value: "1 tablespoon of butter or oil"
+                },
+                {
+                    id: "ing-5",
+                    value: "Optional fillings: cheese, diced vegatables, cooked meats, herbs"
+                }
+            ]
         },
         instructions: {
             title: "Instructions",
             items: [
                 {
-                    key: "Beat the eggs",
+                    id: "ins-1",
+                    desc: "Beat the eggs",
                     value: "In a bowl, beat the eggs with a pinch of salt and pepper until they are well mixed. You can add a tablespoon of water or milk for a fluffier texture."
                 },
                 {
-                    key: "Heat the pan",
+                    id: "ins-2",
+                    desc: "Heat the pan",
                     value: "Place a non-stick frying pan over medium heat and add butter or oil."
                 },
                 {
-                    key: "Cook the omelette",
+                    id: "ins-3",
+                    desc: "Cook the omelette",
                     value: "Once the butter is melted and bubbling, pour in the eggs. Tilt the pan to ensure the eggs evenly coat the surface."
                 },
                 {
-                    key: "Add fillings (optional)",
+                    id: "ins-4",
+                    desc: "Add fillings (optional)",
                     value: "When the eggs begin to set at the edges but are still slightly runny in the middle, sprinkle your chosen fillings over one half of the omelette."
                 },
                 {
-                    key: "Fold and serve",
+                    id: "ins-5",
+                    desc: "Fold and serve",
                     value: "As the omelette continues to cook, carefully lift one edge and fold it over the fillings. Let it cook for another minute, then slide it onto a plate."
                 },
                 {
-                    key: "Enjoy",
+                    id: "ins-6",
+                    desc: "Enjoy",
                     value: "Serve hot, with additional salt and pepper if needed."
                 }
             ]
@@ -61,19 +90,23 @@ const DUMMY_DATA = [
             description: "The table below shows nutritional values per serving without the additional fillings.",
             items: [
                 {
-                    key: "Calories",
+                    id: "nut-1",
+                    desc: "Calories",
                     value: "277kcal"
                 },
                 {
-                    key: "Carbs",
+                    id: "nut-2",
+                    desc: "Carbs",
                     value: "0g"
                 },
-                {
-                    key: "Protein",
+                {   
+                    id: "nut-3",
+                    desc: "Protein",
                     value: "20g"
                 },
                 {
-                    key: "Fat",
+                    id: "nut-4",
+                    desc: "Fat",
                     value: "22g"
                 },
             ]
@@ -84,8 +117,7 @@ const DUMMY_DATA = [
 export default function App() {
     return (
         <main>
-            {/* <Counter /> */}
-            <Panel data={DUMMY_DATA[0]} />
+            <Recipe data={DUMMY_DATA[0]} />
         </main>
     )
 }
