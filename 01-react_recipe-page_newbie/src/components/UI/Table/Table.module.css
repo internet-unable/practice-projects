@@ -1,0 +1,35 @@
+.table {
+    /*  */
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    padding-bottom: 13px;
+}
+
+.row + .row {
+    border-top: 1px solid var(--color-stone--150);
+    padding-top: 14px;
+}
+
+.row:last-child {
+    padding-bottom: 0;
+}
+
+.col {
+    display: flex;
+    flex: 1;
+}
+
+.col--right {
+    color: hsl(14, 45%, 36%);
+}
+
+.col--left > .col-content {
+    padding-left: 32px;
+}
+
+.col--right > .col-content {
+    padding-left: 8px;
+}
