@@ -1,0 +1,22 @@
+h1 {
+    font-family: var(--font-young-serif--regular);
+    font-size: 40px;
+    font-weight: 400;
+    margin-top: 28px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-family: var(--font-young-serif--regular);
+    font-size: 28px;
+    font-weight: 400;
+    margin-top: 27px;
+    margin-bottom: 18px;
+}
+
+h3 {
+    font-family: var(--font-young-serif--regular);
+    font-size: 20px;
+    letter-spacing: -0.2px;
+    margin-bottom: 14px;
+}
