@@ -1,0 +1,13 @@
+.card {
+    background-color: var(--color-white);
+}
+
+.card--L {
+    padding: 41px 41px 29px 41px;
+    border-radius: 25px;
+}
+
+.card--S {
+    padding: 24px 28px 28px 28px;
+    border-radius: 10px;
+}
