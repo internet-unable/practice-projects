@@ -2,12 +2,36 @@
     background-color: var(--color-white);
 }
 
+.header img {
+    border-radius: 15px;
+    width: 100%;
+}
+
 .card--L {
-    padding: 41px 41px 29px 41px;
+    padding: 41px;
     border-radius: 25px;
 }
 
 .card--S {
-    padding: 24px 28px 28px 28px;
+    padding: 28px;
     border-radius: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .card--L {
+        padding: 0 0 50px 0;
+        border-radius: 0;
+    }
+
+    .card--L > .header img {
+        border-radius: 0;
+    }
+
+    .card--L > .body {
+        padding: 0 32px;
+    }
+
+    .card--S {
+        padding: 24px;
+    }
 }

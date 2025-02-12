@@ -26,9 +26,16 @@
     --color-rose--50: hsl(330, 100%, 98%);
     --color-rose--800: hsl(332, 51%, 32%);
 
+    --font-size--base: 16px;
     --font-outfit--regular: "Outfit Regular";
     --font-outfit--bold: "Outfit Bold";
     --font-young-serif--regular: "YoungSerif Regular";
+}
+
+@media screen and (max-width: 375px) {
+    :root {
+        --font-size--base: 15px;
+    }
 }
 
 .color-white {
@@ -109,16 +116,19 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: var(--font-size--base);
+}
+
 body {
     font-family: var(--font-outfit--regular);
-    font-size: 16px;
     color: var(--color-stone--900);
     background-color: var(--color-stone--100);
 }
 
 p {
-    line-height: 24px;
-    margin-bottom: 33px;
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 b {
