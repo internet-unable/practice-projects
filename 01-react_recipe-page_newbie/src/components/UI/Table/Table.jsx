@@ -4,13 +4,13 @@ export default function Table({ data }) {
     return (
         <ul className={styles.table}>
             {data.map(item => (
-                <li className={styles.row} key={item.id}>
-                    <div className={`${styles.col} ${styles["col--left"]}`}>
-                        <span className={styles["col-content"]}>{item.desc}</span>
+                <li className={styles["table-row"]} key={item.id}>
+                    <div className={`${styles["table-col"]} ${styles["table-col--left"]}`}>
+                        <span className={styles["table-col__content"]}>{item.desc}</span>
                     </div>
 
-                    <div className={`${styles.col} ${styles["col--right"]}`}>
-                        <span className={styles["col-content"]}><b>{item.value}</b></span>
+                    <div className={`${styles["table-col"]} ${styles["table-col--right"]}`}>
+                        <span className={styles["table-col__content"]}><b>{item.value}</b></span>
                     </div>
                 </li>
             ))}

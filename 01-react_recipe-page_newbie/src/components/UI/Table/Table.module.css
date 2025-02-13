@@ -2,34 +2,34 @@
     /*  */
 }
 
-.row {
+.table-row {
     display: flex;
     align-items: center;
     padding-bottom: 0.813rem;
 }
 
-.row + .row {
+.table-row {
     border-top: 1px solid var(--color-stone--150);
     padding-top: 0.875rem;
 }
 
-.row:last-child {
+.table-row:last-child {
     padding-bottom: 0;
 }
 
-.col {
+.table-col {
     display: flex;
     flex: 1;
 }
 
-.col--right {
+.table-col--right {
     color: var(--color-brown--800);
 }
 
-.col--left > .col-content {
+.table-col--left > .table-col__content {
     padding-left: 2rem;
 }
 
-.col--right > .col-content {
+.table-col--right > .table-col__content {
     padding-left: 0.5rem;
 }
