@@ -5,13 +5,13 @@ export const cardSizes = {
     S: "S"
 }
 
-export default function Card({ className = "", cardSize, cardHeader, cardBody }) {
+export default function Card({ className = "", cardSize = "L", cardHeader, cardBody }) {
     let classes = `${className} ${styles.card} ${styles[`card--${cardSize}`]}`;
 
     return (
         <section className={classes}>
             {cardHeader && (<div className={styles["card-header"]}>{cardHeader}</div>)}
-            <div className={styles["card-body"]}>{cardBody}</div>
+            {cardBody && (<div className={styles["card-body"]}>{cardBody}</div>)}
         </section>
     );
 }
