@@ -10,8 +10,8 @@ export default function Card({ className = "", cardSize, cardHeader, cardBody })
 
     return (
         <section className={classes}>
-            {cardHeader && (<div className={styles.header}>{cardHeader}</div>)}
-            <div className={styles.body}>{cardBody}</div>
+            {cardHeader && (<div className={styles["card-header"]}>{cardHeader}</div>)}
+            <div className={styles["card-body"]}>{cardBody}</div>
         </section>
     );
 }

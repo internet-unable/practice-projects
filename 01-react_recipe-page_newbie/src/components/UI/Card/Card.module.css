@@ -2,7 +2,7 @@
     background-color: var(--color-white);
 }
 
-.header img {
+.card-header img {
     border-radius: 15px;
     width: 100%;
 }
@@ -23,11 +23,11 @@
         border-radius: 0;
     }
 
-    .card--L > .header img {
+    .card--L > .card-header img {
         border-radius: 0;
     }
 
-    .card--L > .body {
+    .card--L > .card-body {
         padding: 0 32px;
     }
 
