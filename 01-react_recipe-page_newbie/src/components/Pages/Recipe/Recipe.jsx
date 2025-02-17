@@ -1,6 +1,6 @@
 import Card, { cardSizes } from "../../UI/Card/Card";
 import Heading from "../../UI/Heading/Heading";
-import List from "../../UI/List/List";
+import List, { listStyles } from "../../UI/List/List";
 import Divider from "../../UI/Divider/Divider";
 import Table from "../../UI/Table/Table";
 
@@ -27,17 +27,17 @@ export default function Recipe({ data }) {
                             cardBody={
                                 <>
                                     <Heading tag="h3" className="font-outfit--bold color-rose--800">{data.preparation.title}</Heading>
-                                    <List data={data.preparation.items} listStyle="list-style--bg-rose-800" />
+                                    <List data={data.preparation.items} listStyle={listStyles.defaultBgRose800} />
                                 </>
                             }>
                         </Card>
 
                         <Heading tag="h2" className="color-brown--800">{data.ingredients.title}</Heading>
-                        <List data={data.ingredients.items} listStyle="list-style--square list-style--bg-brown-800" style={listPaddingBottom} />
+                        <List data={data.ingredients.items} listStyle={listStyles.squareBgBrown800} style={listPaddingBottom} />
                         <Divider />
 
                         <Heading tag="h2" className="color-brown--800">{data.instructions.title}</Heading>
-                        <List data={data.instructions.items} listStyle="list-style--decimal list-style--c-brown-800" style={listPaddingBottom} />
+                        <List data={data.instructions.items} listStyle={listStyles.decimalCBrown800} style={listPaddingBottom} />
                         <Divider />
 
                         <Heading tag="h2" className="color-brown--800">{data.nutrition.title}</Heading>
