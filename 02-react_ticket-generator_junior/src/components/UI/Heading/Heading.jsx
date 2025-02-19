@@ -1,9 +1,9 @@
 import styles from "./Heading.module.css";
 
-export default function Heading({ tag = "h1", children, ...rest}) {
+export default function Heading({ tag = "h1", className = "", children, ...rest}) {
     const HeadingTag = tag;
 
     return (
-        <HeadingTag className={styles[tag]} {...rest}>{children}</HeadingTag>
+        <HeadingTag className={`${styles[tag]} ${className}`} {...rest}>{children}</HeadingTag>
     );
 }

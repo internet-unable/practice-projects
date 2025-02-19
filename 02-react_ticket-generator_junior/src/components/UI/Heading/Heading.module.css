@@ -1,5 +1,9 @@
 .h1 {
-    /*  */
+    font-family: "Inconsolata Extra-Bold";
+    font-size: 60px;
+    line-height: 66px;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
 }
 
 .h2 {
