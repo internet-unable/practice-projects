@@ -1,5 +1,5 @@
-import HeadingWithIcon, { iconStyles } from "../../components/UI/HeadingWithIcon/HeadingWithIcon";
-import Heading from "../../components/UI/Heading/Heading";
+import HeadingWithIcon, { iconStyles } from "../../UI/Heading/HeadingWithIcon/HeadingWithIcon";
+import Heading from "../../UI/Heading/Heading";
 
 import styles from "./Header.module.css";
 
