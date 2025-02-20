@@ -61,6 +61,7 @@
 }
 
 body {
+    font-family: "Inconsolata Regular";
     color: var(--color-neutral-0);
     font-size: var(--font-size--base);
     background-image: url("/background-desktop.png");
