@@ -3,10 +3,6 @@
     flex-direction: column;
 }
 
-.input-group + .input-group {
-    margin-top: 28px;
-}
-
 .input-group label {
     font-family: "Inconsolata Regular";
     font-size: 19px;
@@ -23,14 +19,25 @@
     background: transparent;
     border-radius: 12px;
     border: 1px solid var(--color-neutral-500);
+    outline-offset: 3px;
+    outline: 2px solid transparent;
 }
 
 .input-group input::placeholder {
     color: var(--color-neutral-500);
 }
 
-.input-group-message {
-    display: flex;
+.input-group input:focus {
+    outline-color: var(--color-neutral-500);
+    box-shadow: 0 0 0 3px var(--color-neutral-900);
+}
+
+.input-group input:hover {
+    background-color: rgba(210, 209, 214, 0.2);
+}
+
+.input-group__message {
+    display: none;
     flex-direction: row;
     align-items: center;
     gap: 8px;
@@ -42,17 +49,17 @@
     color: var(--color-neutral-500);
 }
 
-.input-group-message > svg {
+.input-group__message > svg {
     width: 16px;
     height: 16px;
     stroke: var(--color-neutral-500);
 }
 
-.input-group-message--invalid {
-    display: none;
+.input-group__message--invalid {
+    display: flex;
     color: var(--color-orange-500);
 }
 
-.input-group-message--invalid > svg {
+.input-group__message--invalid > svg {
     stroke: var(--color-orange-500);
 }
