@@ -1,0 +1,50 @@
+.upload-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-group__label {
+    font-family: "Inconsolata Regular";
+    font-size: 19px;
+    line-height: 19px;
+    padding-bottom: 13px;
+}
+
+.upload-group input {
+    display: none;
+}
+
+.upload-group__decorator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 126px;
+}
+
+.upload-group__message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-family: "Inconsolata Medium";
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: -0.2px;
+    margin-top: 12px;
+    color: var(--color-neutral-500);
+}
+
+.upload-group__message > svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--color-neutral-500);
+}
+
+.upload-group__message--invalid {
+    color: var(--color-orange-500);
+}
+
+.upload-group__message--invalid > svg {
+    stroke: var(--color-orange-500);
+}
