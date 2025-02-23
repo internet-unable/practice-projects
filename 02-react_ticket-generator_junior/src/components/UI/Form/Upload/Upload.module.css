@@ -20,6 +20,50 @@
     align-items: center;
     justify-content: center;
     height: 126px;
+
+    --b: 1px;
+    --s: 10px;
+    --c1: transparent;
+    --c2: var(--color-neutral-500);
+    position: relative;
+    border-radius: 12px;
+    background-color: rgba(210, 209, 214, 0.1);
+    cursor: pointer;
+    gap: 19px;
+    font-size: 18px;
+    line-height: 19px;
+    color: var(--color-neutral-300);
+}
+
+.upload-group__decorator::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: var(--b);
+    background: repeating-conic-gradient(var(--c1) 0 25%, var(--c2) 0 50%) 0 0 / var(--s) var(--s) round;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    border-radius: 12px;
+}
+
+.upload-group__decorator:hover,
+.upload-group__decorator:hover .upload-group__decorator-icon {
+    background-color: rgba(210, 209, 214, 0.2);
+}
+
+.upload-group__decorator-icon {
+    display: flex;
+    border: 1px solid var(--color-neutral-500);
+    border-radius: 12px;
+    padding: 9px;
+    background-color: rgba(210, 209, 214, 0.1);
+}
+
+.upload-group__decorator-icon > svg {
+    width: 30px;
+    height: 30px;
 }
 
 .upload-group__message {
