@@ -2,10 +2,10 @@ import styles from "./Input.module.css";
 
 export default function Input({ className = "", label, type = "text", name, message, isValid = false, ...rest }) {
     return (
-        <div className={`${className} ${styles["input-group"]}`} {...rest}>
+        <div className={`${className} ${styles["input-group"]}`}>
             {label && <label htmlFor={name}>{label}</label>}
 
-            <input type={type} name={name} id={name} />
+            <input type={type} name={name} id={name} {...rest} />
 
             {message && (
                 <div className={`${styles["input-group__message"]} ${!isValid ? styles["input-group__message--invalid"] : ""}`}>
