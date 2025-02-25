@@ -3,6 +3,7 @@ import { useState } from "react";
 import Header from "../Sections/Header/Header";
 import Heading from "../UI/Heading/Heading";
 import Form from "../Sections/Form/Form";
+import Ticket from "../Sections/Ticket/Ticket";
 
 export default function TicketGenerator() {
     const [name, setName] = useState();
@@ -39,7 +40,9 @@ export default function TicketGenerator() {
                     )}
 
                     {name && (
-                        <div className="margin--center">Ticket</div>
+                        <div className="margin--center">
+                            <Ticket />
+                        </div>
                     )}
                 </section>
             </main>
