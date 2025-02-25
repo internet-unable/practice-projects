@@ -1,4 +1,5 @@
 .upload-group {
+    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -11,7 +12,13 @@
 }
 
 .upload-group input {
-    display: none;
+    position: absolute;
+    top: 85%;
+    left: calc(50% - 1px);
+    z-index: -1;
+    height: 1px;
+    width: 1px;
+    opacity: 0;
 }
 
 .upload-group__decorator {
@@ -20,6 +27,8 @@
     align-items: center;
     justify-content: center;
     height: 126px;
+    outline-offset: 3px;
+    outline: 2px solid transparent;
 
     --b: 1px;
     --s: 10px;
@@ -35,6 +44,11 @@
     color: var(--color-neutral-300);
 }
 
+.upload-group__decorator:focus {
+    outline-color: var(--color-neutral-500);
+    box-shadow: 0 0 0 3px var(--color-neutral-900);
+}
+
 .upload-group__decorator::before {
     content: "";
     position: absolute;
@@ -48,8 +62,8 @@
     border-radius: 12px;
 }
 
-.upload-group__decorator:hover,
-.upload-group__decorator:hover .upload-group__decorator-icon {
+.upload-group__decorator--default-hover:hover,
+.upload-group__decorator--default-hover:hover .upload-group__decorator-icon {
     background-color: rgba(210, 209, 214, 0.2);
 }
 
@@ -61,7 +75,8 @@
     background-color: rgba(210, 209, 214, 0.1);
 }
 
-.upload-group__decorator-icon > svg {
+.upload-group__decorator-icon > svg,
+.upload-group__decorator-icon > img {
     width: 30px;
     height: 30px;
 }
