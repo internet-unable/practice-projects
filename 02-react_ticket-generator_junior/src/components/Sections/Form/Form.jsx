@@ -1,6 +1,6 @@
 import Upload from "../../UI/Form/Upload/Upload";
 import Input from "../../UI/Form/Input/Input";
-import Button from "../../UI/Button/Button";
+import Button, { buttonStyles } from "../../UI/Button/Button";
 
 import styles from "./Form.module.css";
 
@@ -55,7 +55,8 @@ export default function Form({ onSubmit }) {
             />
 
             <Button
-                className={styles["form-item"]}
+                className={`full-width ${styles["form-item"]}`}
+                buttonStyle={buttonStyles.orange}
                 style={{ marginTop: "24px" }}
             >
                 Generate My Ticket
