@@ -1,55 +1,32 @@
-.upload-group {
+.upload {
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-.upload-group__label {
+.fake__label {
     font-family: "Inconsolata Regular";
     font-size: 19px;
     line-height: 19px;
     padding-bottom: 13px;
 }
 
-.upload-group input {
-    position: absolute;
-    top: 85%;
-    left: calc(50% - 1px);
-    z-index: -1;
-    height: 1px;
-    width: 1px;
-    opacity: 0;
-}
-
-.upload-group__decorator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.decorator {
+    position: relative;
     height: 126px;
-    outline-offset: 3px;
-    outline: 2px solid transparent;
+    color: var(--color-neutral-300);
+    background-color: rgba(210, 209, 214, 0.1);
+    border-radius: 12px;
+    font-size: 18px;
+    line-height: 19px;
 
     --b: 1px;
     --s: 10px;
     --c1: transparent;
     --c2: var(--color-neutral-500);
-    position: relative;
-    border-radius: 12px;
-    background-color: rgba(210, 209, 214, 0.1);
-    cursor: pointer;
-    gap: 19px;
-    font-size: 18px;
-    line-height: 19px;
-    color: var(--color-neutral-300);
 }
 
-.upload-group__decorator:focus {
-    outline-color: var(--color-neutral-500);
-    box-shadow: 0 0 0 3px var(--color-neutral-900);
-}
-
-.upload-group__decorator::before {
+.decorator::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -62,12 +39,34 @@
     border-radius: 12px;
 }
 
-.upload-group__decorator--default-hover:hover,
-.upload-group__decorator--default-hover:hover .upload-group__decorator-icon {
+.decorator-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 19px;
+}
+
+.decorator-content--default {
+    cursor: pointer;
+    border-radius: 12px;
+    outline-offset: 3px;
+    outline: 2px solid transparent;
+}
+
+.decorator-content--default:hover,
+.decorator--default-hover:hover .decorator-content__icon {
     background-color: rgba(210, 209, 214, 0.2);
 }
 
-.upload-group__decorator-icon {
+.decorator-content--default:focus {
+    outline-color: var(--color-neutral-500);
+    box-shadow: 0 0 0 3px var(--color-neutral-900);
+}
+
+.decorator-content__icon {
     display: flex;
     border: 1px solid var(--color-neutral-500);
     border-radius: 12px;
@@ -75,13 +74,29 @@
     background-color: rgba(210, 209, 214, 0.1);
 }
 
-.upload-group__decorator-icon > svg,
-.upload-group__decorator-icon > img {
+.decorator-content__icon > svg {
     width: 30px;
     height: 30px;
 }
 
-.upload-group__message {
+.decorator-content__image {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--color-neutral-500);
+    border-radius: 12px;
+}
+
+.upload input {
+    position: absolute;
+    top: 85%;
+    left: calc(50% - 1px);
+    z-index: -1;
+    height: 1px;
+    width: 1px;
+    opacity: 0;
+}
+
+.message {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -94,16 +109,16 @@
     color: var(--color-neutral-500);
 }
 
-.upload-group__message > svg {
+.message > svg {
     width: 16px;
     height: 16px;
     stroke: var(--color-neutral-500);
 }
 
-.upload-group__message--invalid {
+.message--invalid {
     color: var(--color-orange-500);
 }
 
-.upload-group__message--invalid > svg {
+.message--invalid > svg {
     stroke: var(--color-orange-500);
 }
