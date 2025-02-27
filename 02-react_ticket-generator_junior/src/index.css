@@ -18,7 +18,7 @@
 
     --color-gradient--start: hsl(7, 86%, 67%);
     --color-gradient--end: hsl(0, 0%, 100%);
-    
+
     /* - Mobile: 375px */
     /* - Desktop: 1440px */
 }
@@ -52,7 +52,11 @@
 }
 
 .c-gradient--orange-white {
-    background-image: linear-gradient(45deg, var(--color-gradient--start), var(--color-gradient--end));
+    background-image: linear-gradient(
+        45deg,
+        var(--color-gradient--start),
+        var(--color-gradient--end)
+    );
     background-size: 100%;
     background-repeat: repeat;
     -webkit-background-clip: text;
@@ -74,6 +78,10 @@
     margin-right: auto;
 }
 
+.full-width {
+    width: 100%;
+}
+
 body {
     font-family: "Inconsolata Regular";
     color: var(--color-neutral-0);
@@ -90,4 +98,18 @@ p {
     font-size: 23px;
     line-height: 29px;
     color: var(--color-neutral-300);
+}
+
+button {
+    font-family: "Inconsolata Regular";
+    border: 0;
+    background-color: transparent;
+    color: var(--color-neutral-300);
+    cursor: pointer;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
