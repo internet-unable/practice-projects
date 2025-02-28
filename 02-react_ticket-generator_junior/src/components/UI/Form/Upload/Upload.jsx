@@ -1,55 +1,94 @@
 import { useRef, useState } from "react";
 
 import Button, { buttonStyles } from "../../Button/Button";
+import UploadIcon from "../../Icons/UploadIcon/UploadIcon";
+import Message, { messageStyles } from "../Message/Message";
+import InfoIcon, { iconStyles } from "../../Icons/InfoIcon/InfoIcon";
 
 import styles from "./Upload.module.css";
 
-export default function Upload({ className = "", label, name, hint, errorMessage, ...rest }) {
+const UPLOAD_CONFIG = {
+    MAX_FILE_SIZE: 50 * 1024,
+    // MAX_FILE_SIZE: 500 * 1024,
+    ACCEPTED_TYPES: ".jpg, .jpeg, .png",
+    DEFAULT_ERROR_MESSAGE: 'File size exceeds limit'
+};
+
+function validateFile(file, maxSize) {
+    if (!file) return true;
+    return file.size <= maxSize;
+}
+
+export default function Upload({ className = "", label, name, defaultMessage, errorMessage, accept = UPLOAD_CONFIG.ACCEPTED_TYPES, ...rest }) {
     const inputRef = useRef(null);
-    const [image, setImage] = useState(null);
-    const [isValid, setIsValid] = useState(true);
+    const [uploadState, setUploadState] = useState({
+        image: null,
+        isValidFileSize: null,
+        message: defaultMessage
+    });
+    let messageStyle = messageStyles.default;
+    let messageIconStyle = iconStyles.default;
+
+    if (uploadState.isValidFileSize === false) {
+        messageStyle = messageStyles.invalid;
+        messageIconStyle = iconStyles.invalid;
+    }
 
     function handleInputChange(event) {
-        const file = event.target.files[0];
+        try {
+            const file = event.target.files[0];
+            if (!file) return;
 
-        if (file) {
             if (errorMessage) {
-                // const maxSize = 500 * 1024;
-                const maxSize = 50 * 1024;
-
-                if (file.size > maxSize) {
-                    setIsValid(false);
+                const isFileValid = validateFile(file, UPLOAD_CONFIG.MAX_FILE_SIZE);
+                
+                if (!isFileValid) {
+                    setUploadState(prev => ({
+                        ...prev,
+                        isValidFileSize: false,
+                        message: errorMessage
+                    }));
                     event.target.value = "";
                     return;
-                } else {
-                    setIsValid(true);
                 }
             }
+
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImage(reader.result);
+                setUploadState(prev => ({
+                    ...prev,
+                    image: reader.result,
+                    isValidFileSize: true,
+                    message: defaultMessage
+                }));
             };
             reader.readAsDataURL(file);
+        } catch (error) {
+            setUploadState(prev => ({
+                ...prev,
+                isValidFileSize: false,
+                message: 'Error processing file'
+            }));
         }
     }
 
     function handleEnterKeyDown(event) {
-        // if (event.key === "Enter") {
-        //     inputRef.current.click();
-        // }
-    }
-
-    function handleRemoveImageClick(event) {
-        if (event.key === "Enter" || event.type === "click") {
-            setImage(null);
-            setIsValid(true);
-        }
-    }
-
-    function handleChangeImageClick(event) {
-        if (event.key === "Enter" || event.type === "click") {
+        if (event.key === "Enter") {
             inputRef.current.click();
         }
+    }
+
+    function handleRemoveImage() {
+        setUploadState(prev => ({
+            ...prev,
+            image: null,
+            isValidFileSize: true,
+        }));
+        inputRef.current.value = "";
+    }
+
+    function handleChangeImage() {
+        inputRef.current.click();
     }
 
     return (
@@ -57,23 +96,20 @@ export default function Upload({ className = "", label, name, hint, errorMessage
             {label && <div className={styles.fake__label}>{label}</div>}
 
             <div className={styles.decorator}>
-                {!image && (
-                    <label className={`${styles["decorator-content"]} ${styles["decorator-content--default"]}`} htmlFor={name} tabIndex="0" onKeyDown={handleEnterKeyDown}>
+                {!uploadState.image && (
+                    <label className={`${styles["decorator-content"]} ${styles["decorator-content--default"]}`} htmlFor={name} tabIndex="0" onKeyUp={handleEnterKeyDown}>
                         <div className={styles["decorator-content__icon"]}>
-                            <svg className="f-orange--500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-                                <path fillRule="evenodd" d="M21.894 11.252a.264.264 0 0 1-.229-.225c-.368-2.634-2.51-5.924-6.663-5.924-4.465 0-6.3 3.636-6.657 5.928a.264.264 0 0 1-.228.22c-2.95.362-4.945 2.622-4.945 5.729a5.802 5.802 0 0 0 3.423 5.277 6.274 6.274 0 0 0 2.305.468h2.528a.45.45 0 0 0 .45-.45c0-.267-.233-.472-.5-.484a3.077 3.077 0 0 1-2.049-.9 3.123 3.123 0 0 1 0-4.418l3.461-3.462c.147-.146.307-.277.479-.392.076-.05.158-.085.236-.129.1-.054.196-.114.301-.158.1-.04.206-.065.308-.096.092-.027.181-.062.276-.081.191-.039.384-.056.578-.059.011 0 .022-.004.034-.004.01 0 .018.003.027.004.196.002.391.02.584.059.094.019.18.053.271.08.105.031.211.055.313.098.1.042.193.098.288.15.084.046.17.083.25.137.154.103.295.221.428.349.016.014.034.024.049.039l3.463 3.463a3.124 3.124 0 0 1 0 4.42c-.558.56-1.284.86-2.05.897-.266.013-.497.219-.497.486 0 .249.202.451.451.451h2.512c.435 0 1.314-.06 2.344-.473a5.794 5.794 0 0 0 3.394-5.272c0-3.104-1.991-5.363-4.935-5.728Z" clipRule="evenodd" />
-                                <path fillRule="evenodd" d="M18.464 19.62a.936.936 0 0 0 .663-1.6l-3.464-3.464a.938.938 0 0 0-.664-.275l-.014.002a.932.932 0 0 0-.65.274l-3.462 3.462a.936.936 0 1 0 1.326 1.325l1.864-1.862v6.479a.937.937 0 1 0 1.875 0v-6.48l1.864 1.863a.93.93 0 0 0 .662.275Z" clipRule="evenodd" />
-                            </svg>
+                            <UploadIcon />
                         </div>
                         Drag and drop or click to upload
                     </label>
                 )}
-                {image && (
+                {uploadState.image && (
                     <div className={styles["decorator-content"]}>
-                        <img className={styles["decorator-content__image"]} src={image} alt="" />
+                        <img className={styles["decorator-content__image"]} src={uploadState.image} alt="" />
                         <div className="button-group">
-                            <Button buttonStyle={buttonStyles.util} type="button" onClick={handleRemoveImageClick}>Remove image</Button>
-                            <Button buttonStyle={buttonStyles.util} type="button" onClick={handleChangeImageClick}>Change image</Button>
+                            <Button buttonStyle={buttonStyles.util} type="button" onClick={handleRemoveImage}>Remove image</Button>
+                            <Button buttonStyle={buttonStyles.util} type="button" onClick={handleChangeImage}>Change image</Button>
                         </div>
                     </div>
                 )}
@@ -86,30 +122,16 @@ export default function Upload({ className = "", label, name, hint, errorMessage
                 tabIndex="-1"
                 ref={inputRef}
                 onChange={handleInputChange}
+                accept={accept}
                 {...rest}
             />
 
-            {hint && isValid && (
-                <div className={styles["message"]}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z" />
-                        <path d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.004 10.462V7.596M8 5.569v-.042" />
-                    </svg>
-                    {hint}
-                </div>
-            )}
-
-            {errorMessage && !isValid && (
-                <div className={`${styles["message"]} ${styles["message--invalid"]}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z" />
-                        <path d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.004 10.462V7.596M8 5.569v-.042" />
-                    </svg>
-                    {errorMessage}
-                </div>
-            )}
+            {uploadState.message && (
+                <Message messageStyle={messageStyle}>
+                    <InfoIcon iconStyle={messageIconStyle} />
+                    {uploadState.message}
+                </Message>
+            )}  
         </div>
     );
 }
