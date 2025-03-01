@@ -1,5 +1,8 @@
 .divider {
-    height: 1px;
+    --divider-color: var(--color-stone--150);
+    --divider-height: 1px;
+
+    height: var(--divider-height);
     width: 100%;
-    background-color: var(--color-stone--150);
+    background-color: var(--divider-color);
 }
