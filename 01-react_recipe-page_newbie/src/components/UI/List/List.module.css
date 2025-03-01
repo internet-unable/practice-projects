@@ -44,15 +44,15 @@
 }
 
 .list.list-style--decimal {
-    counter-reset: list-item;
+    counter-reset: number;
 }
 
 .list.list-style--decimal .item {
-    counter-increment: list-item;
+    counter-increment: number;
 }
 
-.list.list-style--decimal .list-item::before {
-    content: counter(list-item) ".";
+.list.list-style--decimal .item::before {
+    content: counter(number) ".";
     font-family: "Outfit Bold";
     top: 2px;
     width: 0;
