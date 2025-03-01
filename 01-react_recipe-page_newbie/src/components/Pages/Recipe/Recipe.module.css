@@ -1,13 +1,20 @@
 .recipe-page {
-    max-width: 738px;
+    --recipe-page-max-width: 738px;
+    --recipe-page-padding-top: 122px;
+    --recipe-page-padding-bottom: 128px;
+
+    --recipe-page-max-width-mobile: 100%;
+    --recipe-page-padding-y-mobile: 50px;
+
+    max-width: var(--recipe-page-max-width);
     margin: 0 auto;
-    padding-top: 122px;
-    padding-bottom: 128px;
+    padding-top: var(--recipe-page-padding-top);
+    padding-bottom: var(--recipe-page-padding-bottom);
 }
 
 @media screen and (max-width: 767px) {
     .recipe-page {
-        width: 100%;
+        width: var(--recipe-page-max-width-mobile);
         max-width: fit-content;
         padding: 0;
         margin: 0;
@@ -16,6 +23,6 @@
 
 @media screen and (min-width: 768px) and (max-height: 500px) {
     .recipe-page {
-        padding: 50px 0;
+        padding: var(--recipe-page-padding-y-mobile) 0;
     }
 }
