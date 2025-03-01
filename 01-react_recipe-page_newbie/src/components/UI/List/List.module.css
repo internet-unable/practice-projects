@@ -1,36 +1,45 @@
 .list {
-    padding: 0 8px;
+    --list-padding: 0 8px;
+    --item-before-size: 4px;
+    --item-before-color: var(--color-stone--900);
+    --item-before-color-rose-800: var(--color-rose--800);
+    --item-before-color-brown-800: var(--color-brown--800);
+    --item-margin-top: 8px;
+    --item-content-padding-left: 2rem;
+    --item-content-line-height: 1.5rem;
+
+    padding: var(--list-padding);
 }
 
-.list-item {
+.item {
     position: relative;
 }
 
-.list-item::before {
+.item::before {
     content: "";
-    width: 4px;
-    height: 4px;
+    width: var(--item-before-size);
+    height: var(--item-before-size);
     position: absolute;
     left: 0;
-    top: calc(50% - 2px);
+    top: calc(50% - var(--item-before-size) / 2);
     border-radius: 50%;
-    background-color: var(--color-stone--900);
+    background-color: var(--item-before-color);
 }
 
-.list.list-style--bg-rose-800 .list-item::before {
-    background-color: var(--color-rose--800);
+.list.list-style--bg-rose-800 .item::before {
+    background-color: var(--item-before-color-rose-800);
 }
 
-.list.list-style--bg-brown-800 .list-item::before {
-    background-color: var(--color-brown--800);
+.list.list-style--bg-brown-800 .item::before {
+    background-color: var(--item-before-color-brown-800);
 }
 
-.list.list-style--c-brown-800 .list-item::before {
-    color: var(--color-brown--800);
+.list.list-style--c-brown-800 .item::before {
+    color: var(--item-before-color-brown-800);
 }
 
-.list.list-style--square .list-item::before {
-    top: calc(50% - 2px);
+.list.list-style--square .item::before {
+    top: calc(50% - var(--item-before-size) / 2);
     border-radius: 0;
 }
 
@@ -38,9 +47,12 @@
     counter-reset: list-item;
 }
 
+.list.list-style--decimal .item {
+    counter-increment: list-item;
+}
+
 .list.list-style--decimal .list-item::before {
     content: counter(list-item) ".";
-    counter-increment: list-item;
     font-family: "Outfit Bold";
     top: 2px;
     width: 0;
@@ -49,11 +61,11 @@
     background-color: transparent;
 }
 
-.list-item + .list-item {
-    margin-top: 8px;
+.item + .item {
+    margin-top: var(--item-margin-top);
 }
 
-.list-item__content {
-    padding-left: 2rem;
-    line-height: 1.5rem;
+.item-content {
+    padding-left: var(--item-content-padding-left);
+    line-height: var(--item-content-line-height);
 }
