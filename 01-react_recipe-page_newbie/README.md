@@ -6,7 +6,6 @@
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Links
 - Live Site: [URL](https://practice-projects-tau.vercel.app)
