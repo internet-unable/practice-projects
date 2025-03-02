@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Header from "../Sections/Header/Header";
 import Heading from "../UI/Heading/Heading";
+import Paragraph, { paragraphStyles } from "../UI/Paragraph/Paragraph";
 import Form from "../Sections/Form/Form";
 import Ticket from "../Sections/Ticket/Ticket";
 
@@ -29,20 +30,18 @@ export default function TicketGenerator() {
             <Header />
 
             <main style={{ paddingTop: name ? "70px" : "60px", paddingBottom: "140px" }}>
-                <section className="text--center" style={{ marginBottom: name ? "80px" : "48px" }}>
+                <section className="text--center" style={{ marginBottom: name ? "110px" : "48px" }}>
                     <Heading tag="h1" style={{marginBottom: name && "33px"}}>{headingContent}</Heading>
-                    <p>{paragraphContent}</p>
+                    <Paragraph paragraphStyle={paragraphStyles.size23}>{paragraphContent}</Paragraph>
                 </section>
 
-                <section className="margin--center" style={{ width: "460px" }}>
+                <section className="margin--center" style={{ width: "600px" }}>
                     {!name && (
                         <Form onSubmit={handleFormSubmit} />
                     )}
 
                     {name && (
-                        <div className="margin--center">
-                            <Ticket />
-                        </div>
+                        <Ticket />
                     )}
                 </section>
             </main>
