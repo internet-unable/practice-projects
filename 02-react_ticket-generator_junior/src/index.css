@@ -93,23 +93,10 @@ body {
     min-height: 100vh;
 }
 
-p {
-    font-family: "Inconsolata Regular";
-    font-size: 23px;
-    line-height: 29px;
-    color: var(--color-neutral-300);
-}
-
 button {
     font-family: "Inconsolata Regular";
     border: 0;
     background-color: transparent;
     color: var(--color-neutral-300);
     cursor: pointer;
-}
-
-.button-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
