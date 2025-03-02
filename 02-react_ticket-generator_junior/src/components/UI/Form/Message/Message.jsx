@@ -1,11 +1,11 @@
 import styles from "./Message.module.css";
 
 export const messageStyles = {
-    default: styles["message--default"],
-    invalid: styles["message--invalid"],
+    colorDefault: styles["message-color--default"],
+    colorInvalid: styles["message-color--invalid"],
 }
 
-export default function Message({ className = "", messageStyle = messageStyles.default, children, ...rest }) {
+export default function Message({ className = "", messageStyle = messageStyles.colorDefault, children, ...rest }) {
     return (
         <div className={`${styles.message} ${messageStyle} ${className}`} {...rest}>{children}</div>
     );

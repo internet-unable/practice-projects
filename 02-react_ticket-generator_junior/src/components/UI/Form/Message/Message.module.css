@@ -1,8 +1,12 @@
 .message {
+    --message-color-default: var(--color-neutral-500);
+    --message-color-invalid: var(--color-orange-500);
+    --message-gap: 8px;
+
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: var(--message-gap);
     font-family: "Inconsolata Medium";
     font-size: 12px;
     line-height: 12px;
@@ -10,10 +14,10 @@
     margin-top: 12px;
 }
 
-.message--default {
-    color: var(--color-neutral-500);
+.message-color--default {
+    color: var(--message-color-default);
 }
 
-.message--invalid {
+.message-color--invalid {
     color: var(--color-orange-500);
 }
