@@ -1,0 +1,18 @@
+.icon {
+    --icon-size-16: 16px;
+    --icon-color-default: var(--color-neutral-500);
+    --icon-color-invalid: var(--color-orange-500);
+}
+
+.icon-size--16 {
+    width: var(--icon-size-16);
+    height: var(--icon-size-16);
+}
+
+.icon-color--default {
+    stroke: var(--icon-color-default);
+}
+
+.icon-color--invalid {
+    stroke: var(--icon-color-invalid);
+}
