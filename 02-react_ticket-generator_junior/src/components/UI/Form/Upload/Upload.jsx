@@ -1,17 +1,19 @@
 import { useRef, useState } from "react";
 
+import UploadIcon from "../../Icons/Upload/Upload";
+import Group from "../../Group/Group";
 import Button, { buttonStyles } from "../../Button/Button";
-import UploadIcon from "../../Icons/UploadIcon/UploadIcon";
 import Message, { messageStyles } from "../Message/Message";
-import InfoIcon, { iconStyles } from "../../Icons/InfoIcon/InfoIcon";
+import InfoIcon, { iconStyles } from "../../Icons/Info/Info";
 
 import styles from "./Upload.module.css";
 
 const UPLOAD_CONFIG = {
-    MAX_FILE_SIZE: 50 * 1024,
     // MAX_FILE_SIZE: 500 * 1024,
+    MAX_FILE_SIZE: 50 * 1024,
     ACCEPTED_TYPES: ".jpg, .jpeg, .png",
-    DEFAULT_ERROR_MESSAGE: 'File size exceeds limit'
+    DEFAULT_MESSAGE: 'Upload your file',
+    DEFAULT_ERROR_MESSAGE: 'Error processing file. Please try again later.'
 };
 
 function validateFile(file, maxSize) {
@@ -19,40 +21,48 @@ function validateFile(file, maxSize) {
     return file.size <= maxSize;
 }
 
-export default function Upload({ className = "", label, name, defaultMessage, errorMessage, accept = UPLOAD_CONFIG.ACCEPTED_TYPES, ...rest }) {
+export default function Upload({
+        className = "",
+        label = "Upload file",
+        name = "file",
+        defaultMessage = UPLOAD_CONFIG.DEFAULT_MESSAGE,
+        errorMessage = UPLOAD_CONFIG.DEFAULT_ERROR_MESSAGE,
+        accept = UPLOAD_CONFIG.ACCEPTED_TYPES,
+        ...rest
+    }) {
     const inputRef = useRef(null);
     const [uploadState, setUploadState] = useState({
         image: null,
         isValidFileSize: null,
         message: defaultMessage
     });
-    let messageStyle = messageStyles.default;
-    let messageIconStyle = iconStyles.default;
+    let messageStyle = messageStyles.colorDefault;
+    let messageIconStyle = `${iconStyles.size16} ${iconStyles.colorDefault}`;
 
     if (uploadState.isValidFileSize === false) {
-        messageStyle = messageStyles.invalid;
-        messageIconStyle = iconStyles.invalid;
+        messageStyle = messageStyles.colorInvalid;
+        messageIconStyle = `${iconStyles.size16} ${iconStyles.colorInvalid}`;
     }
 
     function handleInputChange(event) {
         try {
+            // No file at all
             const file = event.target.files[0];
             if (!file) return;
 
-            if (errorMessage) {
-                const isFileValid = validateFile(file, UPLOAD_CONFIG.MAX_FILE_SIZE);
-                
-                if (!isFileValid) {
-                    setUploadState(prev => ({
-                        ...prev,
-                        isValidFileSize: false,
-                        message: errorMessage
-                    }));
-                    event.target.value = "";
-                    return;
-                }
+            // File size is too large
+            const isFileValid = validateFile(file, UPLOAD_CONFIG.MAX_FILE_SIZE);
+            if (!isFileValid) {
+                setUploadState(prev => ({
+                    ...prev,
+                    isValidFileSize: false,
+                    message: errorMessage
+                }));
+                event.target.value = "";
+                return;
             }
 
+            // File is valid
             const reader = new FileReader();
             reader.onloadend = () => {
                 setUploadState(prev => ({
@@ -64,10 +74,11 @@ export default function Upload({ className = "", label, name, defaultMessage, er
             };
             reader.readAsDataURL(file);
         } catch (error) {
+            // Error processing file
             setUploadState(prev => ({
                 ...prev,
                 isValidFileSize: false,
-                message: 'Error processing file'
+                message: UPLOAD_CONFIG.DEFAULT_ERROR_MESSAGE
             }));
         }
     }
@@ -107,10 +118,10 @@ export default function Upload({ className = "", label, name, defaultMessage, er
                 {uploadState.image && (
                     <div className={styles["decorator-content"]}>
                         <img className={styles["decorator-content__image"]} src={uploadState.image} alt="" />
-                        <div className="button-group">
+                        <Group>
                             <Button buttonStyle={buttonStyles.util} type="button" onClick={handleRemoveImage}>Remove image</Button>
                             <Button buttonStyle={buttonStyles.util} type="button" onClick={handleChangeImage}>Change image</Button>
-                        </div>
+                        </Group>
                     </div>
                 )}
             </div>
@@ -131,7 +142,7 @@ export default function Upload({ className = "", label, name, defaultMessage, er
                     <InfoIcon iconStyle={messageIconStyle} />
                     {uploadState.message}
                 </Message>
-            )}  
+            )}
         </div>
     );
 }
