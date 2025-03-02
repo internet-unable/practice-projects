@@ -1,0 +1,13 @@
+.icon {
+    --icon-size-30: 30px;
+    --icon-color-default: var(--color-orange-500);
+}
+
+.icon-size--30 {
+    width: var(--icon-size-30);
+    height: var(--icon-size-30);
+}
+
+.icon-color--default {
+    fill: var(--icon-color-default);
+}
