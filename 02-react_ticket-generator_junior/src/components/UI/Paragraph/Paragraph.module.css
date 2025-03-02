@@ -1,0 +1,28 @@
+.paragraph {
+    --paragraph-font-size-18: 18px;
+    --paragraph-line-height-18: 18px;
+
+    --paragraph-font-size-19: 19px;
+    --paragraph-line-height-19: 19px;
+
+    --paragraph-font-size-23: 23px;
+    --paragraph-line-height-29: 29px;
+
+    font-family: "Inconsolata Regular";
+    color: var(--color-neutral-300);
+}
+
+.paragraph-size--18 {
+    font-size: var(--paragraph-font-size-18);
+    line-height: var(--paragraph-line-height-18);
+}
+
+.paragraph-size--19 {
+    font-size: var(--paragraph-font-size-19);
+    line-height: var(--paragraph-line-height-19);
+}
+
+.paragraph-size--23 {
+    font-size: var(--paragraph-font-size-23);
+    line-height: var(--paragraph-line-height-29);
+}
