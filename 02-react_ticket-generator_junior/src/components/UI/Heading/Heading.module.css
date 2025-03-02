@@ -1,5 +1,5 @@
 .h1 {
-    font-family: "Inconsolata Extra-Bold";
+    font-family: "Inconsolata Medium";
     font-size: 60px;
     line-height: 66px;
     letter-spacing: -1px;
@@ -7,22 +7,33 @@
 }
 
 .h2 {
-    /*  */
+    font-family: "Inconsolata Medium";
+    font-size: 38px;
+    line-height: 38px;
+    margin-bottom: 19px;
 }
 
 .h3 {
-    font-family: "Inconsolata Extra-Bold";
+    font-family: "Inconsolata Medium";
     font-size: 30px;
     line-height: 30px;
     letter-spacing: -0.3px;
 }
 
 .h4 {
-    /*  */
+    font-family: "Inconsolata Regular";
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
 }
 
 .h5 {
-    /*  */
+    font-family: "Inconsolata Regular";
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: 400;
 }
 
 .h6 {
