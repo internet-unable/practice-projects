@@ -31,9 +31,9 @@
 
 .h5 {
     font-family: "Inconsolata Regular";
-    font-size: 28px;
-    line-height: 28px;
-    font-weight: 400;
+    font-size: 29px;
+    line-height: 29px;
+    letter-spacing: -0.4px;
 }
 
 .h6 {
