@@ -1,145 +1,33 @@
-.test {
-    /* display: flex;
-    align-items: center;
-    width: 90%;
-    margin: auto;
-    max-width: 22em;
-    position: relative;
-    padding: 30% 2em;
-    box-sizing: border-box;
-    color: #fff;
-    background-clip: padding-box;
-    border: solid 5px transparent;
-    border-radius: 1em;
-    background-color: rgba(210, 209, 214, 0.2); */
-
-    /* border: 2px solid;
-    border-image-slice: 1;
-    border-image-source: linear-gradient(to left, var(--color-gradient--start), var(--color-gradient--end)); */
-
-    /* background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.33, black), color-stop(0.67, white));
-    background-image: -moz-linear-gradient(center bottom, black 33%, white 67%); */
-
-    /* border: 4px solid transparent;
-    border-radius: 20px;
-    background: linear-gradient(to right, rgba(210, 209, 214, 0.2), rgba(210, 209, 214, 0.2)),
-        linear-gradient(to right, var(--color-gradient--end), var(--color-gradient--start));
-    background-clip: padding-box, border-box;
-    background-origin: padding-box, border-box; */
-    /* background-image: linear-gradient(
-            var(--color-gradient--end),
-            var(--color-gradient--start)
-        ),
-        linear-gradient(
-            var(--color-gradient--end),
-            var(--color-gradient--start)
-        );
-    background-size: 100% 2px;
-    background-position: 0 100%, 0 0;
-    background-repeat: no-repeat;
-    border-radius: 10px; */
-
-    /* mask: radial-gradient(20px at 75% 20px, #0000 98%, #000) 0 -20px; */
-    /* mask-size: 30px 100%; */
-    --r: 20px;
-    --s: 20px;
-    --a: 30deg;
-    --pos: 75%;
-    position: relative;
-}
-
-.test::before {
-    /* content: ""; */
-    position: absolute;
-    inset: calc(var(--s) / 2 + var(--r) / 4) 0 0 0;
-    background: rgba(210, 209, 214, 0.2);
-    --_m: 0 / calc(2 * var(--r)) calc(2 * var(--r)) no-repeat
-        radial-gradient(50% 50%, #000 calc(100% - 1px), #0000);
-    --_d: (var(--s) + var(--r)) * cos(var(--a));
-    
-    mask: calc(50% + var(--_d)) var(--_m), calc(50% - var(--_d)) var(--_m),
-        radial-gradient(
-                var(--s) at 50% calc(-1 * sin(var(--a)) * var(--s)),
-                #0000 100%,
-                #000 calc(100% + 1px)
-            )
-            0 calc(var(--r) * (1 - sin(var(--a)))) no-repeat,
-        linear-gradient(
-            90deg,
-            #000 calc(50% - var(--_d)),
-            #0000 0 calc(50% + var(--_d)),
-            #000 0
-        );
-}
-
 .ticket {
+    --ticket-image-size: 80px;
+    --ticket-border-radius: 12px;
+
     position: relative;
     border: 2px solid var(--color-neutral-0);
-    border-radius: 12px;
-    padding: 28px 22px 24px 22px;
-    background-color: rgba(210, 209, 214, 0.1);
+    border-radius: var(--ticket-border-radius);
+    padding: 28px 8px 24px 22px;
+    background-color: rgba(210, 209, 214, 0.2);
+    overflow: hidden;
+}
 
-    display: flex;
-    flex-direction: column;
-    gap: 74px;
-    
-    /* overflow: hidden; */
-    /* background-color: rgba(210, 209, 214, 0.2); */
-    /* border-radius: 10px; */
-    /* padding: 20px; */
-    /* margin: 0 auto; */
-    /* border: 2px solid rgba(255, 255, 255, 0.1); */
-    /* padding: 20px; */
-    /* border-left: 2px solid var(--color-gradient--end); */
-    /* border-right: 2px solid var(--color-gradient--start); */
-    /* background-image: linear-gradient(
-            to right,
-            var(--color-gradient--end),
-            var(--color-gradient--start)
-        ),
-        linear-gradient(
-            to right,
-            var(--color-gradient--end),
-            var(--color-gradient--start)
-        );
-    background-size: 100% 2px;
-    background-position: 0 100%, 0 0;
-    background-repeat: no-repeat;
-    border-radius: 10px; */
+.ticket::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: -75px;
+    height: 3px;
+    background: radial-gradient(10px 3px, var(--color-neutral-500) 80%, transparent 87%) 0 0 / 30px 100%;
+    transform: rotate(90deg);
 }
 
 .ticket .image {
-    width: 80px;
-    height: 80px;
-    background-color: yellow;
-    border-radius: 12px;
+    width: var(--ticket-image-size);
+    height: var(--ticket-image-size);
+    border-radius: var(--ticket-border-radius);
 }
 
-.ticket-number {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 110px;
-
-    --b: 3px;
-    --s: 30px;
-    --c1: transparent;
-    --c2: var(--color-neutral-500);
-}
-
-.ticket-number::before {
-    content: "";
-    position: absolute;
-    height: var(--b);
-    background: radial-gradient(4px 8px, var(--color-neutral-500) 80%, transparent 87%) 0 0/20px 100%;
-
-    /* inset: 0; */
-    /* padding: var(--b); */
-    /* background: repeating-conic-gradient(var(--c1) 0 25%, var(--c2) 0 50%) 0 0 / var(--s) var(--s) round; */
-    /* -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); */
-    /* -webkit-mask-composite: xor; */
-    /* mask-composite: exclude; */
-    /* pointer-events: none; */
-    /* border-radius: 12px; */
+.number {
+    transform: rotate(90deg);
+    color: var(--color-neutral-500);
 }
