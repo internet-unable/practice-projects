@@ -1,0 +1,10 @@
+.col {
+    --col-gap-74: 74px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.col-gap--74 {
+    gap: var(--col-gap-74);
+}
