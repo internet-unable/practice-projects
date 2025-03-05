@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 import UploadIcon from "../../Icons/Upload/Upload";
-import Group from "../../Group/Group";
+import Row from "../../Row/Row";
 import Button, { buttonStyles } from "../../Button/Button";
 import Message, { messageStyles } from "../Message/Message";
 import InfoIcon, { iconStyles } from "../../Icons/Info/Info";
@@ -118,10 +118,10 @@ export default function Upload({
                 {uploadState.image && (
                     <div className={styles["decorator-content"]}>
                         <img className={styles["decorator-content__image"]} src={uploadState.image} alt="" />
-                        <Group>
+                        <Row>
                             <Button buttonStyle={buttonStyles.util} type="button" onClick={handleRemoveImage}>Remove image</Button>
                             <Button buttonStyle={buttonStyles.util} type="button" onClick={handleChangeImage}>Change image</Button>
-                        </Group>
+                        </Row>
                     </div>
                 )}
             </div>

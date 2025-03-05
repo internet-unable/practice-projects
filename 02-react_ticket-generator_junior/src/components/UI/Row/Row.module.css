@@ -1,0 +1,37 @@
+.row {
+    --row-gap-8: 8px;
+    --row-gap-15: 15px;
+    --row-gap-16: 16px;
+    --row-gap-20: 20px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.row-align--center {
+    align-items: center;
+}
+
+.row-align--start {
+    align-items: flex-start;
+}
+
+.row-justify--space-between {
+    justify-content: space-between;
+}
+
+.row-gap--8 {
+    gap: var(--row-gap-8);
+}
+
+.row-gap--15 {
+    gap: var(--row-gap-15);
+}
+
+.row-gap--16 {
+    gap: var(--row-gap-16);
+}
+
+.row-gap--20 {
+    gap: var(--row-gap-20);
+}
