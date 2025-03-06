@@ -47,17 +47,16 @@
     align-items: center;
     justify-content: center;
     gap: 19px;
+    border-radius: 12px;
 }
 
 .decorator-content--default {
     cursor: pointer;
-    border-radius: 12px;
     outline-offset: 3px;
     outline: 2px solid transparent;
 }
 
-.decorator-content--default:hover,
-.decorator--default-hover:hover .decorator-content__icon {
+.decorator-content--default:hover {
     background-color: rgba(210, 209, 214, 0.2);
 }
 
@@ -79,6 +78,17 @@
     height: 50px;
     border: 1px solid var(--color-neutral-500);
     border-radius: 12px;
+}
+
+.decorator-content--is-dragging {
+    background-color: rgba(210, 209, 214, 0.2);
+}
+
+.decorator-content--is-dragging .decorator-content__icon,
+.decorator-content--is-dragging .decorator-content__image,
+.decorator-content--is-dragging .decorator-content__btn-row {
+    position: relative;
+    z-index: -1;
 }
 
 .upload input {
