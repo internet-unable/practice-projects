@@ -1,4 +1,4 @@
-import Upload from "../../UI/Form/Upload/Upload";
+import Upload, { UPLOAD_CONFIG } from "../../UI/Form/Upload/Upload";
 import Input from "../../UI/Form/Input/Input";
 import Button, { buttonStyles } from "../../UI/Button/Button";
 
@@ -16,9 +16,10 @@ export default function Form({ onSubmit }) {
                 className={styles["form-item"]}
                 label="Upload Avatar"
                 name="avatar"
-                defaultMessage="Upload your photo (JPG or PNG, max size: 500KB)."
-                errorMessage="File too large. Please upload a photo under 500KB."
-                // required
+                defaultMessage={UPLOAD_CONFIG.MESSAGES.IMAGE_DEFAULT}
+                errorMessage={UPLOAD_CONFIG.MESSAGES.IMAGE_SIZE_ERROR}
+                accept={UPLOAD_CONFIG.ACCEPTED_TYPES.IMAGES}
+            // required
             />
 
             <Input
@@ -28,7 +29,7 @@ export default function Form({ onSubmit }) {
                 name="full-name"
                 pattern="[A-Za-z]+"
                 title="Numbers and special characters are not allowed."
-                // required
+            // required
             />
 
             <Input
@@ -38,7 +39,7 @@ export default function Form({ onSubmit }) {
                 name="email"
                 placeholder="example@email.com"
                 title="Please enter a valid email address."
-                // required
+            // required
             />
 
             <Input
@@ -49,7 +50,7 @@ export default function Form({ onSubmit }) {
                 placeholder="@yourusername"
                 pattern="^@[A-Za-z0-9_]+$"
                 title="Your username should start with @ and contain only letters, numbers, and underscores."
-                // required
+            // required
             />
 
             <Button
