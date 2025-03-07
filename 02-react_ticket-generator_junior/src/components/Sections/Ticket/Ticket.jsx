@@ -7,9 +7,9 @@ import GithubIcon from "../../UI/Icons/Github/Github";
 
 import styles from "./Ticket.module.css";
 
-export default function Ticket() {
+export default function Ticket({ className = "", ...rest }) {
     return (
-        <div className={styles.ticket}>
+        <div className={`${className} ${styles.ticket}`} {...rest}>
             <Row rowStyle={`${rowStyles.justifySpaceBetween} ${rowStyles.alignCenter}`}>
                 <Col colStyle={`${colStyles.gap74}`}>
                     <Row rowStyle={`${rowStyles.gap20} ${rowStyles.alignStart}`}>
