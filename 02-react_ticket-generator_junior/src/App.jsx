@@ -1,7 +1,10 @@
+import { StrictMode } from "react";
 import TicketGenerator from "./components/Pages/TicketGenerator";
 
 export default function App() {
     return (
-        <TicketGenerator />
+        <StrictMode>
+            <TicketGenerator />
+        </StrictMode>
     );
 }
