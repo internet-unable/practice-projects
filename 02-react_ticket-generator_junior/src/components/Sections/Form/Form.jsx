@@ -1,17 +1,26 @@
+import { useActionState } from "react";
+
 import Upload, { UPLOAD_CONFIG } from "../../UI/Form/Upload/Upload";
 import Input from "../../UI/Form/Input/Input";
 import Button, { buttonStyles } from "../../UI/Button/Button";
 
 import styles from "./Form.module.css";
 
-export default function Form({ onSubmit }) {
-    function handleFormSubmit(event) {
+export default function Form({ className = "", onSubmit, ...rest }) {
+    const [formState, formAction, isPending] = useActionState(handleFormSubmitAction);
+    
+    async function handleFormSubmitAction(prevFormState, formData) {
         event.preventDefault();
-        onSubmit();
+        console.log("formData", formData.get("email"));
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Эмуляция запроса
     }
 
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form
+            className={className}
+            action={formAction}
+            {...rest}
+        >
             <Upload
                 className={styles["form-item"]}
                 label="Upload Avatar"
@@ -19,6 +28,7 @@ export default function Form({ onSubmit }) {
                 defaultMessage={UPLOAD_CONFIG.MESSAGES.IMAGE_DEFAULT}
                 errorMessage={UPLOAD_CONFIG.MESSAGES.IMAGE_SIZE_ERROR}
                 accept={UPLOAD_CONFIG.ACCEPTED_TYPES.IMAGES}
+                disabled={isPending}
             // required
             />
 
@@ -29,6 +39,7 @@ export default function Form({ onSubmit }) {
                 name="full-name"
                 pattern="[A-Za-z]+"
                 title="Numbers and special characters are not allowed."
+                disabled={isPending}
             // required
             />
 
@@ -39,6 +50,7 @@ export default function Form({ onSubmit }) {
                 name="email"
                 placeholder="example@email.com"
                 title="Please enter a valid email address."
+                disabled={isPending}
             // required
             />
 
@@ -50,6 +62,7 @@ export default function Form({ onSubmit }) {
                 placeholder="@yourusername"
                 pattern="^@[A-Za-z0-9_]+$"
                 title="Your username should start with @ and contain only letters, numbers, and underscores."
+                disabled={isPending}
             // required
             />
 
@@ -57,8 +70,9 @@ export default function Form({ onSubmit }) {
                 className={`full-width ${styles["form-item"]}`}
                 buttonStyle={buttonStyles.orange}
                 style={{ marginTop: "24px" }}
+                disabled={isPending}
             >
-                Generate My Ticket
+                {isPending ? "Submitting..." : "Generate My Ticket"}
             </Button>
         </form>
     );
