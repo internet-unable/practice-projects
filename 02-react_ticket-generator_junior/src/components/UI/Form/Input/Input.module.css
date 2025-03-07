@@ -1,9 +1,9 @@
-.input-group {
+.input {
     display: flex;
     flex-direction: column;
 }
 
-.input-group label {
+.input label {
     font-family: "Inconsolata Regular";
     font-size: 19px;
     line-height: 19px;
@@ -11,11 +11,11 @@
     cursor: text;
 }
 
-.input-group label:hover + input {
+.input label:hover + input {
     background-color: rgba(210, 209, 214, 0.1);
 }
 
-.input-group input {
+.input input {
     font-family: "Inconsolata Regular";
     font-size: 18px;
     line-height: 18px;
@@ -29,20 +29,20 @@
     cursor: pointer;
 }
 
-.input-group input::placeholder {
+.input input::placeholder {
     color: var(--color-neutral-300);
 }
 
-.input-group input:focus {
+.input input:focus {
     outline-color: var(--color-neutral-500);
     box-shadow: 0 0 0 3px var(--color-neutral-900);
 }
 
-.input-group input:hover {
+.input input:hover {
     background-color: rgba(210, 209, 214, 0.2);
 }
 
-.input-group__message {
+/* .input__message {
     display: none;
     flex-direction: row;
     align-items: center;
@@ -55,17 +55,17 @@
     color: var(--color-neutral-500);
 }
 
-.input-group__message > svg {
+.input__message > svg {
     width: 16px;
     height: 16px;
     stroke: var(--color-neutral-500);
 }
 
-.input-group__message--invalid {
+.input__message--invalid {
     display: flex;
     color: var(--color-orange-500);
 }
 
-.input-group__message--invalid > svg {
+.input__message--invalid > svg {
     stroke: var(--color-orange-500);
-}
+} */
