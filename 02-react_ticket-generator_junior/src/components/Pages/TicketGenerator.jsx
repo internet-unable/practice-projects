@@ -1,3 +1,4 @@
+// import { useFormStatus } from "react-dom";
 import { useState } from "react";
 
 import Header from "../Sections/Header/Header";
@@ -7,6 +8,8 @@ import Form from "../Sections/Form/Form";
 import Ticket from "../Sections/Ticket/Ticket";
 
 export default function TicketGenerator() {
+    // const { pending, data, method, action } = useFormStatus();
+
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     let headingContent = <>Your Journey to Coding Conf<br />2025 Starts Here!</>;
@@ -21,8 +24,10 @@ export default function TicketGenerator() {
     }
 
     function handleFormSubmit() {
-        setName("Jonatan Kristof");
-        setEmail("jonatan@email.com");
+        // setTimeout(() => {
+        //     setName("Jonatan Kristof");
+        //     setEmail("jonatan@email.com");
+        // }, 5000);
     }
 
     return (
@@ -31,17 +36,24 @@ export default function TicketGenerator() {
 
             <main style={{ paddingTop: name ? "70px" : "60px", paddingBottom: "140px" }}>
                 <section className="text--center" style={{ marginBottom: name ? "110px" : "48px" }}>
-                    <Heading tag="h1" style={{marginBottom: name && "33px"}}>{headingContent}</Heading>
+                    <Heading tag="h1" style={{ marginBottom: name && "33px" }}>{headingContent}</Heading>
                     <Paragraph paragraphStyle={paragraphStyles.size23}>{paragraphContent}</Paragraph>
                 </section>
 
-                <section className="margin--center" style={{ width: "600px" }}>
+                <section>
                     {!name && (
-                        <Form onSubmit={handleFormSubmit} />
+                        <Form
+                            className="margin--center"
+                            onSubmit={handleFormSubmit}
+                            style={{ width: "462px" }}
+                        />
                     )}
 
                     {name && (
-                        <Ticket />
+                        <Ticket
+                            className="margin--center"
+                            style={{ width: "600px" }}
+                        />
                     )}
                 </section>
             </main>
