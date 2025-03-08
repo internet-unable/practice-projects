@@ -1,45 +1,65 @@
 .input {
+    --label-font-size: 19px;
+    --label-line-height: 19px;
+    --label-pb: 13px;
+
+    --input-px: 17px;
+    --input-py: 15px;
+    --input-font-family: var(--font-family-base);
+    --input-font-size: 18px;
+    --input-line-height: 18px;
+    --input-color: var(--color-neutral-0);
+    --input-placeholder-color: var(--color-neutral-300);
+    --input-background-color: var(--field-background-color);
+    --input-background-color-hover: var(--field-background-color-hover);
+    --input-border: 1px solid var(--color-neutral-500);
+    --input-border-radius: var(--border-radius-base);
+    --input-outline: 2px solid transparent;
+    --input-outline-offset: var(--field-outline-offset);
+    --input-outline-color: var(--field-outline-color);
+    --input-box-shadow: var(--field-box-shadow);
+
     display: flex;
     flex-direction: column;
 }
 
 .input label {
-    font-family: "Inconsolata Regular";
-    font-size: 19px;
-    line-height: 19px;
-    padding-bottom: 13px;
+    font-size: var(--label-font-size);
+    line-height: var(--label-line-height);
+    padding-bottom: var(--label-pb);
     cursor: text;
 }
 
+/* prevent change of input background, when hove on label */
 .input label:hover + input {
-    background-color: rgba(210, 209, 214, 0.1);
+    background-color: var(--input-background-color);
 }
 
 .input input {
-    font-family: "Inconsolata Regular";
-    font-size: 18px;
-    line-height: 18px;
-    color: var(--color-neutral-0);
-    padding: 17px 15px;
-    background-color: rgba(210, 209, 214, 0.1);
-    border-radius: 12px;
-    border: 1px solid var(--color-neutral-500);
-    outline-offset: 3px;
-    outline: 2px solid transparent;
+    padding: var(--input-px) var(--input-py);
+    font-family: var(--input-font-family);
+    font-size: var(--input-font-size);
+    line-height: var(--input-line-height);
+    color: var(--input-color);
+    background-color: var(--input-background-color);
+    border: var(--input-border);
+    border-radius:var(--input-border-radius);
+    outline: var(--input-outline);
+    outline-offset: var(--input-outline-offset);
     cursor: pointer;
 }
 
 .input input::placeholder {
-    color: var(--color-neutral-300);
+    color: var(--input-placeholder-color);
 }
 
 .input input:focus {
-    outline-color: var(--color-neutral-500);
-    box-shadow: 0 0 0 3px var(--color-neutral-900);
+    outline-color: var(--input-outline-color);
+    box-shadow: var(--input-box-shadow);
 }
 
 .input input:hover {
-    background-color: rgba(210, 209, 214, 0.2);
+    background-color: var(--input-background-color-hover);
 }
 
 /* .input__message {
