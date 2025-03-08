@@ -7,7 +7,7 @@ export const buttonStyles = {
 
 export default function Button({ className = "", buttonStyle, children, ...rest }) {
     return (
-        <button className={`${className} ${buttonStyle}`} {...rest}>
+        <button className={`${styles.button} ${className} ${buttonStyle}`} {...rest}>
             <span>{children}</span>
         </button>
     );

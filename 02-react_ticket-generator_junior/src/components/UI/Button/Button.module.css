@@ -1,35 +1,78 @@
-.button--util {
-    font-size: 12px;
-    line-height: 12px;
-    padding: 5px 7px;
-    border-radius: 4px;
-    background-color: rgba(210, 209, 214, 0.1);
+.button {
+    --btn-font-family: var(--font-family-base);
+    --btn-border-radius: var(--border-radius-base);
+    --btn-color: var(--color-neutral-300);
+    --btn-background-color: transparent;
+    
+    font-family: var(--btn-font-family);
+    color: var(--btn-color);
+    background-color: var(--btn-background-color);
+    border: var(--btn-border);
+    border-radius: var(--btn-border-radius);
     outline: none;
+    cursor: pointer;
+}
+
+.button--util {
+    --btn-util-px: 5px;
+    --btn-util-py: 7px;
+    --btn-util-font-size: 12px;
+    --btn-util-line-height: 12px;
+    --btn-util-border-radius: 4px;
+    --btn-util-background-color: var(--field-background-color);
+
+    --btn-util-content-bb: 1px solid transparent;
+    --btn-util-content-bb-color-focus-hover: var(--color-neutral-500);
+
+    padding: var(--btn-util-px) var(--btn-util-py);
+    font-size: var(--btn-util-font-size);
+    line-height: var(--btn-util-line-height);
+    border-radius: var(--btn-util-border-radius);
+    background-color: var(--btn-util-background-color);
+    border-bottom: var(--btn-util-content-bb);
 }
 
 .button--util:hover > span,
 .button--util:focus > span {
-    border-bottom: 1px solid var(--color-neutral-500);
+    border-bottom-color: var(--btn-util-content-bb-color-focus-hover);
 }
 
 .button--orange {
-    font-family: "Inconsolata Extra-Bold";
-    font-size: 19px;
-    line-height: 19px;
-    border-radius: 12px;
-    padding: 19px 0 16px 0;
-    background: var(--color-orange-500);
-    color: var(--color-neutral-900);
-    outline-offset: 3px;
-    outline: 2px solid transparent;
+    --btn-orange-p-top: 18px;
+    --btn-orange-p-bottom: 16px;
+    --btn-orange-font-family: var(--font-family-medium);
+    --btn-orange-font-size: 20px;
+    --btn-orange-line-height: 20px;
+    --btn-orange-font-weight: 600;
+    --btn-orange-letter-spacing: -0.3px;
+    --btn-orange-color: var(--color-neutral-900);
+    --btn-orange-background-color: var(--color-orange-500);
+    --btn-orange-outline: 2px solid transparent;
+    --btn-orange-outline-offset: var(--field-outline-offset);
+
+    --btn-orange-outline-color-focus: var(--color-neutral-0);
+    --btn-orange-box-shadow-focus: var(--field-box-shadow);
+    --btn-orange-background-color-hover: var(--color-orange-700);
+    --btn-orange-box-shadow-hover: inset 0 -4px 0 0 var(--color-orange-500);
+
+    padding: var(--btn-orange-p-top) 0 var(--btn-orange-p-bottom) 0;
+    font-family: var(--btn-orange-font-family);
+    font-size: var(--btn-orange-font-size);
+    line-height: var(--btn-orange-line-height);
+    font-weight: var(--btn-orange-font-weight);
+    letter-spacing: var(--btn-orange-letter-spacing);
+    color: var(--btn-orange-color);
+    background: var(--btn-orange-background-color);
+    outline: var(--btn-orange-outline);
+    outline-offset: var(--btn-orange-outline-offset);
 }
 
 .button--orange:focus {
-    outline-color: var(--color-neutral-0);
-    box-shadow: 0 0 0 3px var(--color-neutral-900);
+    outline-color: var(--btn-orange-outline-color-focus);
+    box-shadow: var(--btn-orange-box-shadow-focus);
 }
 
 .button--orange:hover {
-    background-color: var(--color-orange-700);
-    box-shadow: inset 0 -4px 0 0 var(--color-orange-500);
+    background-color: var(--btn-orange-background-color-hover);
+    box-shadow: var(--btn-orange-box-shadow-hover);
 }
