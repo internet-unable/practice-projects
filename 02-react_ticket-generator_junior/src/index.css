@@ -4,25 +4,6 @@
     box-sizing: border-box;
 }
 
-:root {
-    --font-size--base: 20px;
-
-    --color-neutral-0: hsl(0, 0%, 100%);
-    --color-neutral-300: hsl(252, 6%, 83%);
-    --color-neutral-500: hsl(245, 15%, 58%);
-    --color-neutral-700: hsl(245, 19%, 35%);
-    --color-neutral-900: hsl(248, 70%, 10%);
-
-    --color-orange-500: hsl(7, 88%, 67%);
-    --color-orange-700: hsl(7, 71%, 60%);
-
-    --color-gradient--start: hsl(7, 86%, 67%);
-    --color-gradient--end: hsl(0, 0%, 100%);
-
-    /* - Mobile: 375px */
-    /* - Desktop: 1440px */
-}
-
 @font-face {
     font-family: "Inconsolata Regular";
     src: url("/fonts/Inconsolata-Regular.ttf");
@@ -42,6 +23,38 @@
     font-family: "Inconsolata Extra-Bold";
     src: url("/fonts/Inconsolata-ExtraBold.ttf");
 }
+
+:root {
+    --font-family-base: "Inconsolata Regular";
+    --font-family-medium: "Inconsolata Medium";
+    --font-family-bold: "Inconsolata Bold";
+    --font-family-extra-bold: "Inconsolata Extra-Bold";
+    --font-size-base: 20px;
+
+    --color-neutral-0: hsl(0, 0%, 100%);
+    --color-neutral-300: hsl(252, 6%, 83%);
+    --color-neutral-500: hsl(245, 15%, 58%);
+    --color-neutral-700: hsl(245, 19%, 35%);
+    --color-neutral-900: hsl(248, 70%, 10%);
+
+    --color-orange-500: hsl(7, 88%, 67%);
+    --color-orange-700: hsl(7, 71%, 60%);
+
+    --color-gradient--start: hsl(7, 86%, 67%);
+    --color-gradient--end: hsl(0, 0%, 100%);
+
+    --field-background-color: rgba(210, 209, 214, 0.1);
+    --field-background-color-hover: rgba(210, 209, 214, 0.2);
+    --field-outline-offset: 3px;
+    --field-outline-color: var(--color-neutral-500);
+    --field-box-shadow: 0 0 0 3px var(--color-neutral-900);
+
+    --border-radius-base: 12px;
+
+    /* - Mobile: 375px */
+    /* - Desktop: 1440px */
+}
+
 
 .c-orange--500 {
     color: var(--color-orange-500);
@@ -83,20 +96,12 @@
 }
 
 body {
-    font-family: "Inconsolata Regular";
+    font-family: var(--font-family-base);
     color: var(--color-neutral-0);
-    font-size: var(--font-size--base);
+    font-size: var(--font-size-base);
     background-image: url("/background-desktop.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     min-height: 100vh;
-}
-
-button {
-    font-family: "Inconsolata Regular";
-    border: 0;
-    background-color: transparent;
-    color: var(--color-neutral-300);
-    cursor: pointer;
 }
