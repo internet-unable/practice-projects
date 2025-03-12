@@ -34,5 +34,5 @@ In the end, I got:
 As a next step, I'd like to develop more complex project, with opportunitie to use advanced React techniques (state, hooks, context/redux, etc.) and 3-rd party libraries (Tailwind CSS, React Router, etc.).
 
 ## Author
-- Twitter - [@internet_unable](https://x.com/internet_unable)
-- Telegram - [@internet_unable](https://t.me/internet_unable)
+- [Telegram](https://t.me/konstantin_moiseenko)
+- [LinkedIn](https://www.linkedin.com/in/konstantin-moiseenko-947810a1/)
