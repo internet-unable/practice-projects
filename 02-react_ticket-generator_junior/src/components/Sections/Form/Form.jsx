@@ -10,9 +10,10 @@ export default function Form({ className = "", onSubmit, ...rest }) {
     const [formState, formAction, isPending] = useActionState(handleFormSubmitAction);
     
     async function handleFormSubmitAction(prevFormState, formData) {
-        event.preventDefault();
-        console.log("formData", formData.get("email"));
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Эмуляция запроса
+        // event.preventDefault();
+        // console.log("formData", formData.get("email"));
+        // await new Promise((resolve) => setTimeout(resolve, 3000)); // Эмуляция запроса
+        onSubmit();
     }
 
     return (
