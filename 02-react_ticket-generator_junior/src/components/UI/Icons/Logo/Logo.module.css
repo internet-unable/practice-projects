@@ -1,4 +1,5 @@
 .icon {
+    --icon-size-24: 24px;
     --icon-size-30: 30px;
     --icon-size-40: 40px;
     --icon-color-default: var(--color-orange-500);
@@ -16,4 +17,11 @@
 
 .icon-color--default {
     fill: var(--icon-color-default);
+}
+
+@media screen and (max-width: 425px) {
+    .icon-size--24-m {
+        width: var(--icon-size-24);
+        height: var(--icon-size-24);
+    }
 }

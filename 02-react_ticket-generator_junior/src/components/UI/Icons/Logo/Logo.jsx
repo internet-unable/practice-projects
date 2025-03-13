@@ -1,12 +1,16 @@
 import styles from "./Logo.module.css";
 
 export const iconStyles = {
+    ["size24-m"]: styles["icon-size--24-m"],
     size30: styles["icon-size--30"],
     size40: styles["icon-size--40"],
     colorDefault: styles["icon-color--default"],
 }
 
-export default function Logo({ className = "", iconStyle = `${iconStyles.size30} ${iconStyles.colorDefault}` }) {
+export default function Logo({
+    className = "",
+    iconStyle = `${iconStyles.size30} ${iconStyles.colorDefault}`
+}) {
     return (
         <svg className={`${styles.icon} ${iconStyle} ${className}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
             <path d="M0 26.864A8.898 8.898 0 0 0 0 9.069v6.229a2.67 2.67 0 0 1 0 5.339v6.229Z" />
