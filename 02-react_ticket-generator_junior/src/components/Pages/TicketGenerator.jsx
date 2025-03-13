@@ -12,7 +12,7 @@ export default function TicketGenerator() {
 
     const [name, setName] = useState();
     const [email, setEmail] = useState();
-    let headingContent = <>Your Journey to Coding Conf<br />2025 Starts Here!</>;
+    let headingContent = <>Your Journey to Coding Conf 2025 Starts Here!</>;
     let paragraphContent = <>Secure your spot at next year`s biggest coding conference.</>;
 
     if (name) {
@@ -24,10 +24,8 @@ export default function TicketGenerator() {
     }
 
     function handleFormSubmit() {
-        // setTimeout(() => {
-        //     setName("Jonatan Kristof");
-        //     setEmail("jonatan@email.com");
-        // }, 5000);
+        setName("Jonatan Kristof");
+        setEmail("jonatan@email.com");
     }
 
     return (
