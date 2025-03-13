@@ -3,3 +3,9 @@
     justify-content: center;
     padding-top: 40px;
 }
+
+@media screen and (max-width: 425px) {
+    .header {
+        padding-top: 32px;
+    }
+}
