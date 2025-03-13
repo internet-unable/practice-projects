@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
 }
 
 @font-face {
@@ -30,6 +34,7 @@
     --font-family-bold: "Inconsolata Bold";
     --font-family-extra-bold: "Inconsolata Extra-Bold";
     --font-size-base: 20px;
+    /* --font-size-base-m: 16px; */
 
     --color-neutral-0: hsl(0, 0%, 100%);
     --color-neutral-300: hsl(252, 6%, 83%);
@@ -53,8 +58,14 @@
 
     /* - Mobile: 375px */
     /* - Desktop: 1440px */
+    /* font-size: var(--font-size-base); */
 }
 
+/* @media screen and (max-width: 425px) {
+    :root {
+        font-size: var(--font-size-base-m);
+    }
+} */
 
 .c-orange--500 {
     color: var(--color-orange-500);
@@ -97,8 +108,8 @@
 
 body {
     font-family: var(--font-family-base);
-    color: var(--color-neutral-0);
     font-size: var(--font-size-base);
+    color: var(--color-neutral-0);
     background-image: url("/background-desktop.png");
     background-size: cover;
     background-repeat: no-repeat;
