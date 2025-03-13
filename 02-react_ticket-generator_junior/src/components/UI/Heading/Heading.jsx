@@ -10,10 +10,10 @@ export const headingStyles = {
 }
 
 export default function Heading({
-    tag = "div",
-    headingStyle = headingStyles.h1,
-    className = "",
     children,
+    tag = "div",
+    className = "",
+    headingStyle = headingStyles.h1,
     ...rest
 }) {
     const HeadingTag = tag;
