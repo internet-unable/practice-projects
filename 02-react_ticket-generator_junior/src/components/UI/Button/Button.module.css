@@ -3,7 +3,7 @@
     --btn-border-radius: var(--border-radius-base);
     --btn-color: var(--color-neutral-300);
     --btn-background-color: transparent;
-    
+
     font-family: var(--btn-font-family);
     color: var(--btn-color);
     background-color: var(--btn-background-color);
@@ -29,6 +29,9 @@
     line-height: var(--btn-util-line-height);
     border-radius: var(--btn-util-border-radius);
     background-color: var(--btn-util-background-color);
+}
+
+.button--util > span {
     border-bottom: var(--btn-util-content-bb);
 }
 
