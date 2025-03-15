@@ -12,8 +12,10 @@
 }
 
 .decorator {
+    padding: 19px 15px;
+    text-align: center;
     position: relative;
-    height: 126px;
+    /* height: 126px; */
     color: var(--color-neutral-300);
     background-color: rgba(210, 209, 214, 0.1);
     border-radius: 12px;
