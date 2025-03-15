@@ -12,8 +12,7 @@ export default function Form({ className = "", onSubmit, ...rest }) {
     async function handleFormSubmitAction(prevFormState, formData) {
         // event.preventDefault();
         // console.log("formData", formData.get("email"));
-        // await new Promise((resolve) => setTimeout(resolve, 3000)); // Эмуляция запроса
-        onSubmit();
+        await new Promise((resolve) => setTimeout(onSubmit, 3000)); // fake request
     }
 
     return (
