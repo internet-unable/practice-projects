@@ -1,0 +1,19 @@
+.container {
+    --container-462: 462px;
+    --container-600: 600px;
+    --container-800: 800px;
+
+    margin: 0 auto;
+}
+
+.container--462 {
+    max-width: 462px;
+}
+
+.container--600 {
+    max-width: 600px;
+}
+
+.container--800 {
+    max-width: 800px;
+}
