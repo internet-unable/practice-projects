@@ -6,7 +6,9 @@
     --paragraph-line-height-19: 19px;
 
     --paragraph-font-size-23: 23px;
+    --paragraph-font-size-23-mobile: 19px;
     --paragraph-line-height-29: 29px;
+    --paragraph-line-height-29-mobile: 24px;
 
     font-family: "Inconsolata Regular";
     color: var(--color-neutral-300);
@@ -25,4 +27,10 @@
 .paragraph-size--23 {
     font-size: var(--paragraph-font-size-23);
     line-height: var(--paragraph-line-height-29);
+}
+@media screen and (max-width: 425px) {
+    .paragraph-size--23 {
+        font-size: var(--paragraph-font-size-23-mobile);
+        line-height: var(--paragraph-line-height-29-mobile);
+    }
 }
