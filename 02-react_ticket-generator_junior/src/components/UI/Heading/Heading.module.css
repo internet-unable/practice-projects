@@ -1,9 +1,9 @@
 .h1 {
     --h1-font-family: var(--font-family-medium);
     --h1-font-size: 60px;
-    /* 30px on mobile */
+    --h1-font-size-mobile: 30px;
     --h1-line-height: 66px;
-    /* 33px on mobile */
+    --h1-line-height-mobile: 33px;
     --h1-font-weight: 600;
     --h1-letter-spacing: -1px;
     --h1-mb: 21px;
@@ -14,6 +14,12 @@
     font-weight: var(--h1-font-weight);
     letter-spacing: var(--h1-letter-spacing);
     margin-bottom: var(--h1-mb);
+}
+@media screen and (max-width: 425px) {
+    .h1 {
+        font-size: var(--h1-font-size-mobile);
+        line-height: var(--h1-line-height-mobile);
+    }
 }
 
 .h2 {
@@ -33,12 +39,12 @@
 .h3 {
     --h3-font-family: var(--font-family-medium);
     --h3-font-size: 30px;
-    --h3-font-size-m: 22px;
+    --h3-font-size-mobile: 22px;
     --h3-line-height: 30px;
-    --h3-line-height-m: 22px;
+    --h3-line-height-mobile: 22px;
     --h3-font-weight: 600;
     --h3-letter-spacing: -0.3px;
-    --h3-letter-spacing-m: 1px;
+    --h3-letter-spacing-mobile: 1px;
 
     font-family: var(--font-family-medium);
     font-size: var(--h3-font-size);
@@ -48,9 +54,9 @@
 }
 @media screen and (max-width: 425px) {
     .h3 {
-        font-size: var(--h3-font-size-m);
-        line-height: var(--h3-line-height-m);
-        letter-spacing: var(--h3-letter-spacing-m);
+        font-size: var(--h3-font-size-mobile);
+        line-height: var(--h3-line-height-mobile);
+        letter-spacing: var(--h3-letter-spacing-mobile);
     }
 }
 
