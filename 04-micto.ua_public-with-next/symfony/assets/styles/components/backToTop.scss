@@ -1,0 +1,25 @@
+@import '../vars';
+
+#back-to-top {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  background-color: white;
+  border: 1px solid $color8;
+  border-radius: 7px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.15s;
+  z-index: 15;
+  i {
+    background-size: contain;
+  }
+  &.scrolled {
+    opacity: 1;
+  }
+}

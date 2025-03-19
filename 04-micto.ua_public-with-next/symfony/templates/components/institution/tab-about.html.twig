@@ -1,0 +1,162 @@
+{# @var InstitutionUnit unit #}
+
+{% set city = unit.city %}
+{% set area = city.area %}
+{% set district = city.district %}
+{% set cityDistrict = unit.cityDistrict %}
+{% set address = unit.address %}
+
+<h3>Про заклад</h3>
+<div class="about-table">
+    <table>
+        {% if unit.fullName %}
+            <tr>
+                <td class="table-title">
+                    Повна назва
+                </td>
+                <td class="table-value">
+                    {{ unit.fullName }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if unit.type %}
+            <tr>
+                <td class="table-title">
+                    Тип закладу
+                </td>
+                <td class="table-value">
+                    {{ unit.type.name }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if unit.legalForm %}
+            <tr>
+                <td class="table-title">
+                    Форма власності
+                </td>
+                <td class="table-value">
+                    {{ ('institution.legal_form.'~unit.legalForm.name)|trans }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if unit.edrpou %}
+            <tr>
+                <td class="table-title">
+                    Код ЄДРПО
+                </td>
+                <td class="table-value">
+                    {{ unit.edrpou }}
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td class="table-title">
+                Область
+            </td>
+            <td class="table-value">
+                <a href="{{ tu_url(area) }}">{{ area.name }}</a>
+            </td>
+        </tr>
+        {% if district %}
+            <tr>
+                <td class="table-title">
+                    Район
+                </td>
+                <td class="table-value">
+                    <a href="{{ tu_url(district) }}">{{ district.name }}</a>
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td class="table-title">
+                Місто
+            </td>
+            <td class="table-value">
+                <a href="{{ tu_url(city) }}">{{ city.name }}</a>
+            </td>
+        </tr>
+        {% if cityDistrict %}
+            <tr>
+                <td class="table-title">
+                    Район міста
+                </td>
+                <td class="table-value">
+                    <a href="{{ tu_url(cityDistrict) }}">{{ cityDistrict }}</a>
+                </td>
+            </tr>
+        {% endif %}
+        {% if address %}
+            <tr>
+                <td class="table-title">
+                    Адреса
+                </td>
+                <td class="table-value">
+                    <div class="address">
+                        {{ address.zipCode ? address.zipCode + ', ' : '' }}{{ address.address }}
+
+                        {% if address.mapUrl %}
+                            (<a href="{{ address.mapUrl }}" target="_blank">показати на карті</a>)
+                        {% elseif address.latitude and address.longitude %}
+                            {% set mapLink = 'https://google.com/maps/place/' ~ address.latitude ~ ',' ~ address.longitude %}
+                            (<a href="{{ mapLink }}" target="_blank">показати на карті</a>)
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        {% if unit.schedule|length %}
+            <tr>
+                <td class="table-title">
+                    Графік роботи
+                </td>
+                <td class="table-value">
+                    {% include 'components/institution/schedule_dropdown.html.twig' with {
+                        schedule: unit.schedule
+                    } only %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if unit.phones is not empty %}
+        <tr class="contacts">
+            <td class="table-title">
+                Контакти
+            </td>
+            <td class="table-value">
+                {% for phone in unit.phones %}
+                    <div class="phone-row">
+                        <div>
+                            <a href="tel:{{ phone.number }}">{{ phone.number }}</a>
+                        </div>
+                        {% if phone.comment %}
+                            <span>{{ phone.comment }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+        {% if unit.emails %}
+        <tr class="contacts">
+            <td class="table-title">
+                E-mail
+            </td>
+            <td class="table-value">
+                {% for row in unit.emails %}
+                    <div class="email-row">
+                        <div>
+                            <a class="email" href="mailto:{{row.email}}">{{ row.email }}</a>
+                        </div>
+                        {% if row.comment %}
+                            <span>{{ row.comment }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+<div class="about-text">
+    {{ unit.description|raw }}
+</div>
+

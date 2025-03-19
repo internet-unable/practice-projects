@@ -1,0 +1,42 @@
+{% extends "layout/auth_page_layout.html.twig" %}
+
+{% form_theme form 'form/register_form_layout.html.twig' %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('registerPage') }}
+	{{ encore_entry_link_tags('createApplication') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('registerPage') }}
+	{{ encore_entry_script_tags('createApplication') }}
+{% endblock %}
+
+{% block returnButton %}{% endblock %}
+{% block closeButton %}{% endblock %}
+
+{% block title %}Додати медзаклад
+{% endblock %}
+
+{% block header %}
+	{%- include 'layout/header.html.twig' with { hasSearch: true } -%}
+{% endblock %}
+
+{% block body %}
+	<section class="text-block-wrapper">
+		<div class="text-block container">
+			<img src="{{ asset('img/heart.png') }}" alt="heart" width="127" height="127">
+			<h1 class="heading">Додайте на МІСТО.UA медзаклад, щоб про нього дізналися всі</h1>
+			<p>Доєднуйтеся до спільноти в сфері здоровʼя. Мета порталу
+				<strong>МІСТО.UA</strong>
+				- дати всім українцям без винятку безкоштовний доступ до актуальної інформації про медичні заклади України.</p>
+		</div>
+	</section>
+	<section class="container form-wrapper">
+
+		{{ render(controller('App\\Controller\\CreateInstitutionRequestController::getForm')) }}
+
+		<div id="catalog-menu-bg"></div>
+
+	</section>
+{% endblock %}

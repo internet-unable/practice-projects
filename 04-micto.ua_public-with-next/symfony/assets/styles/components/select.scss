@@ -1,0 +1,141 @@
+@import '../../../node_modules/slim-select/dist/slimselect.css';
+@import '../vars.scss';
+@import '../colors.scss';
+
+div {
+	.ss-main,
+	.ss-content,
+	.ss-list {
+		font-size: 14px;
+		&:focus {
+			box-shadow: none !important;
+		}
+	}
+	.ss-main {
+		padding: 8px 12px;
+		border-radius: 8px;
+		font-size: 14px;
+		color: $color9;
+		transition: 0.1s;
+		@include fontMediumRegular;
+		font-size: 16px;
+		border-color: $gray3;
+		min-height: 44px;
+		@media (max-width: 768px) {
+			font-size: 14px;
+		}
+		.ss-arrow {
+			height: 18px;
+			width: 20px;
+			path {
+				fill: none;
+				stroke: $gray4;
+				stroke-width: 8;
+				stroke-linecap: square;
+			}
+		}
+		.ss-values {
+			.ss-single {
+				@include fontRegular2;
+				color: $black;
+				line-height: 1;
+			}
+		}
+		&[aria-expanded='true'] {
+			border-color: $gray3;
+		}
+		&:hover {
+			@media (min-width: 768px) {
+				border-color: $color9;
+			}
+		}
+	}
+}
+.ss-content .ss-search input {
+	font-size: 14px !important;
+	&:focus {
+		outline: none;
+		border-color: $activeColor1;
+		background-color: white;
+	}
+}
+.ss-content .ss-list .ss-option.ss-highlighted,
+.ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
+	color: $color9 !important;
+	background-color: $color1 !important;
+}
+
+.ss-content .ss-list .ss-option:hover {
+	color: $color9 !important;
+	background-color: $color1 !important;
+}
+
+#comment_month_of_visit {
+	.ss-main {
+		min-width: 120px;
+		@media (max-width: 768px) {
+			min-width: 110px;
+		}
+	}
+}
+
+.ss-content {
+	border-color: $gray3;
+	.ss-list {
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: #d9d9d9;
+			border-radius: 30px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: $color5;
+			border-radius: 30px;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background: $color4;
+			cursor: grab;
+		}
+
+		@-moz-document url-prefix() {
+			scrollbar-width: thin; /* Makes the scrollbar width similar to WebKit */
+			scrollbar-color: $color5 #fff; /* Thumb color, track color */
+		}
+
+		/* Optional hover effect for Firefox */
+		&:hover {
+			@-moz-document url-prefix() {
+				scrollbar-color: $color4 #fff;
+			}
+		}
+
+		.ss-option {
+			padding: $mainStep * 1.5 $mainStep * 2;
+			color: $color9;
+			@include fontMediumRegular;
+			font-size: 16px;
+			@media (max-width: 768px) {
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+#comment_year_of_visit {
+	div .ss-main {
+		min-width: 75px;
+	}
+}
+
+.input-row:has(.ss-main):has(.error-message) {
+	.ss-main {
+		border-color: $error;
+	}
+	.error-message {
+		margin-top: 4px;
+	}
+}

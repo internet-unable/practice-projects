@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% if isExpired %}
+        <section class="error-message">
+            <h2>Термін дії посилання завершився</h2>
+            <div>Повторіть запит на зміну email</div>
+        </section>
+    {% elseif isCompleted %}
+        <section class="info-message">
+            <h2>Запит на зміну email було виконано</h2>
+        </section>
+    {% elseif isSuccess %}
+        <section class="success-message">
+            <h2>Запит на зміну email успішно виконано</h2>
+            <div>Для доступу до особистого кабінету авторизуйтесь в системі</div>
+        </section>
+    {% else %}
+        <section class="error-message">
+            <h2>Сталась помилка</h2>
+            <div>Зверніться до адміністрації порталу для її вирішення</div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+
+

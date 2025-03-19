@@ -1,0 +1,325 @@
+{# @var Institution institution #}
+{# @var InstitutionUnitDepartment[] institutionUnits #}
+
+{% extends 'base.html.twig' %}
+
+	{% block stylesheets %}
+	{{ parent() }}
+{{ encore_entry_link_tags('unit') }}
+{% endblock %}
+
+	{% block javascripts %}
+	{{ parent() }}
+{{ encore_entry_script_tags('unit') }}
+{% endblock %}{% block investorForm %}
+{% endblock %}
+
+	{% block body %}
+		<div class="unit"> {% if institution is defined and institution is not empty %}
+			{# {% include "components/ad/ad_top.html.twig" with { fixed:true } %} #}
+
+			{% set unit = institution.units.0 %}
+			{% set city = unit.city %}
+			{% set area = city.area %}
+			{% set district = city.district %}
+
+			<section class="general-info">
+				<div class="left-side">
+
+					<div class="rating">
+						<span class="total-rating">{{ institution.rating|number_format(1, '.', ',') }}</span>
+
+						<i class="star_full_rounded icon"></i>
+
+						<a class="reviews-count" href="#reviews" data-scroll-to="#review-top-row">{{ 'comment.total'|trans({'%count%': numComments}) }}</a>
+					</div>
+
+					{% include "components/tags.html.twig" with { institution: institution } %}
+
+					<h1>{{ institution.name }}</h1>
+
+					<span>{{ institution.fullName }}</span>
+
+					<div class="buttons-wrapper">
+						<a class="button primary scroll-to" href="#add-review-wrapper" data-micromodal-trigger="add-review-modal">
+							<i class="pensil white icon"></i>
+							Написати відгук
+						</a>
+						{# <button class="button secondary">Запропонувати зміни</button> #}
+					</div>
+
+					<ul
+						class="info">
+						{# {% if institution.schedule|length %}
+						                        <li class="graph">
+						                            <span>Графік</span>
+						                            {% include 'components/institution/schedule_dropdown.html.twig' with {
+						                                schedule: institution.schedule
+						                            } only %}
+						                        </li>
+						                    {% endif %}
+						                    <li  class="city">
+						                        {% include 'components/institution/city_block.html.twig' with {
+						                            city: institution.city,
+						                        } only %}
+						                    </li>
+						                    {% if institution.address and institution.address.address %}
+						                        <li class="address">
+						                            {% include 'components/institution/address_block.html.twig' with {
+						                                address: institution.address
+						                            } only %}
+						                        </li>
+						                    {% endif %} #}
+
+						{% if institution.contacts %}
+							<li class="contacts">
+								<div>
+									<span>Контакти</span>
+								</div>
+								{% include 'components/institution/contacts_block.html.twig' with {
+                                contacts: institution.contacts
+                            } only %}
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+
+				<div class="right-side">
+					<div class="images">
+						<div class="image main">
+							{% if image %}
+								<img src="{{ image }}" alt="{{ institution.name | escape('html') }}" width="364" loading="lazy">
+							{% else %}
+								<img src="{{ asset('img/no_photo.svg') }}" alt="Фото відсутнє" width="364" height="351" loading="lazy">
+							{% endif %}
+						</div>
+						{# <div class="thumb-images">
+						                        <div class="image"></div>
+						                        <div class="image"></div>
+						                        <div class="image"></div>
+						                    </div> #}
+					</div>
+				</div>
+
+			</section>
+
+			<section class="unit-tabs">
+				<ul>
+					<li class="selected">
+						<a href="#units">Підрозділи (філії)</a>
+					</li>
+					<li>
+						<a href="#about">Про заклад</a>
+					</li>
+					{#            <li>#}
+				{#                Ішні підрозділи#}
+					{#            </li>#}
+				</ul>
+				<div class="tab-content">
+					<div id="units" class="tab departments selected">
+						<h3>Підрозділи (філії)</h3>
+
+						{% include 'institution_unit/tab-units.html.twig' with {
+                        institution: institution
+                    } only %}
+					</div>
+
+					<div id="about" class="tab about">
+
+						{% if institution.hasSeveralUnits %}
+							<div class="no-info">
+								<img src="{{ asset("img/file.svg") }}" alt="Файл" loading="lazy">
+								<p>Тут буде опис про дану мережу медзакладів</p>
+							</div>
+						{% else %}
+							{% include 'components/institution/tab-about.html.twig' with {
+                            unit: unit
+                        } only %}
+						{% endif %}
+					</div>
+
+					{#            <div class="catalog">#}
+				{#                <ul class="sub-tabs">#}
+					{#                    <li>#}
+					{#                        <button class="button">Послуги</button>#}
+					{#                    </li>#}
+					{#                    <li>#}
+					{#                        <button class="button primary color-gray-1">Обладнання</button>#}
+					{#                    </li>#}
+					{#                    <li>#}
+					{#                        <button class="button primary color-gray-1">Товари</button>#}
+					{#                    </li>#}
+					{#                </ul>#}
+
+
+					{#                <div class="catalog-wrapper">#}
+					{#                    <h3>Каталог послуг</h3>#}
+
+					{#                    <input type="text" placeholder="Я хочу знайти ...">#}
+
+					{#                    <ul>#}
+					{#                        <li class="catalog-item lvl-1">#}
+					{#                            <div class="row">#}
+					{#                                <div class="title">Психотерапія</div>#}
+					{#                            </div>#}
+					{#                        </li>#}
+					{#                        <li class="catalog-item lvl-1">#}
+					{#                            <div class="row open">#}
+					{#                                <div class="title">Неврологія</div>#}
+					{#                            </div>#}
+					{#                            <ul>#}
+					{#                                <li class="catalog-item lvl-2">#}
+					{#                                    <div class="row open">#}
+					{#                                        <div class="title">Психіатрія</div>#}
+					{#                                    </div>#}
+					{#                                    <ul>#}
+					{#                                        <li class="catalog-item lvl-3">#}
+					{#                                            <div class="row">#}
+					{#                                                <div class="title">Форма власності</div>#}
+					{#                                            </div>#}
+					{#                                        </li>#}
+					{#                                        <li class="catalog-item lvl-3">#}
+					{#                                            <div class="row">#}
+					{#                                                <div class="title">Форма власності</div>#}
+					{#                                            </div>#}
+					{#                                        </li>#}
+					{#                                    </ul>#}
+					{#                                </li>#}
+					{#                                <li class="catalog-item lvl-2">#}
+					{#                                    <div class="row open">Психіатрія</div>#}
+					{#                                    <ul>#}
+					{#                                        <li class="catalog-item lvl-3">#}
+					{#                                            <div class="row last">#}
+					{#                                                <div class="title">Видалення внутрішньошлункового балона</div>#}
+					{#                                                <div class="price">1500 грн</div>#}
+					{#                                                <button class="button primary">Записатись</button>#}
+					{#                                            </div>#}
+					{#                                        </li>#}
+					{#                                        <li class="catalog-item lvl-3">#}
+					{#                                            <div class="row last">#}
+					{#                                                <div class="title">Видалення внутрішньошлункового балона</div>#}
+					{#                                                <div class="price">1500 грн</div>#}
+					{#                                                <button class="button primary">Записатись</button>#}
+					{#                                            </div>#}
+					{#                                        </li>#}
+					{#                                        <li class="catalog-item lvl-3">#}
+					{#                                            <div class="row last">#}
+					{#                                                <div class="title">Видалення внутрішньошлункового балона</div>#}
+					{#                                                <div class="price">1500 грн</div>#}
+					{#                                                <button class="button primary">Записатись</button>#}
+					{#                                            </div>#}
+					{#                                        </li>#}
+					{#                                    </ul>#}
+					{#                                </li>#}
+					{#                            </ul>#}
+					{#                        </li>#}
+					{#                        <li class="catalog-item lvl-1">#}
+					{#                            <div class="row">#}
+					{#                                <div class="title">Психотерапія</div>#}
+					{#                            </div>#}
+					{#                        </li>#}
+					{#                        <li class="catalog-item lvl-1">#}
+					{#                            <div class="row">#}
+					{#                                <div class="title">Психотерапія</div>#}
+					{#                            </div>#}
+					{#                        </li>#}
+					{#                    </ul>#}
+					{#                </div>#}
+					{#            </div>#}
+
+					{#            <div class="appointment-booking">#}
+					{#                <h3>Запис</h3>#}
+					{#                <form action="">#}
+					{#                    <div class="left-side"></div>#}
+					{#                    <div class="right-side">#}
+					{#                        <input type="text">#}
+					{#                        <input type="text">#}
+					{#                        <input type="text">#}
+					{#                        <input type="text">#}
+					{#                        <textarea name="" id="" rows="8"></textarea>#}
+					{#                    </div>#}
+					{#                </form>#}
+					{#            </div>#}
+
+					{#            <div class="branches">#}
+					{#                <h3>Інші Підрозділи (філії)</h3>#}
+
+					{#                <div class="branches-list">#}
+					{#                    <div class="branch">#}
+
+					{#                        <div class="title">Медичний центр ТзОВ Клініка репродукції людини "Альтернатива"</div>#}
+
+					{#                        <div class="tags">#}
+					{#                            <div class="specialty">Спеціальність: Травматологія</div>#}
+					{#                        </div>#}
+
+					{#                        <ul>#}
+					{#                            <li class="worktime">#}
+					{#                                <i class="clock dark"></i>#}
+					{#                                <span>Графік роботи:</span>#}
+					{#                                <div class="dropdown">#}
+					{#                                    <div class="title">#}
+					{#                                        <span>08:00 - 20:00 (сьогодні)</span>#}
+					{#                                        <i class="chevron-down dark"></i>#}
+					{#                                    </div>#}
+					{#                                    <div class="dropdown-items"></div>#}
+					{#                                </div>#}
+					{#                            </li>#}
+
+					{#                            <li class="phones">#}
+					{#                                <i class="clock dark"></i>#}
+					{#                                <span>Телефон:</span>#}
+					{#                                <div class="dropdown">#}
+					{#                                    <div class="title">#}
+					{#                                        <span>093  378  24 45</span>#}
+					{#                                        <i class="chevron-down dark"></i>#}
+					{#                                    </div>#}
+					{#                                    <div class="dropdown-items"></div>#}
+					{#                                </div>#}
+					{#                            </li>#}
+
+					{#                            <li class="address">#}
+					{#                                <i class="clock dark"></i>#}
+					{#                                <span>Адреса:</span>#}
+					{#                                <div class="full-adress">#}
+					{#                                    <span>Київ, Київська область</span>#}
+					{#                                    <span>01042</span>#}
+					{#                                    <span>бульвар Миколи Міхновського, 17А</span>#}
+					{#                                </div>#}
+					{#                            </li>#}
+					{#                        </ul>#}
+
+					{#                    </div>#}
+					{#                </div>#}
+					{#            </div>#}
+				</div>
+			</section>
+
+			{% include "components/ad/ad_middle.html.twig" %}
+
+			<section class="reviews">
+				<h2 class="title">Відгуки та питання</h2>
+
+				{{ render(controller('App\\Controller\\EntityCommentsController::getList', {
+                'entity': institution,
+            })) }}
+
+			</section>
+
+			{% include "components/comment/add_review_modal.html.twig" with { entity: institution } %}
+
+			{% include "components/comment/add_question_modal.html.twig" with { entity: institution } %}
+
+			{% include "components/comment/add_reply_modal.html.twig" with { entity: institution } %}
+
+		</div>
+		{#    {% else %}#}
+	{#        #}
+		{# TODO: Коли немає підрозділів #}
+		{#        institution.units probably is []#}
+		{#        <pre>#}
+		{#            {{ dump(institution.units) }}#}
+		{#        </pre>#}
+	{% endif %}
+
+</div>{% endblock %}

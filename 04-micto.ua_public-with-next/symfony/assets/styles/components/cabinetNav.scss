@@ -1,0 +1,31 @@
+.cabinet .menu {
+  padding: 0 16px 0 40px;
+  background: linear-gradient(90deg, #52c7f9 0%, #2abfff 100%);
+  flex: 0 0 auto;
+  min-height: calc(100vh - 138px);
+  min-width: 200px;
+  ul {
+    max-width: 200px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+    padding: 24px 0;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-flow: row nowrap;
+      &::before {
+        text-align: center;
+        width: 25px;
+        height: 25px;
+        content: '';
+        border: 1px solid black;
+        border-radius: 4px;
+      }
+      a {
+        color: black;
+      }
+    }
+  }
+}

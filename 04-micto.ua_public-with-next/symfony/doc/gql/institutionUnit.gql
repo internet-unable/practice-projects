@@ -1,0 +1,121 @@
+{
+  institutionUnit(id: 3761){
+    id
+    name
+    slug
+    description
+    edrpou
+
+    city{
+      name
+      otg{
+        name
+        district{
+          name
+          area{
+            name
+          }
+        }
+      }
+    }
+
+  	type{
+      id
+      name
+      slug
+  	}
+
+    institution{
+      id
+      name
+    }
+
+    departments(pagination: {page: 1, limit: 2}){
+      items{
+        id
+        name
+        number
+      }
+
+      pageInfo{
+        totalItems
+        totalPages
+      }
+    }
+  }
+}
+
+mutation{
+  editInstitutionUnit(id: 1, input:{
+    typeId: 123847982
+    name: "Центр сучасної естетичної стоматології NEW SMILE"
+    description:"Description"
+    fullName: "Full name"
+    edrpou: "11111112"
+
+    contacts: {
+      email: "askdjh@asd.com"
+      phones: [
+        {
+          number: "+381232131312"
+          comment: "asdasadads"
+        }
+      ]
+    }
+
+    schedule: [
+          {
+            dayOfWeek: MON
+          	startTime: "07:00"
+          	endTime: "23:00"
+          	isHoliday: false
+          },
+          {
+            dayOfWeek: TUE
+          	startTime: "07:00"
+          	endTime: "23:00"
+          	isHoliday: false
+          },
+          {
+            dayOfWeek: SUN
+          	isHoliday: true
+          }
+    ]
+
+    address: {
+      cityId: 32774
+    	cityDistrictId: 12
+      address: "ул. Хрещатик, 58"
+      zipCode: "75-500"
+      lat: "58.132213312"
+      lon: "14.132213312"
+    }
+
+  }){
+    id
+    name
+    fullName
+    description
+    city{
+      name
+    }
+    cityDistrict{
+      name
+    }
+
+    contacts{
+      email
+      phones{
+        number
+        comment
+      }
+    }
+
+    schedule{
+      startTime
+      endTime
+      dayOfWeek
+      isHoliday
+    }
+  }
+}

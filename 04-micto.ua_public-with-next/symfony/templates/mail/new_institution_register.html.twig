@@ -1,0 +1,101 @@
+{% extends '/mail/base.html.twig' %}
+{% trans_default_domain 'mail' %}
+
+{% block body %}
+
+	<table class="registration">
+		<tr>
+			<td>
+				<h1>Заявка на створення медзакладу</h1>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<h2 style="margin-top:40px">Про заклад</h2>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<p>
+					Повна назва:
+					{{ formData.step1Data.fullName }}
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+					Тип власності:
+					{{ ('ownership_form.' ~ formData.step1Data.ownershipForm.name | lower) | trans() }}
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+					Код ЄДРПОУ:
+					{{ formData.step1Data.edrpou }}
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+					Про заклад:
+					{{ formData.step1Data.about|default('Не вказано') }}
+				</p>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<h2 style="margin-top:40px">Користувач</h2>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<p>
+					Ім'я:
+					{{ formData.step2Data.firstName }}
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+					Прізвище:
+					{{ formData.step2Data.lastName }}
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+					Телефон:
+					{{ formData.step2Data.phone }}
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+					E-mail:
+					{{ formData.step2Data.email }}
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+					Позиція:
+					{{ formData.step2Data.position|default('Не вказано') }}
+				</p>
+			</td>
+		</tr>
+
+	</table>
+
+{% endblock %}

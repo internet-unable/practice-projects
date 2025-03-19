@@ -1,0 +1,19 @@
+user:
+  plural_title: Users
+  single_title: User
+  first_name: First name
+  last_name: Last name
+  middle_name: Middle name
+  password: Password
+  password_repeat: Password repeat
+  email: E-mail
+  is_active: Is active
+  is_admin: Is admin
+  is_institution: Is institution
+
+role:
+  plural_title: Roles
+  single_title: Role
+  code: Code
+  description: Description
+  permissions: Permissions

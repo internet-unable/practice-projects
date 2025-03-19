@@ -1,0 +1,6 @@
+doctrine_migrations:
+    migrations_paths:
+        'DoctrineMigrations': '%kernel.project_dir%/migrations'
+        # todo: use AbstractDoctrineMigrationConfiguration
+        'UserBundleMigrations': '@UserBundle/Migrations'
+    enable_profiler: false

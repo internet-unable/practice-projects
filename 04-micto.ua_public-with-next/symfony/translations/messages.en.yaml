@@ -1,0 +1,79 @@
+common:
+  label:
+    email: 'e-mail'
+    phone: 'Phone'
+
+nav:
+  home: Home
+
+settlements:
+  otg: 'ОТГ'
+  full:
+    area: 'область'
+    district: 'pайон'
+  short:
+    area: 'обл.'
+    district: 'p-н'
+
+city:
+  types:
+    full:
+      special: 'місто'
+      city: 'місто'
+      village: 'село'
+      village_s: 'селище'
+      smt: 'смт.'
+    short:
+      special: 'м.'
+      city: 'м.'
+      village: 'с.'
+      village_s: 'с-ще'
+      smt: 'смт.'
+
+institution:
+  ownership:
+    STATE: 'State'
+    PRIVATE: 'Private'
+    COLLECTIVE: 'Collective'
+
+institution_unit:
+  title: 'Unit'
+
+comment:
+  no_comments: 'No comments yet'
+  reply: 'Reply'
+  type:
+    QUESTION: 'Question'
+    REVIEW: 'Review'
+    REPLY: 'Reply'
+    COMPLAINT: 'Complaint'
+    GRATITUDE: 'Gratitude'
+  form:
+    type: 'Type'
+    name: 'Name'
+    text:
+      label: 'Comment'
+      placeholder: 'Share your impressions after visiting the clinic'
+    mark: 'Mark'
+    submit_btn: 'Send'
+
+schedule:
+  today: today
+  day:
+    MON: Monday
+    TUE: Tuesday
+    WED: Wednesday
+    THU: Thursday
+    FRI: Friday
+    SAT: Saturday
+    SUN: Sunday
+  day_short:
+    MON: Mon
+    TUE: Tue
+    WED: Wed
+    THU: Thu
+    FRI: Fri
+    SAT: Sat
+    SUN: Sun
+  holiday: Day off
+  around_the_clock: 'Around the clock'

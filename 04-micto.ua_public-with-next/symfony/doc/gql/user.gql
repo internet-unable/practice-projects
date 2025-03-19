@@ -1,0 +1,73 @@
+mutation{
+    login(
+        userName:"manager@micto.test"
+        password:"q2w3e4r5"
+    ){
+        userName
+    }
+}
+
+{
+  user{
+    id
+    firstName
+    lastName
+    middleName
+    userName
+    roles
+    contacts{
+      email
+      phones{
+        number
+      }
+    }
+
+    doctorProfile{
+      position
+    }
+  }
+}
+
+mutation {
+  editMyProfile(
+    input:{
+      firstName: "First name"
+      lastName: "adasdj"
+      middleName: "jkhkj"
+  	  contacts:{
+        email: "new@email.com"
+        phones:[{
+          number: "+48536212645"
+        }]
+      }
+
+      newPassword: {
+        password: "12345678"
+        passwordConfirm: "12345678"
+      }
+
+      doctorProfile: {
+        position: "Position 2"
+        photo: "/path/to/photo"
+      }
+    }
+  ){
+    id
+    firstName
+    lastName
+    middleName
+    userName
+    roles
+    contacts{
+      email
+      phones{
+        number
+      }
+    }
+
+    doctorProfile{
+      position
+      photo
+    }
+  }
+}

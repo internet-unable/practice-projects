@@ -1,0 +1,18 @@
+{% extends 'layout/psychologist_page.html.twig' %}
+
+{% block customSeoTags %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block body %}
+
+    <div class="psychologist-page">
+        <div class="success">
+            <h1>Дякую Вам за заявку</h1>
+            <img src="{{ asset('img/psychologist/ok.svg') }}" alt="ok" loading="lazy">
+            <div class="text">Мій помічник скоро звʼяжеться з Вами та проконсультує Вас стосовно подальших кроків.</div>
+            <a href="/">на головну</a>
+        </div>
+    </div>
+
+{% endblock %}

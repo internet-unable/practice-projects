@@ -1,0 +1,17 @@
+{# @var float rating #}
+
+<div class="stars">
+    {% for i in 1..5 %}
+        {% if rating >= i %}
+            <i class="star-full icon"></i>
+        {% else %}
+            <i class="star-empty icon"></i>
+        {% endif %}
+    {% endfor %}
+
+    {% if hideNumber is not defined or not hideNumber %}
+    <span>
+        {{ rating|number_format(1, '.', ',') }}
+    </span>
+    {% endif %}
+</div>

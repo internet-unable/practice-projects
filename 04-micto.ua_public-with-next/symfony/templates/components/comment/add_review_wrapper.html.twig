@@ -1,0 +1,25 @@
+<div class="add-review-wrapper" id="add-review-wrapper">
+    <div class="block-content">
+        <div class="toggle-form-wrapper">
+            <div class="text">
+                Напишіть свій відгук про цей заклад
+            </div>
+            <button class="button primary" data-micromodal-trigger="add-review-modal">
+                <i class="pensil white icon"></i>
+                Залишити відгук
+            </button>
+        </div>
+
+        {% include "components/comment/add_review_modal.html.twig" with { 'form': form }  %}
+
+        {# {% if app.user %}
+        {% else %}
+            <div class="not-signed-up">
+                <div>{{ 'comment.no_comments_1'|trans }}</div>
+                <div>{{ 'comment.no_comments_2'|trans }}</div>
+                <button class="button primary" data-micromodal-trigger="sign-up-modal">Увійти / Реєстрація</button>
+            </div>
+        {% endif %} #}
+    </div>
+</div>
+

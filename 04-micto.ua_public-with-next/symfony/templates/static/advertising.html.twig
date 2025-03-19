@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('static') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('static') }}
+{% endblock %}
+
+{% block body %}
+    <section class="advertising">
+        <div class="block-title">
+            <h1 class="main-title">Реклама на MICTO.UA</h1>
+        </div>
+
+        <div class="col-2 row">
+            <div class="info-text col">
+                <p>Вітаємо на МІСТО.ЮА, найбільшому онлайн-каталозі медичних закладів України, створеному у співпраці з Міністерством охорони здоров’я України.</p>
+                <p>Наш портал є джерелом важливої контактної інформації та чесних відгуків про державні та комунальні медичні заклади України.</p>
+            </div>
+            <div class="image col">
+                <img class="statictics" src="{{ asset('/img/static/statictics-05-24.png') }}" alt="статистика за травень 2024">
+            </div>
+        </div>
+
+        <div class="col-2 row">
+            <div class="info-text col">
+                <h3>Чому варто рекламуватися на порталі МІСТО?</h3>
+            </div>
+        </div>
+
+        <div class="col-2 row">
+            <div class="info-text col why-advertise-here">
+                <p><strong>Цільова аудиторія:</strong> жінки (~70%) та чоловіки (~30%) віком від 30 років.</p>
+                <p>Наші відвідувачі — це люди, які активно цікавляться медичними послугами, що робить MICTO.UA ідеальним місцем для рекламування медичних товарів та послуг, клінік і приватних лікарів.</p>
+                <p><strong>Високий трафік:</strong> Щомісяця наш сайт відвідує понад 250.000 унікальних користувачів, що забезпечує високу видимість вашої реклами.</p>
+                <p>~8000 відвідувань/день</p>
+                <p><strong>Гнучкі рекламні рішення:</strong> Ми пропонуємо різноманітні формати реклами, включаючи:</p>
+                <p><strong>Банери різних розмірів</strong> — розміщуйте вашу рекламу у вигляді горизонтальних стрічок або середніх прямокутників на ключових сторінках сайту.</p>
+                <p><strong>Відео банери</strong> — залучайте аудиторію за допомогою динамічних відеороликів.</p>
+                <p><strong>Ексклюзивні умови</strong> — можливість стати єдиним рекламодавцем на сайті.</p>
+                <p><strong>Цільова реклама</strong> — фокусуйте ваші рекламні кампанії на специфічних типах клінік, наприклад, зосереджених на репродуктивному здоров’ї.</p>
+            </div>
+        </div>
+
+        <div class="info-text media-kit">
+                <h2>Медіа кіт проєкту</h2>
+
+                <div class="info-text">
+                    <div data-block="sliders-about" class="slider-kit">
+                        <div id="sliders-presentation" class="sliders-list">
+                            <div class="about-slider">
+                                <div class="swiper" id="sliders-presentation">
+                                    <div class="swiper-wrapper">
+                                        {% for i in 1..18 %}
+                                            <div class="swiper-slide">
+                                                <img
+                                                    src="{{ asset('/advertising/presentation_uk_' ~ "%02d"|format(i) ~ '.webp') }}"
+                                                    alt="Завантажити PDF медіа кіт" 
+                                                    loading="lazy">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="presentation-link">
+                            <a class="line-active" href="{{ asset('/advertising/presentation_uk.pdf') }}" title="Завантажити PDF медіа кіт" target="_blank">Завантажити PDF медіа кіт</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-2 row more-info">
+            <div class="info-text col">
+                <h3>Готові дізнатися більше?</h3>
+                <p>Зв’яжіться з нами зараз, щоб обговорити як ми можемо допомогти вам досягти вашої цільової аудиторії через ефективні рекламні стратегії.</p>
+                <div class="contacts">
+                    <p><strong>Менеджер проєкту:</strong> Михайло Данилов</p>
+                    <p><strong>Телефон:</strong> <a class="line-active" href="tel:+0730746476">073 074 64 76</a></p>
+                    <p><strong>Email:</strong> <a class="line-active" href="mailto:m.michael@soft.ua">m.michael@soft.ua</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-link-wrapper">
+            <button data-micromodal-trigger="investor-modal" class="button primary contact-button">Стати інвестором проєкту</button>
+        </div>
+    </section>
+
+{% endblock %}

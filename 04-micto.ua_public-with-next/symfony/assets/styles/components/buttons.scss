@@ -1,0 +1,274 @@
+@import '../vars.scss';
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: $mainStep;
+	width: fit-content;
+	background-color: $color5;
+	border: 2px solid $color5;
+	color: #fff;
+	font-size: 16px;
+	line-height: 24px;
+	border-radius: $mainStep;
+	padding: $mainStep - 2 $mainStep * 3;
+	cursor: pointer;
+	transition: 0.3s;
+	transform: scale(1);
+	height: 50px;
+	letter-spacing: -0.01em;
+
+	@media (max-width: 768px) {
+		height: 48px;
+	}
+
+	&:hover {
+		background-color: $color4;
+		border-color: $color4;
+		text-decoration: none;
+		color: $white;
+	}
+
+	&:active {
+		transform: scale(0.98);
+	}
+
+	&.loading {
+		opacity: 0.7;
+		&:not(.plain-text) {
+			&::before {
+				animation: none;
+				border: 0;
+				border-radius: 7px;
+				z-index: 1;
+				height: 100%;
+				width: 100%;
+				background-color: $color5;
+				left: 0;
+				top: 0;
+			}
+			&::after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: calc(50% - 15px);
+				left: calc(50% - 15px);
+				pointer-events: none;
+				width: 30px;
+				padding: 4px;
+				aspect-ratio: 1;
+				border-radius: 50%;
+				background: currentColor;
+				--_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+				-webkit-mask: var(--_m);
+				mask: var(--_m);
+				-webkit-mask-composite: source-out;
+				mask-composite: subtract;
+				animation: l3 1s infinite linear;
+				opacity: 1;
+
+				@keyframes l3 {
+					to {
+						transform: rotate(1turn);
+					}
+				}
+			}
+		}
+		&.plain-text {
+			&::after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 2px;
+				right: -32px;
+				opacity: 0;
+				pointer-events: none;
+				width: 20px;
+				padding: 4px;
+				aspect-ratio: 1;
+				border-radius: 50%;
+				background: currentColor;
+				--_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+				-webkit-mask: var(--_m);
+				mask: var(--_m);
+				-webkit-mask-composite: source-out;
+				mask-composite: subtract;
+				animation: l3 1s infinite linear;
+				opacity: 1;
+
+				@keyframes l3 {
+					to {
+						transform: rotate(1turn);
+					}
+				}
+			}
+		}
+	}
+
+	&.primary {
+		background-color: $color5;
+		color: $white;
+
+		&:hover {
+			background-color: $color4;
+			border-color: $color4;
+			color: $white;
+		}
+
+		&:active {
+			background-color: $color7;
+			border-color: $color7;
+		}
+
+		&.color-9 {
+			background-color: $color9;
+			border-color: $color9;
+			color: $white;
+
+			&:hover {
+				background-color: $color8;
+				border-color: $color8;
+				color: $white;
+			}
+		}
+
+		&.color-20 {
+			background-color: $color20;
+			border-color: $color20;
+			color: $white;
+		}
+
+		&.color-1 {
+			background-color: $color1;
+			border-color: $color1;
+			color: $color5;
+
+			&:hover {
+				background-color: $color3;
+				border-color: $color3;
+				color: $color9;
+			}
+		}
+
+		&.color-2 {
+			background-color: $color23;
+			border-color: $color23;
+			color: $black;
+
+			&:hover {
+				background-color: $color3;
+				border-color: $color3;
+				color: $black;
+			}
+		}
+
+		&.purple-1 {
+			background-color: $purple1;
+			border-color: $purple1;
+			color: $white;
+
+			&:hover {
+				background-color: $purple2;
+				border-color: $purple2;
+				color: $white;
+			}
+		}
+
+		&.color-gray-1 {
+			background-color: $gray2;
+			border-color: $gray2;
+			color: $color9;
+
+			&:hover {
+				background-color: $gray3;
+				border-color: $gray3;
+				color: $color9;
+			}
+		}
+	}
+
+	&.secondary {
+		background-color: $white;
+		color: $color5;
+		border: 1px solid $color5;
+
+		&:hover {
+			background-color: $color5;
+			color: $white;
+		}
+
+		&:active {
+			background-color: $color7;
+			border-color: $color7;
+		}
+
+		&.color-9 {
+			color: $color9;
+			border: 1px solid $color9;
+
+			&:hover {
+				background-color: $color9;
+				color: $white;
+			}
+		}
+	}
+
+	&.plain-text {
+		border: 0;
+		background-color: transparent;
+		padding: 0;
+
+		* {
+			pointer-events: none;
+		}
+
+		&:hover {
+			border: 0;
+			background-color: transparent;
+			color: $color5;
+		}
+
+		&:active {
+			background-color: transparent;
+			color: $color5;
+		}
+
+		&.color-9 {
+			color: $color9;
+
+			&:hover {
+				background-color: transparent;
+				color: $color9;
+			}
+
+			&:active {
+				background-color: transparent;
+				color: $color9;
+			}
+		}
+	}
+}
+
+.button.menu {
+	background-color: transparent;
+	border: 0;
+	color: $black;
+	padding: 0;
+	width: 24px;
+	height: 24px;
+}
+
+button.more {
+	height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 300px;
+	margin: auto;
+	margin-top: $mainStep * 3;
+	@media (max-width: 768px) {
+		height: 48px;
+	}
+}

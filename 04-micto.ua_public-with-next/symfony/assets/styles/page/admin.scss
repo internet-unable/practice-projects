@@ -1,0 +1,31 @@
+.actions-wrapper {
+    display: flex;
+    gap: 24px;
+    i {
+        &::before {
+            font-size: 18px;
+        }
+    }
+}
+
+.disabled.locked {
+    pointer-events: none !important;
+}
+
+.content-header-title {
+    flex: 0 1 fit-content;
+    .content-panel-footer {
+        width: 100%;
+    }
+}
+.page-actions {
+    flex: 1 1 auto;
+    .list-pagination-counter {
+        margin-right: auto;
+        margin-top: auto;
+    }
+}
+
+td[data-column="text"] span {
+    word-break: break-all;;
+}

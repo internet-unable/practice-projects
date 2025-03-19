@@ -1,0 +1,13 @@
+{% if units is defined and units is not empty %}
+    {% for unit in units %}
+        <div class="institution">
+            <i class="icon gov"></i>
+            <div class="name">{{ unit.name }}</div>
+            <a href="{{ institution_unit_url(unit) }}" class="primary button">Детальніше</a>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="institution">
+        <div class="name">Нічого не знайдено...</div>
+    </div>
+{% endif %}

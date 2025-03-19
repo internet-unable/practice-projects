@@ -1,0 +1,14 @@
+{# @var City city #}
+{% set district = city.district %}
+
+<div class="city">
+    {% if district is not null %}
+        <span>Місто, район</span>
+        <span class="value">
+            {{ city.name }}, {{ district.name }}
+        </span>
+    {% else %}
+        <span>Місто</span>
+        <span class="value">{{ city.name }}</span>
+    {% endif %}
+</div>

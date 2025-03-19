@@ -1,0 +1,35 @@
+{# @var User user #}
+{# @var FormView form #}
+{% extends 'cabinet/cabinet.html.twig' %}
+
+{% block cabinet_content %}
+    <div class="personal-info">
+        <h1 class="cabinet-content__title">Редагування пресональної інформації</h1>
+
+        <div class="personal-info__form">
+            {{ form_start(form) }}
+
+            <div>
+                <h2>Дані користувача</h2>
+                {{ form_row(form.user.email) }}
+                {{ form_row(form.user.firstName) }}
+                {{ form_row(form.user.lastName) }}
+                {{ form_row(form.user.middleName) }}
+            </div>
+
+            {% if form.doctorProfile is defined %}
+            <div>
+                <h2>Профіль лікаря</h2>
+                {{ form_row(form.doctorProfile.position) }}
+                {{ form_row(form.doctorProfile.photo) }}
+            </div>
+            {% endif %}
+
+            <div class="mt-20">
+                {{ form_widget(form.submit, {'attr':{'class':'btn btn--primary'}}) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

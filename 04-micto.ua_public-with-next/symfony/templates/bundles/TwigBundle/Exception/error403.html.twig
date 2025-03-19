@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="error">
+        <div class="text-block">
+            <h1>403</h1>
+            <div class="title">Доступ заборонено !</div>
+            <div class="text">Вибачте, у вас немає доступу до цієї сторінки.</div>
+            <a class="button contact-button" target="_blank" href="/">На головну сторінку</a>
+        </div>
+    </section>
+{% endblock %}

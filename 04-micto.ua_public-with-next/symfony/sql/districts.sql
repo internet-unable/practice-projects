@@ -1,0 +1,57 @@
+-- MySQL dump 10.13  Distrib 5.7.39, for Linux (x86_64)
+--
+-- Host: localhost    Database: micto
+-- ------------------------------------------------------
+-- Server version	5.7.39
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `districts`
+--
+
+DROP TABLE IF EXISTS `districts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `districts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `area_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `katottg` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `old_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `area_id_idx` (`area_id`),
+  CONSTRAINT `fk_districts_area_id_areas_id` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `districts`
+--
+
+LOCK TABLES `districts` WRITE;
+/*!40000 ALTER TABLE `districts` DISABLE KEYS */;
+INSERT INTO `districts` VALUES (1,12,'Алчевський','alchevskyi-rn','UA44020000000082097',917),(2,5,'Бахмутський','bakhmutskyi-rn','UA14020000000013572',918),(3,1,'Бахчисарайський','bakhchysaraiskyi-rn','UA01020000000022387',919),(4,14,'Баштанський','bashtanskyi-rn','UA48020000000033544',920),(5,6,'Бердичівський','berdychivskyi-rn','UA18020000000072859',921),(6,8,'Бердянський','berdianskyi-rn','UA23020000000032289',922),(7,7,'Берегівський','berehivskyi-rn','UA21020000000051405',923),(8,15,'Березівський','berezivskyi-rn','UA51020000000097683',924),(9,21,'Бериславський','beryslavskyi-rn','UA65020000000032929',925),(10,15,'Білгород-Дністровський','bilhorod-dnistrovskyi-rn','UA51040000000032911',926),(11,1,'Білогірський','bilohirskyi-rn','UA01040000000069938',927),(12,10,'Білоцерківський','bilotserkivskyi-rn','UA32020000000057002',928),(13,20,'Богодухівський','bohodukhivskyi-rn','UA63020000000066931',929),(14,15,'Болградський','bolhradskyi-rn','UA51060000000057808',930),(15,10,'Бориспільський','boryspilskyi-rn','UA32040000000054694',931),(16,10,'Броварський','brovarskyi-rn','UA32060000000012455',932),(17,10,'Бучанський','buchanskyi-rn','UA32080000000084076',933),(18,17,'Вараський','varaskyi-rn','UA56020000000011586',934),(19,8,'Василівський','vasylivskyi-rn','UA23040000000067730',935),(20,9,'Верховинський','verkhovynskyi-rn','UA26020000000044654',936),(21,24,'Вижницький','vyzhnytskyi-rn','UA73020000000038148',937),(22,10,'Вишгородський','vyshhorodskyi-rn','UA32100000000065867',938),(23,2,'Вінницький','vinnytskyi-rn','UA05020000000026686',939),(24,14,'Вознесенський','voznesenskyi-rn','UA48040000000011780',940),(25,5,'Волноваський','volnovaskyi-rn','UA14040000000098211',941),(26,3,'Володимир-Волинський','volodymyr-volynskyi-rn','UA07020000000048211',942),(27,2,'Гайсинський','haisynskyi-rn','UA05040000000050292',943),(28,21,'Генічеський','henicheskyi-rn','UA65040000000088940',944),(29,11,'Голованівський','holovanivskyi-rn','UA35020000000074289',945),(30,5,'Горлівський','horlivskyi-rn','UA14060000000024357',946),(31,1,'Джанкойський','dzhankoiskyi-rn','UA01060000000028159',947),(32,4,'Дніпровський','dniprovskyi-rn','UA12020000000052809',948),(33,24,'Дністровський','dnistrovskyi-rn','UA73040000000031528',949),(34,12,'Довжанський','dovzhanskyi-rn','UA44040000000032820',950),(35,5,'Донецький','donetskyi-rn','UA14080000000098686',951),(36,13,'Дрогобицький','drohobytskyi-rn','UA46020000000075920',952),(37,17,'Дубенський','dubenskyi-rn','UA56040000000062179',953),(38,1,'Євпаторійський','yevpatoriiskyi-rn','UA01080000000090798',954),(39,6,'Житомирський','zhytomyrskyi-rn','UA18040000000058965',955),(40,2,'Жмеринський','zhmerynskyi-rn','UA05060000000061926',956),(41,8,'Запорізький','zaporizkyi-rn','UA23060000000070350',957),(42,23,'Звенигородський','zvenyhorodskyi-rn','UA71020000000057292',958),(43,23,'Золотоніський','zolotoniskyi-rn','UA71040000000022553',959),(44,13,'Золочівський','zolochivskyi-rn','UA46040000000069196',960),(45,9,'Івано-Франківський','ivano-frankivskyi-rn','UA26040000000044761',961),(46,15,'Ізмаїльський','izmailskyi-rn','UA51080000000061776',962),(47,20,'Ізюмський','izumskyi-rn','UA63040000000023521',963),(48,9,'Калуський','kaluskyi-rn','UA26060000000042554',964),(49,5,'Кальміуський','kalmiuskyi-rn','UA14100000000010319',965),(50,22,'Кам’янець-Подільський','kamianets-podilskyi-rn','UA68020000000016021',966),(51,4,'Кам’янський','kamianskyi-rn','UA12040000000032213',967),(52,3,'Камінь-Каширський','kamin-kashyrskyi-rn','UA07040000000026412',968),(53,21,'Каховський','kakhovskyi-rn','UA65060000000061947',969),(54,1,'Керченський','kerchenskyi-rn','UA01100000000047924',970),(55,3,'Ковельський','kovelskyi-rn','UA07060000000092268',971),(56,9,'Коломийський','kolomyiskyi-rn','UA26080000000050130',972),(57,18,'Конотопський','konotopskyi-rn','UA59020000000081905',973),(58,6,'Коростенський','korostenskyi-rn','UA18060000000021754',974),(59,25,'Корюківський','korukivskyi-rn','UA74020000000089267',975),(60,9,'Косівський','kosivskyi-rn','UA26100000000092255',976),(61,5,'Краматорський','kramatorskyi-rn','UA14120000000070232',977),(62,20,'Красноградський','krasnohradskyi-rn','UA63060000000053698',978),(63,19,'Кременецький','kremenetskyi-rn','UA61020000000016944',979),(64,16,'Кременчуцький','kremenchutskyi-rn','UA53020000000034761',980),(65,4,'Криворізький','kryvorizkyi-rn','UA12060000000022633',981),(66,11,'Кропивницький','kropyvnytskyi-rn','UA35040000000034705',982),(67,20,'Куп’янський','kupianskyi-rn','UA63080000000032022',983),(68,1,'Курманський','kurmanskyi-rn','UA01120000000061837',984),(69,20,'Лозівський','lozivskyi-rn','UA63100000000059237',985),(70,16,'Лубенський','lubenskyi-rn','UA53040000000081308',986),(71,12,'Луганський','luhanskyi-rn','UA44060000000048093',987),(72,3,'Луцький','lutskyi-rn','UA07080000000034745',988),(73,13,'Львівський','lvivskyi-rn','UA46060000000042587',989),(74,5,'Маріупольський','mariupolskyi-rn','UA14140000000070889',990),(75,8,'Мелітопольський','melitopolskyi-rn','UA23080000000090746',991),(76,14,'Миколаївський','mykolaivskyi-rn','UA48060000000094390',992),(77,16,'Миргородський','myrhorodskyi-rn','UA53060000000045271',993),(78,2,'Могилів-Подільський','mohyliv-podilskyi-rn','UA05080000000040234',994),(79,7,'Мукачівський','mukachivskyi-rn','UA21040000000077329',995),(80,9,'Надвірнянський','nadvirnianskyi-rn','UA26120000000036058',996),(81,25,'Ніжинський','nizhynskyi-rn','UA74040000000028062',997),(82,4,'Нікопольський','nikopolskyi-rn','UA12080000000023578',998),(83,25,'Новгород-Сіверський','novhorod-siverskyi-rn','UA74060000000063946',999),(84,6,'Новоград-Волинський','novohrad-volynskyi-rn','UA18080000000016657',1000),(85,4,'Новомосковський','novomoskovskyi-rn','UA12100000000039307',1001),(86,11,'Новоукраїнський','novoukrainskyi-rn','UA35060000000086172',1002),(87,10,'Обухівський','obukhivskyi-rn','UA32120000000081110',1003),(88,15,'Одеський','odeskyi-rn','UA51100000000095786',1004),(89,11,'Олександрійський','oleksandriiskyi-rn','UA35080000000062763',1005),(90,18,'Охтирський','okhtyrskyi-rn','UA59040000000045652',1006),(91,4,'Павлоградський','pavlohradskyi-rn','UA12120000000089862',1007),(92,14,'Первомайський','pervomaiskyi-rn','UA48080000000082320',1008),(93,1,'Перекопський','perekopskyi-rn','UA01140000000010124',1009),(94,15,'Подільський','podilskyi-rn','UA51120000000021678',1010),(95,5,'Покровський','pokrovskyi-rn','UA14160000000061982',1011),(96,8,'Пологівський','polohivskyi-rn','UA23100000000034132',1012),(97,16,'Полтавський','poltavskyi-rn','UA53080000000068029',1013),(98,25,'Прилуцький','prylutskyi-rn','UA74080000000030554',1014),(99,7,'Рахівський','rakhivskyi-rn','UA21060000000059475',1015),(100,17,'Рівненський','rivnenskyi-rn','UA56060000000041446',1016),(101,12,'Ровеньківський','rovenkivskyi-rn','UA44080000000045512',1017),(102,15,'Роздільнянський','rozdilnianskyi-rn','UA51140000000094970',1018),(103,18,'Роменський','romenskyi-rn','UA59060000000086008',1019),(104,13,'Самбірський','sambirskyi-rn','UA46080000000017237',1020),(105,17,'Сарненський','sarnenskyi-rn','UA56080000000096146',1021),(106,12,'Сватівський','svativskyi-rn','UA44100000000052765',1022),(107,12,'Сєвєродонецький','sievierodonetskyi-rn','UA44120000000092852',1023),(108,4,'Синельниківський','synelnykivskyi-rn','UA12140000000011720',1024),(109,1,'Сімферопольський','simferopolskyi-rn','UA01160000000090126',1025),(110,21,'Скадовський','skadovskyi-rn','UA65080000000090947',1026),(111,12,'Старобільський','starobilskyi-rn','UA44140000000031142',1027),(112,13,'Стрийський','stryiskyi-rn','UA46100000000023056',1028),(113,18,'Сумський','sumskyi-rn','UA59080000000057897',1029),(114,19,'Тернопільський','ternopilskyi-rn','UA61040000000090285',1030),(115,2,'Тульчинський','tulchynskyi-rn','UA05100000000022396',1031),(116,7,'Тячівський','tiachivskyi-rn','UA21080000000048851',1032),(117,7,'Ужгородський','uzhhorodskyi-rn','UA21100000000055073',1033),(118,23,'Уманський','umanskyi-rn','UA71060000000030325',1034),(119,10,'Фастівський','fastivskyi-rn','UA32140000000020217',1035),(120,1,'Феодосійський','feodosiiskyi-rn','UA01180000000068971',1036),(121,20,'Харківський','kharkivskyi-rn','UA63120000000091135',1037),(122,21,'Херсонський','khersonskyi-rn','UA65100000000029736',1038),(123,22,'Хмельницький','khmelnytskyi-rn','UA68040000000086061',1039),(124,2,'Хмільницький','khmilnytskyi-rn','UA05120000000017020',1040),(125,7,'Хустський','khustskyi-rn','UA21120000000022889',1041),(126,13,'Червоноградський','chervonohradskyi-rn','UA46120000000057093',1042),(127,23,'Черкаський','cherkaskyi-rn','UA71080000000036344',1043),(128,24,'Чернівецький','chernivetskyi-rn','UA73060000000061247',1044),(129,25,'Чернігівський','chernihivskyi-rn','UA74100000000047140',1045),(130,19,'Чортківський','chortkivskyi-rn','UA61060000000068766',1046),(131,20,'Чугуївський','chuhuivskyi-rn','UA63140000000096278',1047),(132,22,'Шепетівський','shepetivskyi-rn','UA68060000000040570',1048),(133,18,'Шосткинський','shostkynskyi-rn','UA59100000000036457',1049),(134,12,'Щастинський','shchastynskyi-rn','UA44160000000057142',1050),(135,13,'Яворівський','yavorivskyi-rn','UA46140000000036328',1051),(136,1,'Ялтинський','yaltynskyi-rn','UA01200000000063976',1052);
+/*!40000 ALTER TABLE `districts` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-12-08 11:38:23

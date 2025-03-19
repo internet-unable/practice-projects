@@ -1,0 +1,185 @@
+@import "../colors.scss";
+@import "../vars";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$ubuntu-font-path: "../../fonts/Ubuntu/";
+$inter-font-path: "../../fonts/Inter/";
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 215 20.2% 65.1%;
+    --radius: 0.5rem;
+    --color1: #e6f7fe;
+    --color2: #b5e7fd;
+    --color3: #84d7fb;
+    --color4: #52c7f9;
+    --color5: #007dcf;
+    --color6: #079dde;
+    --color7: #067aad;
+    --color8: #04577b;
+    --color9: #02344a;
+    --color10: #000305;
+    --color11: #e0ebf5;
+    --color12: #b9d2e9;
+    --color13: #92b8dd;
+    --color14: #6b9fd1;
+    --color15: #4486c5;
+    --color16: #336ca3;
+    --color17: #27527d;
+    --color18: #0f1f2f;
+    --color19: #e1f3fc;
+    --color20: #00416b;
+    --color21: #6bc4ff;
+    --color22: #005f9e;
+    --color23: #9ed9ff;
+    --color24: #f0f9fe;
+    --hover: #059cff;
+    --white: #fff;
+    --black: #000305;
+    --success: #aadd77;
+    --success2: #76ca66;
+    --info: #a0c3ff;
+    --warning: #fbc756;
+    --error: #e0625f;
+    --bgError: #f9e2e1;
+
+    --gray1: #f3f4f6;
+    --gray2: #d1d5db;
+    --gray3: #9ca3af;
+    --gray4: #6b7280;
+    --gray5: #4b5563;
+    --gray6: #374151;
+    --gray7: #1f2937;
+
+    --purple1: #5d4181;
+    --purple2: #8e68c0;
+    --purpleBG: #bb95eb33;
+
+    --orange1: #fbc756;
+
+    --bg-color: #f8f9fa;
+
+    --default-round: 7px;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 216 34% 17%;
+  }
+
+  @font-face {
+    src: url($ubuntu-font-path + "Ubuntu-Regular.woff2") format("woff2");
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+    src: url($ubuntu-font-path + "Ubuntu-Bold.woff2") format("woff2");
+    font-family: "Ubuntu Bold";
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    src: url($ubuntu-font-path + "Ubuntu-Medium.woff2") format("woff2");
+    font-family: "Ubuntu Medium";
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  @font-face {
+    src: url($inter-font-path + "Inter-Regular.woff2") format("woff2");
+    font-family: "Inter";
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+    src: url($inter-font-path + "Inter-Medium.woff2") format("woff2");
+    font-family: "Inter Medium";
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  @font-face {
+    src: url($inter-font-path + "Inter-Bold.woff2") format("woff2");
+    font-family: "Inter Bold";
+    font-weight: 400;
+    font-display: swap;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  [data-selected] {
+    @apply bg-white rounded-[7px];
+  }
+
+  [data-selected]:hover {
+    @apply bg-[#f3f4f6];
+  }
+  .min-h-calc {
+    min-height: calc(100dvh - 319px);
+  }
+}
+
+input[type="time"]::-webkit-outer-spin-button,
+input[type="time"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="time"]::-moz-calendar {
+  display: none;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}

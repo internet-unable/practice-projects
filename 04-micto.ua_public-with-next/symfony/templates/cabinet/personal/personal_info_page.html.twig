@@ -1,0 +1,43 @@
+{# @var User user #}
+{# @var DoctorProfile doctorProfile #}
+{% extends 'cabinet/cabinet.html.twig' %}
+
+{% block cabinet_content %}
+    <div class="personal-info">
+        <h1 class="cabinet-content__title">Персональна інформація</h1>
+
+        <div class="user-info">
+            <div class="user-info__row">
+                <div class="user-info__param">Імʼя:</div>
+                <div class="user-info__value">{{ user.firstName }}</div>
+            </div>
+            <div class="user-info__row">
+                <div class="user-info__param">Прізвище: </div>
+                <div class="user-info__value">{{ user.lastName|default('—') }}</div>
+            </div>
+            <div class="user-info__row">
+                <div class="user-info__param">По-батькові:</div>
+                <div class="user-info__value">{{ user.middleName|default('—') }}</div>
+            </div>
+        </div>
+
+        {% if doctorProfile %}
+            <h2>Профіль лікаря</h2>
+
+            <div class="user-info">
+                <div class="user-info__row">
+                    <div class="user-info__param">Посада:</div>
+                    <div class="user-info__value">{{ doctorProfile.position }}</div>
+                </div>
+                <div class="user-info__row">
+                    <div class="user-info__param">Фото:</div>
+                    <div class="user-info__value">{{ doctorProfile.photo }}</div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="mt-20">
+            <a href="{{ path('personal_edit_page') }}" class="btn btn--primary">Редагувати</a>
+        </div>
+    </div>
+{% endblock %}

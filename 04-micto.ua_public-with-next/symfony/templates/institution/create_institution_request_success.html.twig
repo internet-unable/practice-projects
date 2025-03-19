@@ -1,0 +1,22 @@
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('static') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('static') }}
+{% endblock %}
+
+{% block body %}
+    <section class="request-accepted">
+        <div class="info">
+            <h2>Ваш запит прийнято !</h2>
+            <img src="{{ asset('img/success_message.webp') }}" width="387" height="396" alt="Лист" decoding="async" fetchpriority="low">
+            <p>Наші менеджери опрацюють його найближчим часом</p>
+        </div>
+    </section>
+{% endblock %}

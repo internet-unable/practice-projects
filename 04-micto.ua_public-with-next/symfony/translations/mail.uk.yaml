@@ -1,0 +1,9 @@
+ownership_form:
+    state: 'Державна'
+    private: 'Приватна'
+    collective: 'Комунальна'
+
+status:
+    occupied: 'На окупованій території'
+    relocated: 'Медзаклад релокований'
+    attacked: 'Зазнав обстрілів'

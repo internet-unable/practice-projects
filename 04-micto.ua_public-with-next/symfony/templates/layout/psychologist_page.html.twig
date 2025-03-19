@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="uk" prefix="og: https://ogp.me/ns#" itemscope itemtype="https://schema.org/WebPage">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#02344A">
+    <meta property="og:locale" content="uk_UA">
+    <meta property="og:image" content="/themes/basic/images/logo_micto_200.png">
+    <meta property="og:site_name" content="МІСТО.юа">
+    {{ leogout_seo('basic') }}
+    {{ leogout_seo('og') }}
+
+    {% block customSeoTags %}{% endblock %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js" integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    {% if canonical is defined %}
+        <link rel="canonical" href="{{ canonical }}" />
+    {% endif %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('psychologist') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('psychologist') }}
+    {% endblock %}
+
+    <script>
+        const captchaPublicKey = '{{ captchaPublicKey ? captchaPublicKey : null }}'
+        if (captchaPublicKey) {
+            window.captchaPublicKey = captchaPublicKey
+        }
+    </script>
+
+    {# TODO: Set dynamic locale ( hl=LOCALE ) #}
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit&hl=uk" async defer></script>
+
+    {% if googleAnalyticsID is defined and googleAnalyticsID is not empty %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ googleAnalyticsID }}"></script>
+    {% if googleAnalyticsKey is defined and googleAnalyticsKey is not empty %}
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{ googleAnalyticsID }}');
+            gtag('config', '{{ googleAnalyticsKey }}');
+
+        </script>
+    {% endif %}
+    {% endif %}
+</head>
+
+<body>
+<main>
+    {% block body %}{% endblock %}
+</main>
+
+</body>
+
+</html>

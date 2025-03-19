@@ -1,0 +1,58 @@
+<form
+    method="get"
+    action="{{ path('api_get_all_comments_filters') }}"
+    data-comments-action="{{ path('api_get_all_comments_page') }}" 
+    autocomplete="off"
+    >
+
+    {% include 'comments/filter_block.html.twig' with {
+        items: filters.areas,
+        key: 'area',
+        title: 'Область',
+        blockType: 'area',
+        selectedValue: selectedFilters.area | default(null),
+    } only %}
+
+    {% if filters.districts is defined %}
+        {% include 'comments/districts_filter_block.html.twig' with {
+            items: filters.districts,
+            dependsOn: 'area',
+            selectedValue: selectedFilters.district | default(null),
+        } only %}
+    {% endif %}
+
+    {% if filters.cityDistricts is defined %}
+        {% include 'comments/filter_block.html.twig' with {
+            items: filters.cityDistricts,
+            key: 'city_district',
+            title: 'Район міста',
+            dependsOn: 'city',
+            blockType: 'city_district',
+            selectedValue: selectedFilters.city_district | default(null),
+        } only %}
+    {% endif %}
+
+    {% if filters.cities is defined %}
+        {% include 'comments/filter_block.html.twig' with {
+            items: filters.cities,
+            key: 'city',
+            title: 'Населений пункт',
+            blockType: 'city',
+            dependsOn: 'district',
+            selectedValue: selectedFilters.city | default(null),
+        } only %}
+    {% endif %}
+
+    {% if filters.units is defined %}
+        {% include 'comments/filter_block.html.twig' with {
+            items: filters.units,
+            key: 'unit',
+            title: 'Медичний заклад',
+            blockType: 'unit',
+            dependsOn: 'city',
+            selectedValue: selectedFilters.unit | default(null),
+            showName: true,
+        } only %}
+    {% endif %}
+
+</form>

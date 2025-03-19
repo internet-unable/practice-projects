@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="{{ app.locale }}" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+		<meta name="x-apple-disable-message-reformatting">
+		<meta name="color-scheme" content="light dark">
+		<meta name="supported-color-schemes" content="light dark">
+		<title>{{ email.subject }}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..900;1,14..32,400..900&display=swap" rel="stylesheet">
+	</head>
+
+	{% trans_default_domain 'mail' %}
+	
+	{% apply inline_css(source("/mail/css/styles.css")) %}
+		<body class="body" xml:lang="en">
+
+			<table class="mail-wrapper" role="article" aria-roledescription="email" aria-label="email name" lang="{{ app.locale }}" dir="ltr">
+				<tr>
+					<td>
+
+						<table class="mail-header">
+							<tr>
+								<td><a href="{{ absolute_url(path('home')) }}"><img loading="lazy" class="logo" src="{{ absolute_url(asset('img/logo_mail.png')) }}" width="215" heigth="57" alt="micto.ua"></a></td>
+							</tr>
+						</table>
+
+						<table class="main-content">
+							<tr>
+								<td>
+									{% block body %}{% endblock %}
+								</td>
+							</tr>
+						</table>
+
+						<table class="mail-footer">
+							<tr class="top-row">
+								<td>
+									<div class="block add-new-unit">
+										<a class="add-new-unit-link" target="_blank" href="{{ absolute_url(path('institution_request_page')) }}">Додати медзаклад</a>
+									</div>
+								</td>
+								<td>
+									<div class="block other-links">
+										<a target="_blank" href="{{ absolute_url(path('home')) }}">Медичні установи</a>
+										<a target="_blank" href="{{ absolute_url(path('about_page')) }}">Про проект</a>
+										<a target="_blank" href="{{ absolute_url(path('all_comments_page')) }}">Усі відгуки</a>
+									</div>
+								</td>
+								<td>
+									<div class="block last">
+										<p>Наші соцмережі</p>
+										<div class="social-links">
+											<a href="https://instagram.com/micto_ua?utm_medium=copy_link"><img width="32" heigth="32" src="{{ absolute_url(asset('img/instagram_white.png')) }}" alt="instagram"></a>
+											<a href="https://www.facebook.com/100450092618750/posts/110907848239641/"><img width="32" heigth="32" src="{{ absolute_url(asset('img/facebook_circle_white.png')) }}" alt="facebook"></a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="bottom-row">
+								<td colspan=3>
+									<div class="block">
+										<img loading="lazy" class="logo" src="{{ absolute_url(asset('img/logoCreator.png')) }}" alt="soft.ua logo">
+										<p class="slogan">Ідея, архітектура, розробка, підтримка та розвиток проєкту</p>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+			
+		</body>
+	{% endapply %}
+</html>

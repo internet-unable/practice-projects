@@ -1,0 +1,24 @@
+{
+  "typeComment": [
+    {
+      "name": "Скарга",
+      "type": "COMPLAINT"
+    },
+    {
+      "name": "Подяка",
+      "type": "GRATITUDE"
+    },
+    {
+      "name": "Питання",
+      "type": "QUESTION"
+    },
+    {
+      "name": "Відгук",
+      "type": "REVIEW"
+    }
+  ],
+  "units": [
+  ],
+  "departments": [
+  ]
+}

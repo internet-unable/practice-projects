@@ -1,0 +1,13 @@
+/* style.css або style.scss */
+.list-start {
+	counter-reset: list-item 8;
+}
+
+.list-start li {
+	counter-increment: list-item;
+}
+
+.list-start li::before {
+	content: counter(list-item) '. ';
+	margin-left: -30px;
+}

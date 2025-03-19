@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('cabinet') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('cabinet') }}
+{% endblock %}
+
+{% block body %}
+<div class="cabinet">
+    {% block topMenu %}{% endblock %}
+    <div class="menu">
+        {% block cabinet_menu %}{% endblock %}
+    </div>
+    <div class="cabinet-content">
+        {% block cabinet_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

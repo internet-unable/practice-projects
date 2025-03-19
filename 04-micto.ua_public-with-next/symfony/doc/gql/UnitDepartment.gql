@@ -1,0 +1,29 @@
+{
+  unitDepartment(id: 1){
+    name
+    fullName
+    slug
+    number
+    slug
+    #isPublished
+
+    unit{
+      name
+    }
+
+    contacts{
+      email
+      phones{
+        number
+        comment
+      }
+    }
+
+    schedule{
+      dayOfWeek
+      startTime
+      endTime
+      isHoliday
+    }
+  }
+}

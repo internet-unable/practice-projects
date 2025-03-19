@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="success-page">
+      <h2>Дякуємо за ваше повідомлення !</h2>
+      <img src="{{ asset('img/success_message.webp') }}" alt="Лист" width="387" height="396" decoding="async" fetchpriority="low">
+      <p class="page-text">Воно незабаром буде додане на портал і його побачать інші користувачі</p>
+      <a class="primary button home-btn" href="{{ path('home') }}" >На головну</a>
+    </section>
+{% endblock %}

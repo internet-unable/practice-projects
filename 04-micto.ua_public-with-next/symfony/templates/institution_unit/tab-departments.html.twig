@@ -1,0 +1,56 @@
+{# @var InstitutionUnitDepartment[] departments #}
+
+{% if theme is defined %}
+    {% set currentTheme = theme %}
+{% else %}
+    {% set currentTheme = '' %}
+{% endif %}
+
+<div class="departments-list">
+{% if departments is defined and departments is not empty %}
+        {% for unitDepartment in departments %}
+            <div class="department">
+                <div class="title">{{ unitDepartment.name }}</div>
+
+                <a href="{{ unit_department_url(unitDepartment) }}" class="primary button {{ currentTheme }}">
+                    Детальніше
+                </a>
+
+                <div class="blocks">
+                    {% if unitDepartment.schedule|length %}
+                        <div class="worktime">
+                            <i class="clock {{ currentTheme ? currentTheme : 'dark' }} icon"></i>
+                            <span>Графік</span>
+
+                            {% include 'components/institution/schedule_dropdown.html.twig' with {
+                                schedule: unitDepartment.schedule, theme: currentTheme
+                            } only %}
+                        </div>
+                    {% endif %}
+
+                    {% if unitDepartment.address is defined and unitDepartment.address %}
+                        <div class="address block {{ currentTheme ? currentTheme : 'dark' }}">
+                            <i class="map-pin {{ currentTheme ? currentTheme : 'dark' }} icon"></i>
+                            <span class="block-title">Адреса:</span>
+
+                            {% include 'components/institution/address_block.html.twig' with {
+                                address: unitDepartment.address,
+                                theme: currentTheme
+                            } only %}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+{% else %}
+    {# TODO: Add styles or don't render block at all #}
+    No departments
+{% endif %}
+</div>
+
+{% if departments is not empty %}
+    {% if departments|length > 8 %}
+        <button class="primary button {{ currentTheme }}" id="show-more-departments-btn">Показати всі...</button>
+    {% endif %}
+{% endif %}

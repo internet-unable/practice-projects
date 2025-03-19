@@ -1,0 +1,147 @@
+ID: 'ID'
+
+common:
+  is_published: 'Is published'
+  created_at: 'Creation date'
+  general: 'General information'
+  address: 'Address'
+  contacts: 'Contacts'
+  full_name: 'Full name'
+  schedule: 'Schedule'
+  full_access: 'Full access'
+
+day_of_week:
+  mon: "Monday"
+  tue: "Tuesday"
+  wed: "Wednesday"
+  thu: "Thursday"
+  fri: "Friday"
+  sat: "Saturday"
+  sun: "Sunday"
+
+schedule:
+  day_of_week: 'Day of week'
+  start_time: 'Start time'
+  end_time: 'End time'
+  holiday: 'Holiday'
+  around_the_clock: 'Around the clock'
+
+contacts:
+  emails: "Email addresses"
+  email: "Email"
+  phones: "Phones"
+  phone: "Phone"
+  comment: "Note"
+
+dashboard:
+  title: 'Admin - Micto'
+  menu_link: 'Dashboard'
+  home_link: 'Home page'
+
+TU:
+  menu_section: 'Territorial units'
+  name: 'Name'
+  type: 'Type'
+  slug: 'URL'
+  katottg: 'KATOTTG'
+  old_id: 'Old ID'
+
+area:
+  singular_title: 'Area'
+  plural_title: 'Areas'
+
+district:
+  plural_title: 'Districts'
+  singular_title: 'District'
+
+city:
+  plural_title: 'Cities'
+  singular_title: 'City'
+  filter:
+    name_field: 'City name'
+  type:
+    SPECIAL: 'Special significance city'
+    CITY: 'City'
+    VILLAGE: 'Village'
+    VILLAGE_S: 'Settlement'
+    SMT: 'Urban village'
+
+city_district:
+  plural_title: 'City districts'
+  singular_title: 'City district'
+
+otg:
+  plural_title: 'OTG'
+  singular_title: 'OTG'
+
+institution:
+  menu_section: 'Medical institutions'
+  old_id: 'Old ID'
+  plural_title: 'Medical institutions'
+  singular_title: 'Medical institution'
+  name: 'Name'
+  slug: 'URL'
+  edrpou: 'EDRPOU'
+  description: 'About institution'
+  ownership_form: 'Form of ownership'
+  address: 'Address'
+  chief_name: 'Hospital manager'
+  head_doctor_name: 'Head doctor'
+  ownership:
+    STATE: 'State form'
+    PRIVATE: 'Private form'
+    COLLECTIVE: 'Collective form'
+
+institution_type:
+  plural_title: 'Institution types'
+  singular_title: 'Institution type'
+
+institution_unit:
+  plural_title: 'Subdivisions'
+  singular_title: 'Subdivision'
+
+institution_department:
+  plural_title: 'Departments'
+  singular_title: 'Department'
+  number: 'Number'
+
+address:
+  address: 'Address'
+  latitude: 'Latitude'
+  longitude: 'Longitude'
+  mapUrl: 'Link to the map'
+
+user:
+  menu_section: 'Users'
+  plural_title: 'Users'
+  singular_title: 'User'
+
+user_entity:
+  menu_section: 'Entity permissions'
+  plural_title: 'Entity permissions'
+  singular_title: 'Permission'
+  entity: 'Entity'
+  type: 'Entity type'
+  types:
+    INSTITUTION: Institution
+    INSTITUTION_UNIT: Unit
+    UNIT_DEPARTMENT: Department
+role:
+  plural_title: 'Roles'
+
+comment:
+  menu_label: 'Reviews and questions'
+  plural_title: 'Reviews'
+  singular_title: 'Review'
+  type_label: 'Type'
+  name: 'Name'
+  email: 'e-mail'
+  phone: 'Phone'
+  mark: 'Mark'
+  text: 'Text'
+  type:
+    QUESTION: 'Question'
+    REVIEW: 'Review'
+    REPLY: 'Reply'
+    COMPLAINT: 'Complaint'
+    GRATITUDE: 'Gratitude'

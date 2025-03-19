@@ -1,0 +1,27 @@
+parameters:
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  SoftUa\UserBundle\Entity\:
+    resource: '../../Entity'
+
+  SoftUa\UserBundle\Security\:
+    resource: '../../Security'
+
+  SoftUa\UserBundle\Repository\:
+    resource: '../../Repository'
+
+  SoftUa\UserBundle\Command\:
+    resource: '../../Command'
+
+  SoftUa\UserBundle\Configuration\Permission\:
+    resource: '../../Configuration/Permission'
+
+  SoftUa\UserBundle\Controller\:
+    resource: '../../Controller'
+
+  SoftUa\UserBundle\Admin\:
+    resource: '../../Admin'

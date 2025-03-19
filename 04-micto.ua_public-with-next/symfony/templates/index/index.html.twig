@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('mainPage') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('mainPage') }}
+{% endblock %}
+
+{% block header %}
+    {%- include 'layout/header.html.twig' with { hasSearch: false } -%}
+{% endblock %}
+
+{% block investorForm %}{% endblock %}
+
+{% block body %}
+
+    <section class="general-info-block">
+        <div class="container">
+            <h1 class="heading">Каталог медичних закладів і спільнота в сфері здоров’я </h1>
+            <ul>
+                <li><span>{{ numUnits }}+</span> лікарень</li>
+                <li><span>{{ numDepartments }}+</span> відделень</li>
+                <li><span>{{ numComments }}+</span> відгуків</li>
+            </ul>
+
+            {% include "components/search.html.twig" %} 
+            
+        </div>
+    </section>
+
+    {% include('index/map.html.twig')  with {areas: areas, areaCenters: areaCenters} only %}
+
+    {% include "components/ad/ad_middle.html.twig" %}
+
+    
+    <section class="clinic-list">
+        <h2 class="block-title">Клініки за алфавітом</h2>
+        <ul class="chars-list">
+            {% for key in unitTypes|keys %}
+                <li>
+                    <a href="#char_{{ key | slug('', 'uk') }}" data-scroll-to="#char_{{ key | slug('', 'uk') }}" class="hide-underline">
+                        {{ key }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="full-list">
+            {% for key, types in unitTypes %}
+                <div class="row" id="char_{{ key | slug('', 'uk') }}">
+                    <div class="char">{{ key }}</div>
+                    <ul class="char-list">
+                        {% for type in types %}
+                            <li>
+                                <a href="{{ unit_type_url(type) }}">
+                                    {{ type.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="become-your-partner">
+        <div class="container">
+            <div class="left-side">
+                <h2 class="heading" >Долучайтесь до MICTO.UA</h2>
+                <p class="text-info">Додавайте свій медичний заклад на МІСТО, щоб про нього дізналися всі. Разом ми зробимо справжню, здорову та доступну цифрову медицину в Україні.</p>
+                <a href="{{ path('institution_request_page') }}" class="primary button">Додати медичний заклад</a>
+            </div>
+            <div class="img-wrapper right-side">
+                <img src="{{asset('img/logo_color1.svg')}}" alt="Логотип MICTO.UA" width="319" height="368" loading="lazy" decoding="async">
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2 class="block-title">Про портал</h2>
+        <div class="text">
+            <p>МІСТО.UA - це соціальний проєкт української ІТ компанії SOFT.UA.</p>
+            <p>Мета порталу - створити комʼюніті (спільноту) навколо української медицини з актуальною та доступною інформацію про неї.</p>
+            <p>Це середовище, де медичні заклади державного, комунального та приватного значення можуть розміщувати актуальну інформацію про себе, залучати нових клієнтів, працювати з чесними відгуками тощо.</p>
+            <p>В планах нашої команди - розширяти можливості проєкту. Додавати інструменти для створення унікального контенту (блоги клінік/лікарів, наукові статті тощо) і для комерційної діяльності (каталоги послуг, ліків і засобів, обладнання тощо).</p>
+            <p>Слідкуйте за нами.</p>
+        </div>
+    </section>
+
+{% endblock %}

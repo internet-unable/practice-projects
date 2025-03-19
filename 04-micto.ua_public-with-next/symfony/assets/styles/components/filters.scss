@@ -1,0 +1,167 @@
+@import '../vars';
+
+.filter-block {
+  > form,
+  > div > form {
+    position: relative;
+    margin-bottom: $mainStep * 7;
+    &::after {
+      content: none;
+    }
+    fieldset {
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    fieldset:has(.open) {
+      transition: 0.3s;
+      .open {
+        bottom: 0;
+      }
+    }
+    fieldset:has(.radio-wrapper input:checked) {
+      padding-bottom: $mainStep * 2;
+      transition: 0s;
+      .radio-wrapper:not(:has(input:checked)) {
+        display: none;
+      }
+      .show-all {
+        transition: 0s;
+      }
+      &:has(.open) {
+        .radio-wrapper:not(:has(input:checked)) {
+          display: flex;
+        }
+      }
+    }
+    .show-all {
+      position: absolute;
+      visibility: hidden;
+      bottom: -40px;
+      background-color: white;
+      height: fit-content;
+      &.visible {
+        visibility: visible;
+      }
+      &.open {
+        position: relative;
+        i {
+          transform: rotate(180deg);
+        }
+      }
+      i {
+        transition: 0.3s;
+      }
+    }
+  }
+  > .filters .block-title {
+    padding-bottom: $mainStep * 2;
+    margin-bottom: $mainStep;
+    border-bottom: 1px solid $gray2;
+  }
+}
+
+.selected-filters {
+  display: flex;
+  flex-direction: column;
+  gap: $mainStep * 2;
+  margin-bottom: $mainStep * 5;
+  transition: 0.3s;
+  &.empty {
+    max-height: 0px;
+    overflow: hidden;
+    margin: 0;
+  }
+  .filter-title {
+    border: 0;
+    color: $black;
+    @include fontMediumBold;
+    margin: 0;
+  }
+  .item {
+    width: 100%;
+    padding: $mainStep * 1.5 $mainStep * 2;
+    border-radius: 7px;
+    border: 1px solid $black;
+    position: relative;
+    .remove-selected-item {
+      position: absolute;
+      right: 16px;
+      border: 0;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    .item-type {
+      @include fontMedium;
+      color: $gray3;
+      margin-right: $mainStep * 3;
+    }
+    .item-value {
+      color: $black;
+      @include fontMedium;
+    }
+  }
+  .clear-all {
+    display: flex;
+    align-items: center;
+    gap: $mainStep;
+    color: $color5;
+    cursor: pointer;
+    order: 10;
+    @media (max-width:768px) {
+      height: auto;
+    }
+    i {
+      pointer-events: none;
+    }
+  }
+}
+
+.show-all {
+  display: flex;
+  align-items: center;
+  gap: $mainStep;
+  color: $color5;
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  i {
+    pointer-events: none;
+  }
+}
+
+input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+input[type='radio'] + label {
+  flex: 1 0 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: $mainStep;
+  margin: 0;
+  position: relative;
+  &::before {
+    display: block;
+    content: '';
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    background: url('../../../public/img/not_checked_radio.svg') center no-repeat;
+    background-size: 20px;
+  }
+}
+input[type='radio']:checked + label {
+  &::before {
+    background: url('../../../public/img/checked_radio.svg') center no-repeat;
+    background-size: 20px;
+  }
+}
+
+body:has(.filter-block.open) {
+  overflow: hidden;
+}

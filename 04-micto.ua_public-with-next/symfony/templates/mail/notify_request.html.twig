@@ -1,0 +1,44 @@
+{% extends '/mail/base.html.twig' %}
+{% trans_default_domain 'mail' %}
+
+{% block body %}
+
+    <table class="registration">
+        <tr>
+            <td>
+                <h1 style="margin-top:12px">Запит на оновлення інформації про заклад</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Мед. заклад: <a href="{{ institutionData.url }}">{{ institutionData.name }}</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ім`я: {{ formData.name }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                E-mail: {{ formData.email }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Телефон: {{ formData.phone }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Представник закладу: {{ formData.institutionAgent ? 'Так' : 'Ні' }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Повідомлення: {{ formData.comment }}
+            </td>
+        </tr>
+    </table>
+
+{% endblock %}

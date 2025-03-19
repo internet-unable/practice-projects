@@ -1,0 +1,255 @@
+@import '../vars';
+@import '../components/search.scss';
+@import '../icons.scss';
+
+.text-block-wrapper {
+  max-width: 100%;
+  background: url('../../../public/img/light_gradient.svg');
+  object-fit: fill;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  margin-bottom: $mainStep * 10;
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+}
+header {
+  .main-nav {
+    padding-bottom: $mainStep * 3;
+  }
+  .add-new-unit {
+    margin-left: auto;
+    .button {
+      height: auto;
+      padding: 11px $mainStep * 3;
+      @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 1px 10px 1px 6px;
+        line-height: 1;
+      }
+      @media (min-width: 768px) and (max-width: 991px) {
+        height: 50px;
+        padding: 6px 24px;
+        font-size: 16px;
+      }
+    }
+  }
+  ul {
+    padding: 0;
+    @media (max-width: 768px) {
+      margin: 0;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+  .search-wrapper {
+    form {
+      display: flex;
+    }
+  }
+}
+
+.text-block {
+  height: 640px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  @media (max-width: 768px) {
+    height: 545px;
+  }
+  .heading {
+    color: $black;
+    @include fontHeadingBold;
+    margin-bottom: $mainStep * 5;
+    @media (max-width: 768px) {
+      @include fontHeaderBold2;
+      margin-bottom: $mainStep * 5;
+    }
+  }
+  p {
+    color: $black;
+    @include fontTitle;
+    @media (max-width: 768px) {
+      @include fontMediumRegular;
+    }
+  }
+  > * {
+    max-width: 1021px;
+  }
+  img {
+    @media (max-width: 768px) {
+      height: 88px;
+      width: 88px;
+      margin-bottom: $mainStep * 5;
+    }
+  }
+}
+
+.form-wrapper {
+  form {
+    max-width: 655px;
+    margin: auto;
+    margin-bottom: $mainStep * 10;
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
+  }
+  .form-title {
+    text-align: center;
+    color: $black;
+    margin-bottom: $mainStep * 5;
+    @include fontHeaderBold2;
+    @media (max-width: 768px) {
+      @include fontTitleBold;
+      margin-top: 0;
+    }
+  }
+}
+
+.institution-info {
+  @include fontUbuntu20Bold;
+  @media (max-width: 768px) {
+    @include fontMediumBold;
+  }
+  margin: $mainStep * 3 0;
+  margin-top: $mainStep * 5;
+  color: $black;
+}
+
+#institution_status_block > label {
+  margin-bottom: $mainStep * 2;
+}
+
+#create_institution_request_form_institutionStatus {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: $mainStep * 2;
+}
+
+form[name='create_institution_request_form'] {
+  input,
+  textarea {
+    font-size: 16px;
+  }
+  .input-row {
+    margin-bottom: $mainStep * 6;
+    &:has([data-captcha-block]) {
+      margin-bottom: 0;
+    }
+    label {
+      @include fontRegular;
+      font-size: 18px;
+      color: $black;
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
+    }
+    .ss-main .ss-values {
+      line-height: 1;
+    }
+  }
+  .checkbox-wrapper {
+    label {
+      &::before {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+  .input-row:has(#create_institution_request_form_contacts) {
+    margin-bottom: $mainStep * 3;
+    label {
+      margin-bottom: $mainStep * 2;
+    }
+  }
+  textarea {
+    min-height: 90px;
+  }
+  select + div {
+    width: fit-content;
+    flex: 0 0 fit-content;
+    padding: 15px 12px;
+    max-height: 48px;
+    border-color: #9ca3af;
+  }
+}
+
+#ownership_form_block {
+  div.ss-main {
+    min-width: 135px;
+  }
+}
+
+.user-type-wrapper {
+  padding: 16px;
+  background-color: $color1;
+  border-radius: 7px;
+  .input-row:not(#user_type_block) {
+    margin-bottom: 0 !important;
+  }
+  .conditional-fields {
+    max-height: 0;
+    overflow: hidden;
+  }
+  #user_type_block {
+    margin: 0;
+    .error-message {
+      margin-top: $mainStep * 2;
+    }
+  }
+  &:has(#create_institution_request_form_userType_1:checked) {
+    .conditional-fields {
+      max-height: 400px;
+      padding: $mainStep * 4 0 $mainStep * 2;
+      .checkbox-wrapper {
+        margin-top: $mainStep * 3;
+      }
+    }
+    #user_type_block {
+      border-bottom: 1px solid $gray3;
+      padding-bottom: $mainStep * 4;
+    }
+  }
+}
+#user_type_block {
+  > label {
+    margin-bottom: $mainStep * 2;
+    color: $black;
+    @media (max-width:768px) {
+      font-size: 16px;
+    }
+  }
+  > div {
+    display: flex;
+    flex-flow: row wrap;
+    gap: $mainStep * 2;
+  }
+}
+
+.menu-wrapper .menu-header .add-unit-btn {
+  width: calc(100% - 10px);
+  padding: 11px 0;
+  display: block;
+  min-height: 16px;
+  height: 24px;
+  text-align: center;
+}
+
+button[type='submit'] {
+  height: 50px;
+  width: 100%;
+  max-width: 300px;
+  margin: auto;
+  margin-top: $mainStep * 10;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin-top: $mainStep * 5;
+  }
+}
+
+.required-help {
+  margin-bottom: $mainStep * 2;
+  color: $black;
+}

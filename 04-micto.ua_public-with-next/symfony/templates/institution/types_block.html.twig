@@ -1,0 +1,29 @@
+{# @var int cityId #}
+{# @var int|null cityDistrictId #}
+{# @var InstitutionType[] institutionTypes #}
+
+{% set startingTypesLimit = 5 %}
+
+{% if institutionTypes %}
+        <form action="{{ path('api_institution_list') }}" data-starting-limit="{{ startingTypesLimit }}" data-form-type="types" autocomplete="off">
+            <input type="hidden" name="cityId" value="{{ cityId }}">
+            <input type="hidden" name="cityDistrictId" value="{{ cityDistrictId }}">
+            
+            <div class="filter-title">Тип мед. закладу</div>
+
+            <fieldset style="max-height: {{ startingTypesLimit * 70 }}px">
+                {% for institutionType in institutionTypes %}
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="institutionType[]" value="{{ institutionType.id }}" id="institutionType_{{ institutionType.id }}">
+                        <label for="institutionType_{{ institutionType.id }}">{{ institutionType.name }}</label>
+                    </div>
+                {% endfor %}
+                {% if institutionTypes|length > startingTypesLimit %}
+                    <button class="button show-all plain-text" data-alt-text="Приховати">
+                        <span>Показати всі</span>
+                        <i class="icon chevron-down blue"></i>
+                    </button>
+                {% endif %}
+            </fieldset>
+        </form>
+{% endif %}

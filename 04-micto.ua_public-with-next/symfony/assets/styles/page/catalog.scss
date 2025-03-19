@@ -1,0 +1,312 @@
+@import '../vars';
+
+.main-wrapper {
+	section {
+		margin-bottom: $mainStep * 10;
+		@media (max-width: 768px) {
+			margin-bottom: $mainStep * 5;
+		}
+		h2 {
+			@include fontTitleBold;
+			font-size: 30px;
+			margin-bottom: $mainStep * 5;
+			@media (max-width: 768px) {
+				font-size: 20px;
+				margin-bottom: $mainStep * 3.5;
+			}
+		}
+	}
+	ul {
+		display: flex;
+		flex-flow: row wrap;
+		gap: $mainStep * 2;
+		li {
+			flex: 0 0 calc(25% - 16px);
+			@media (max-width: 1200px) {
+				flex: 0 1 32%;
+			}
+			@media (max-width: 768px) {
+				flex: 1 1 45%;
+			}
+			@media (max-width: 567px) {
+				flex: 0 0 100%;
+			}
+			a {
+				color: $color5;
+				&:hover {
+					color: $color6;
+				}
+			}
+		}
+	}
+}
+
+.main-title-block {
+	max-width: 100%;
+	background-color: $color1;
+	padding: $mainStep * 8 $mainStep * 2;
+	margin-bottom: $mainStep * 10;
+	margin-top: $mainStep * 4;
+	@media (max-width: 768px) {
+		padding: 40px $mainStep * 2;
+	}
+	@media (max-width: 425px) {
+		padding: 20px $mainStep * 2;
+	}
+	.container {
+		max-width: 1320px;
+		margin: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		@media (max-width: 768px) {
+			flex-flow: column-reverse nowrap;
+			gap: $mainStep * 3;
+			align-items: flex-start;
+		}
+	}
+	.title {
+		@include fontHeaderBoldInter;
+		display: flex;
+		@media (max-width: 768px) {
+			flex-flow: row wrap;
+			@include fontHeaderBold2;
+		}
+		span {
+			@include fontInterTitle;
+		}
+	}
+	.units-amount {
+		@include fontUbuntu20;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: center;
+		gap: $mainStep;
+		@media (max-width: 768px) {
+			// order: -1;
+		}
+		span {
+			color: $color5;
+			@include fontTitleBold;
+		}
+	}
+}
+
+.cities-list-wrapper {
+	&:not(:has(li)) {
+		display: none;
+	}
+	a {
+		width: fit-content;
+		display: block;
+	}
+}
+
+.block-title {
+	@include fontTitleBold;
+	margin-bottom: $mainStep * 3;
+	color: $black;
+}
+
+.filter-title {
+	@include fontUbuntu20Bold;
+	padding-bottom: $mainStep;
+	margin: $mainStep * 3 0;
+	border-bottom: 1px solid $gray2;
+}
+
+.filter-block {
+	width: 100%;
+	max-width: 300px;
+	@media (max-width: 768px) {
+		height: fit-content;
+		max-width: 100%;
+	}
+	&.open {
+		.filters {
+			transform: translateX(0);
+		}
+		.filters-bg {
+			pointer-events: all;
+			opacity: 1;
+		}
+	}
+	fieldset {
+		display: flex;
+		flex-direction: column;
+		gap: $mainStep * 2;
+		input,
+		label {
+			cursor: pointer;
+		}
+	}
+	.checkbox-wrapper {
+		display: flex;
+		flex-direction: row;
+		gap: $mainStep * 2;
+		input {
+			flex: 0 0 18px;
+		}
+		label {
+			@include fontMedium;
+			user-select: none;
+		}
+	}
+	.filters {
+		transition: 0.3s;
+		@media (max-width: 768px) {
+			overflow: hidden;
+			overflow-y: auto;
+			z-index: 15;
+			background-color: white;
+			position: fixed;
+			left: 0;
+			top: 0;
+			transform: translateX(-100%);
+			padding: $mainStep * 2;
+			height: 100dvh;
+			width: 80%;
+		}
+	}
+	.filters-bg {
+		transition: 0.3s;
+		opacity: 0;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba($color: #000000, $alpha: 0.3);
+		z-index: 10;
+		pointer-events: none;
+	}
+	> #toggle-filters-block {
+		display: none;
+		@include fontMedium;
+		font-size: 16px;
+		width: calc(100% - 40px);
+		padding: 0;
+		margin: 0 $mainStep * 2.5;
+		@media (max-width: 768px) {
+			display: flex;
+			max-width: 100%;
+		}
+		&::before {
+			content: '';
+			display: block;
+			width: 24px;
+			height: 24px;
+			background: url('../../../public/img/faders_horizontal.svg') center no-repeat;
+		}
+	}
+}
+
+.institutions-wrapper {
+	position: relative;
+	display: flex;
+	gap: 30px;
+	@media (max-width: 768px) {
+		flex-flow: column nowrap;
+		padding: 0;
+	}
+	.institutions-list {
+		flex: 1 1 calc(100% - 300px);
+		width: 100%;
+		min-height: 80dvh;
+		@media (max-width: 768px) {
+			.block-title {
+				padding: 0 $mainStep * 2;
+				display: none;
+			}
+		}
+	}
+	#institutions-container {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: $mainStep * 3 0;
+		&.empty {
+			height: 100%;
+			width: 100%;
+			.institution {
+				width: 100%;
+				height: 100%;
+				max-height: 120px;
+				.name {
+					margin: auto;
+				}
+			}
+		}
+		.institution {
+			background-color: $color1;
+			border-radius: 7px;
+			padding: $mainStep * 3 $mainStep * 2;
+			display: flex;
+			flex-flow: row nowrap;
+			gap: $mainStep * 2;
+			align-items: center;
+			@media (max-width: 768px) {
+				flex-flow: row wrap;
+				border-radius: 0;
+			}
+			.name {
+				margin-right: auto;
+				@include fontRegular2Bold;
+				font-size: 18px;
+				@media (max-width: 768px) {
+					font-size: 16px;
+				}
+			}
+			i {
+				flex: 0 0 40px;
+				width: 40px;
+				height: 40px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 7px;
+				&.gov {
+					background-color: $color23;
+					&::before {
+						width: 24px;
+						height: 24px;
+						display: block;
+						content: '';
+						background: url('../../../public/img/emblem_white.svg') center no-repeat;
+					}
+				}
+				&.coll {
+					background-color: $color23;
+					&::before {
+						width: 24px;
+						height: 24px;
+						display: block;
+						content: '';
+						background: url('../../../public/img/collective_unit_white.svg') center no-repeat;
+					}
+				}
+				&.priv {
+					background-color: $color23;
+					&::before {
+						width: 24px;
+						height: 24px;
+						display: block;
+						content: '';
+						background: url('../../../public/img/private_unit_white.svg') center no-repeat;
+					}
+				}
+			}
+			.button {
+				margin-left: $mainStep;
+				height: 50px;
+				@media (max-width: 768px) {
+					margin-left: 0;
+					height: 48px;
+					@include fontRegular2;
+					padding: $mainStep $mainStep * 2;
+					width: 100%;
+				}
+			}
+		}
+	}
+}

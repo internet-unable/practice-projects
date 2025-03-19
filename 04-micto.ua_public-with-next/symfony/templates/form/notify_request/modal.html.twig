@@ -1,0 +1,24 @@
+  <div class="modal micromodal-slide" id="notify-modal" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container notify" role="dialog" aria-modal="true" aria-labelledby="notify-modal-title">
+        <header class="modal__header">
+          <h2 class="modal__title" id="notify-modal-title">
+            Знаєте актуальну інформацію про цей заклад?
+          </h2>
+          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <div class="modal__content" id="notify-modal-content">
+
+          {{ render(controller('App\\Controller\\CreateNotifyRequestController::getForm', {
+            'entity': entity
+          })) }}
+
+          <div class="info">
+            <p><span>Заповнюючи цю форму, ви погоджуєтеся з</span> <a href="{{ path('privacy_policy_page') }}">умовами збору, обробки та захисту</a> <span>персональних даних</span></p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  

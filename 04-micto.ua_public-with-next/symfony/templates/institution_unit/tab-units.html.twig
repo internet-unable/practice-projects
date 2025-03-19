@@ -1,0 +1,62 @@
+{# @var Institution institution #}
+
+{% if theme is defined %}
+    {% set currentTheme = theme %}
+{% else %}
+    {% set currentTheme = '' %}
+{% endif %}
+
+<div class="departments-list units">
+{% if institution.units is defined and institution.units is not empty %}
+        {% for unit in institution.units %}
+            <div class="department">
+                <div class="title">
+                    {% if unit.oldId %}
+                        <a href="{{ path('institution_unit_page', {
+                        id: unit.oldId,
+                        slug: unit.slug
+                        }) }}">{{ unit.name }}</a>
+                    {% else %}
+                        <div>{{ unit.name }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="blocks">
+                    {% if unit.schedule|length %}
+                        <div class="block schedule">
+                            <div class="title">
+                                <i class="icon clock dark"></i>
+                                Графік роботи
+                            </div>
+                            
+                            {% include 'components/institution/schedule_dropdown.html.twig' with {
+                                schedule: unit.schedule
+                            } only %}
+                        </div>
+                    {% endif %}
+
+                    {% if unit.address is defined and unit.address %}
+                        <div class="address block">
+                            <i class="map-pin dark icon"></i>
+                            <span class="block-title">Адреса:</span>
+
+                            {% include 'components/institution/address_block.html.twig' with {
+                                address: unit.address
+                            } only %}
+
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+{% else %}
+    No departments
+{% endif %}
+</div>
+
+{% if institution.units is defined and institution.units is not empty %}
+    {% if institution.units|length > 8 %}
+        <button class="primary button {{ currentTheme }}" id="show-more-departments-btn">Показати ще</button>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,42 @@
+{# Create new file with info_popup_N.webp name, add new number to array below #}
+
+{% set possibleNumbers = [1, 2] %}
+{# {% set randomNumber = random(possibleNumbers) %} #}
+{# {% set possibleNumbers2 = possibleNumbers | filter((el) => el != randomNumber) %} #}
+{# {% set randomNumber2 = random(possibleNumbers2) %} #}
+
+{% set randomNumber = 4 %}
+{% set randomNumber2 = 4 %}
+
+{% set imgLink = 'img/info/info_popup_' ~ randomNumber ~ '.png' %}
+{% set mobileImgLink = 'img/info/info_popup_' ~ randomNumber ~ '_mobile.webp' %}
+
+{% set secondImgLink = 'img/info/info_popup_' ~ randomNumber2 ~ '.webp' %}
+{% set secondMobileImgLink = 'img/info/info_popup_' ~ randomNumber2 ~ '_mobile.webp' %}
+
+{% set linksArray = ['https://t.me/asmagilov'] %}
+{# {% set linksArray = [path('advertising_page'), path('advertising_page'), ] %} #}
+
+<div class="custom-info popup">
+        <button class="close-popup" aria-label="Закрити">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.7436 14.8823C15.8034 14.9381 15.8514 15.0054 15.8847 15.0801C15.9181 15.1549 15.936 15.2356 15.9374 15.3174C15.9388 15.3992 15.9238 15.4805 15.8932 15.5563C15.8625 15.6322 15.8169 15.7012 15.759 15.759C15.7012 15.8169 15.6322 15.8625 15.5563 15.8932C15.4805 15.9238 15.3992 15.9388 15.3174 15.9374C15.2356 15.936 15.1549 15.9181 15.0801 15.8847C15.0054 15.8514 14.9381 15.8034 14.8823 15.7436L8.00042 8.86269L1.11855 15.7436C1.00303 15.8512 0.850245 15.9098 0.692375 15.907C0.534505 15.9042 0.38388 15.8403 0.272232 15.7286C0.160584 15.617 0.0966304 15.4663 0.0938449 15.3085C0.0910595 15.1506 0.149659 14.9978 0.257299 14.8823L7.13816 8.00042L0.257299 1.11855C0.149659 1.00303 0.0910595 0.850245 0.0938449 0.692375C0.0966304 0.534505 0.160584 0.38388 0.272232 0.272232C0.38388 0.160584 0.534505 0.0966304 0.692375 0.0938449C0.850245 0.0910595 1.00303 0.149659 1.11855 0.257299L8.00042 7.13816L14.8823 0.257299C14.9978 0.149659 15.1506 0.0910595 15.3085 0.0938449C15.4663 0.0966304 15.617 0.160584 15.7286 0.272232C15.8403 0.38388 15.9042 0.534505 15.907 0.692375C15.9098 0.850245 15.8512 1.00303 15.7436 1.11855L8.86269 8.00042L15.7436 14.8823Z" fill="black"/>
+            </svg>
+        </button>
+        <a href="{{ linksArray[0] }}" target="_blank">
+        {# <a href="{{ linksArray[randomNumber - 1] }}" data-second-link="{{ linksArray[randomNumber2 - 1] }}"> #}
+            <picture>
+                <source media="(max-width: 767px)" srcset="{{ asset(mobileImgLink) }}" type="image/webp">
+                <img 
+                    src="{{ asset(imgLink) }}" 
+                    data-second-img-link="{{ asset(secondImgLink) }}" 
+                    data-second-img-mobile-link="{{ asset(secondMobileImgLink) }}" 
+                    alt="popup ad banner"
+                    width="330"
+                    height="330"
+                    loading="lazy"
+                    fetchpriority="low"
+                >
+            </picture>
+        </a>
+</div>

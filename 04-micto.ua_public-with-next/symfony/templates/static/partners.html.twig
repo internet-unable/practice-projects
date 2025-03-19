@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('static') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('static') }}
+{% endblock %}
+
+{% block body %}
+    <section class="partners">
+        <div class="block-title">
+            <h1 class="main-title">Партнери проекту</h1>
+        </div>
+
+        <div class="col-2 row moz">
+            <div class="info-text col">
+                <h2>Міністерство охорони здоров&rsquo;я України</h2>
+
+                <h3 class="hot-line">Гаряча лінія</h3>    
+
+                <div>
+                    Відповідно до
+                    <a class="line-active" href="https://moz.gov.ua/uploads/3/18757-dn_20200210_292.pdf" target="_blank" rel="nofollow">
+                        наказу МОЗ України №292
+                    </a>
+                    від 10.04.2013 р. &quot;Про модернізацію роботи системи телефонної <strong>гарячої лінії</strong> МОЗ України&quot;
+                    та з метою забезпечення оперативного реагування на звернення громадян в МОЗ діє телефонна &quot;гаряча лінія&quot;
+                    з 9:00 до 18:00.
+                </div>
+
+                <div>
+                    Телефон "гарячої лінії": 
+                    <a class="line-active" href="tel:+380800505201">0 800 505 201</a>
+                </div>
+                
+                <div class="block contacts">
+                    <h4>Контакти</h4>
+                    <p>01601, м. Київ, вул. Грушевського, 7</p>
+                    <p>тел. <a class="line-active" href="tel:+380442536194">(044) 253 61 94</a></p>
+                    <p>
+                        <a class="line-active" href="https://moz.gov.ua/uk" target="_blank" rel="nofollow">
+                            www.moz.gov.ua/uk</a>, 
+                        <a class="line-active" href="mailto:moz@moz.gov.ua" target="_blank" rel="nofollow">
+                            moz@moz.gov.ua
+                        </a>
+                    </p>
+                </div>
+
+                <div class="block">
+                    <h4>Приймальна громадян</h4>
+                    <p>Адреса: м.Київ, вул. Ярославська, 41</p>
+                    <p>тел. <a class="line-active" href="tel:+380444250526">(044) 425 05 26</a></p>
+                </div>
+
+                <div class="block">
+                    <h4>Відділ медико-соціальної експертизи Департаменту медичної допомоги МОЗ України</h4>
+                    <p>Адреса: м. Київ, вул. Костянтинівська, 36</p>
+                </div>
+
+                <div class="block">
+                    <h4>Центр адмінпослуг МОЗ України "Єдине вікно"</h4>
+                    <p>Адреса: м. Київ, вул. Ушинського, 40</p>
+                </div>
+            </div>
+
+            <div class="image col">
+                {% if is_mobile() %}
+                    <img src="{{ asset('/img/static/moz-logo-mob.webp') }}" loading="lazy"  width="200" height="276" alt="moz-logotype"/>
+                {% else %}
+                    <img src="{{ asset('/img/static/moz-logo.webp') }}" loading="lazy" width="200" height="276" alt="moz-logotype"/>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-2 row">
+            <div class="image col">
+                <img
+                    loading="lazy"
+                    src="{{ asset('/img/static/movement_of_unity.svg') }}"
+                    srcset="{{ asset('/img/static/movement_of_unity_v.svg') }} 992w, {{ asset('/img/static/movement_of_unity.svg') }} 1200w"
+                    sizes="(max-width: 992px) 100vw, 100vw"
+                    title="Рух єдності"
+                    alt="Рух єдності"
+                    height="130"
+                    width="472"
+                >
+            </div>
+
+            <div class="info-text col">
+                <h4>Благодній Організація Благодійний Фонд «МІЖНАРОДНИЙ РУХ ЄДНОСТІ»</h4>
+                <p>
+                    Адреса: Україна, 03022, місто Київ, вул.Васильківська 
+                    <br> 
+                    будинок 34, офіс Г-309 
+                    <br> 
+                    Телефон: <a class="line-active" href="tel:+380631853171">+38 063 185-31-71</a>
+                    <br> 
+                    Пн.-Пт.: 9:00-18:00 
+                    <br> 
+                    Email: <a class="line-active" href="mailto:office@ruhednosti.com">office@ruhednosti.com</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-2 row">
+            <div class="info-text col">
+                <h2>ТОВ &quot;СОФТ.ЮА&quot;</h2>
+                <div class="info-text">
+                    Технічний партнер.
+                    <br />
+                    Код ЄДРПОУ: 36303750. 
+                    <br />
+                    Адреса: 01042, м.Київ, бульвар Миколи Міхновського, 17-А
+                    <br />
+                    Пошта: <a class="line-active" href="mailto:infos@soft.ua">infos@soft.ua</a>
+                    <br />
+                    Сайт: <a class="line-active" href="https://soft.ua" target="_blank">www.soft.ua</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-link-wrapper">
+            <button data-micromodal-trigger="investor-modal" class="button primary contact-button">Стати інвестором проєкту</button>
+        </div>
+    </section>
+{% endblock %}

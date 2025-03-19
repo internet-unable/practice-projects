@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="error code-500">
+        <div class="text-block">
+            <h1>500</h1>
+            <div class="title">Внутрішня помилка сервера</div>
+            <div class="text">Ми працюємо над вирішенням цієї проблеми.</div>
+            <a class="button contact-button" target="_blank" href="/">На головну сторінку</a>
+        </div>
+    </section>
+{% endblock %}

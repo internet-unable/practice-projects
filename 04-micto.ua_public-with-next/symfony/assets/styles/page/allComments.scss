@@ -1,0 +1,652 @@
+@import '../vars';
+
+.filter-title {
+	margin-top: 0;
+	@include fontMediumBold;
+}
+.all-comments-wrapper {
+	display: flex;
+	margin: auto;
+	max-width: 1320px;
+	padding: 0;
+	width: 100%;
+	@media (max-width: 1356px) {
+		padding: 0 16px;
+		margin: 0;
+	}
+	@media (max-width: 768px) {
+		padding: 0;
+		flex-direction: column;
+		max-width: 100%;
+	}
+	.filter-block {
+		width: 290px;
+		min-width: 290px;
+		padding-right: 30px;
+		overflow: hidden;
+		overflow-y: auto;
+		margin-right: $mainStep * 2;
+		@media (max-width: 768px) {
+			margin-right: 0;
+			padding: 0;
+			width: 100%;
+		}
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: #d9d9d9;
+			border-radius: 30px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: $color5;
+			border-radius: 30px;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background: $color4;
+			cursor: grab;
+		}
+
+		@-moz-document url-prefix() {
+			scrollbar-width: thin; /* Makes the scrollbar width similar to WebKit */
+			scrollbar-color: $color5 #fff; /* Thumb color, track color */
+		}
+
+		/* Optional hover effect for Firefox */
+		&:hover {
+			@-moz-document url-prefix() {
+				scrollbar-color: $color4 #fff;
+			}
+		}
+
+		.filter-block-wrapper {
+			margin-bottom: $mainStep * 3;
+			fieldset {
+				transition: 0s;
+				&:has(.radio-wrapper input:checked) {
+					position: relative;
+					padding-bottom: $mainStep * 5;
+					min-height: 70px;
+					max-height: 100% !important;
+					.button.show-all {
+						bottom: 0;
+					}
+					&:has(div:nth-child(2)) {
+						.button.show-all {
+							visibility: visible !important;
+						}
+					}
+				}
+				&:has(.button.show-all.open) {
+					max-height: 100% !important;
+				}
+				&:has(div:nth-child(6)) {
+					.button.show-all {
+						visibility: visible !important;
+					}
+				}
+				.button.show-all {
+					position: absolute;
+					bottom: -24px;
+					visibility: hidden;
+					&.open {
+						bottom: -36px;
+					}
+					&.visible {
+						visibility: visible;
+					}
+				}
+			}
+		}
+	}
+	.reviews-list {
+		margin: auto auto $mainStep 0;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		max-width: 1080px;
+		flex-direction: column;
+		margin-bottom: $mainStep * 10 !important;
+		margin-top: $mainStep * 5 !important;
+
+		@media (max-width: 768px) {
+			padding: 0 $mainStep * 2.5;
+		}
+
+		.more {
+			max-width: 264px;
+			&.loading {
+				&::before {
+					animation: none;
+					border: 0;
+					border-radius: 7px;
+					z-index: 1;
+				}
+			}
+		}
+		&.empty {
+			display: none;
+		}
+		.review {
+			position: relative;
+			width: 100%;
+			border-top: 1px solid $gray2;
+			padding: $mainStep * 3 0;
+			border: 0;
+
+			@media (max-width: 768px) {
+				&:not(:last-child) {
+					&::before {
+						content: '';
+						position: absolute;
+						bottom: 0;
+						width: 100%;
+						background-color: #D8D8D8;
+						height: 1px;
+					}
+				}
+			}
+
+			&:first-of-type {
+				border: 0;
+			}
+			&:has(.replies) {
+				.replies {
+					&:has(.review.reply) {
+						display: flex;
+						flex-direction: column;
+					}
+				}
+			}
+			.replies {
+				.show-replies {
+					background-color: transparent;
+					border: 0;
+					color: $black;
+					display: flex;
+					flex-flow: row nowrap;
+					gap: calc($mainStep / 2);
+					align-items: center;
+					font-size: 16px;
+					line-height: 24px;
+					font-weight: 700;
+					padding: 0;
+
+					@media (max-width: 768px) {
+						font-size: 14px;
+					}
+					&::before {
+						content: '';
+						display: block;
+						height: 24px;
+						width: 24px;
+						min-width: 24px;
+						background: url('../../../public/img/chevron.svg') center no-repeat;
+						transition: 0.3s;
+					}
+					&.open {
+						&::before {
+							transform: rotate(180deg);
+						}
+						margin-bottom: $mainStep * 3;
+					}
+				}
+				.replies-wrapper {
+					max-height: 0;
+					overflow: hidden;
+					transition: 0.5s;
+					display: flex;
+					flex-direction: column;
+					gap: 24px;
+					.show-replies {
+						&::before {
+							content: none;
+						}
+					}
+					.badge {
+						margin-top: $mainStep + 2;
+						&.type_institution {
+							background-color: $success;
+						}
+					}
+				}
+			}
+			.main-block {
+				display: flex;
+				flex-direction: column;
+				border-radius: $mainStep - 1;
+				gap: $mainStep * 3;
+				position: relative;
+				@media (max-width: 768px) {
+					gap: $mainStep * 2;
+				}
+			}
+			.row {
+				display: flex;
+				flex-direction: column;
+				.feedback {
+					display: flex;
+					gap: $mainStep * 2;
+					flex-direction: row;
+					align-items: center;
+					.likeBtn,
+					.dislikeBtn {
+						cursor: pointer;
+						display: flex;
+						gap: $mainStep;
+						color: $black;
+						min-width: 45px;
+						&:hover {
+							opacity: 0.8;
+						}
+						&:active {
+							i {
+								transform: scale(0.95);
+							}
+						}
+						i,
+						span {
+							pointer-events: none;
+						}
+						span {
+							@include fontRegular2Bold;
+						}
+					}
+				}
+				.stars {
+					display: flex;
+					flex-flow: row nowrap;
+					align-items: center;
+					gap: calc($mainStep / 2);
+					span {
+						margin-right: calc($mainStep / 2);
+						font-size: 16px;
+						margin-top: calc($mainStep / 2);
+					}
+					.star-full,
+					.star-empty {
+						height: 16px;
+						width: 16px;
+						min-width: 16px;
+						min-height: 16px;
+						background-size: contain;
+					}
+				}
+				button.reply {
+					padding: 0;
+					background-color: transparent;
+					color: $color9;
+					border: 0;
+					&:hover {
+						color: $color7;
+					}
+				}
+				&:has(.name) {
+					// margin-bottom: $mainStep;
+				}
+				.date.create {
+					color: $gray3;
+					@include fontRegular2;
+					margin-top: $mainStep * 2;
+					@media (max-width: 768px) {
+						font-size: 12px;
+						margin-top: $mainStep;
+						@include fontRegular;
+					}
+					span {
+						color: $black;
+					}
+				}
+				.date.visit {
+					color: $gray3;
+					@include fontRegular2;
+					display: flex;
+					gap: $mainStep;
+					@media (max-width: 768px) {
+						@include fontRegular;
+					}
+				}
+				> p {
+					margin-bottom: $mainStep;
+					@include fontMediumRegular;
+					@media (max-width: 768px) {
+						@include fontRegular2;
+					}
+				}
+				.like,
+				.dislike {
+					display: flex;
+					flex-flow: row nowrap;
+					gap: $mainStep;
+					i {
+						width: 24px;
+						height: 24px;
+						display: block;
+					}
+				}
+				.badge {
+					padding: $mainStep;
+					color: $white;
+					background-color: $color9;
+					border-radius: $mainStep - 1;
+					line-height: 16px;
+					margin-right: auto;
+					width: fit-content;
+
+					&.type_gratitude {
+						background-color: $color5;
+					}
+					&.type_question {
+						background-color: $orange1;
+					}
+					&.type_complaint {
+						background-color: $error;
+					}
+				}
+				&.text {
+					//margin-top: $mainStep * 5;
+					color: $black;
+				}
+				&.reply-button-wrapper {
+					position: absolute;
+					right: 8px;
+				}
+				&.person {
+					min-width: 228px;
+					.name-review {
+						display: flex;
+						flex-direction: column;
+						gap: 8px;
+						@media (max-width: 768px) {
+							flex-direction: row;
+							justify-content: space-between;
+						}
+
+						.name {
+							color: $black;
+							font-weight: bold;
+						}
+						.badge {
+							background-color: $color8;
+							margin: $mainStep auto;
+							white-space: nowrap;
+							&.institution {
+								background-color: $success;
+							}
+						}
+					}
+				}
+
+				&.info {
+					display: flex;
+					gap: 31px;
+					flex-direction: row;
+
+					@media (max-width: 768px) {
+						flex-direction: column-reverse;
+						gap: 24px;
+					}
+
+					.unit-name {
+						a {
+							@include fontMediumBold;
+							color: $color5;
+							@-moz-document url-prefix() {
+								font-family: 'Inter Bold';
+							}
+						}
+					}
+				}
+
+				&.content {
+					width: 100%;
+					gap: $mainStep * 2;
+					padding-left: 259px;
+
+					@media (max-width: 768px) {
+						padding: 0;
+					}
+
+					.unit {
+						color: $gray3;
+						@include fontRegular2;
+						@media (max-width: 768px) {
+							@include fontRegular;
+						}
+						a {
+							color: $color5;
+						}
+					}
+					.feedback {
+						height: 24px;
+					}
+					.show-replies {
+						height: 26px;
+					}
+				}
+			}
+
+			.rating {
+				display: flex;
+				gap: $mainStep;
+				align-items: center;
+				span {
+					margin-left: $mainStep;
+				}
+				i {
+					height: 16px;
+					width: 16px;
+					background-size: 16px;
+				}
+			}
+
+			&.reply {
+				padding: $mainStep * 2;
+				border-top: 0;
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+				.reply-text {
+					margin-bottom: $mainStep * 1.5;
+					@media (max-width: 768px) {
+						font-size: 14px;
+					}
+				}
+				.row {
+					.name {
+						font-weight: bold;
+					}
+					.date.create {
+						margin-bottom: $mainStep * 1.5;
+					}
+					.badge {
+						margin-bottom: $mainStep * 1.5;
+						background-color: $color8;
+
+						&.type_institution {
+							background-color: $success;
+						}
+					}
+				}
+			}
+			.row {
+				&.reply {
+					display: block;
+					.reply-to {
+						display: inline;
+						color: $color7;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+
+		.no-comments {
+			display: flex;
+			flex-direction: column;
+			margin: auto;
+			padding: $mainStep * 4 0;
+			text-align: center;
+		}
+	}
+}
+
+.sort-block {
+	width: fit-content;
+	cursor: pointer;
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: $mainStep * 2;
+	@media (max-width: 768px) {
+		width: 100%;
+		margin: 0;
+		margin-top: $mainStep * 2;
+		overflow: hidden;
+		position: relative;
+		> div {
+			display: none;
+		}
+	}
+	.button {
+		display: none;
+		@media (max-width: 768px) {
+			max-width: 100%;
+			display: flex;
+			width: calc(100% - 40px);
+			margin: 0 $mainStep * 2.5;
+			&::before {
+				content: '';
+				display: block;
+				height: 24px;
+				width: 24px;
+				min-width: 24px;
+				background: url('../../../public/img/sort.svg') no-repeat center;
+				transition: 0.3s;
+			}
+		}
+	}
+	.selected-block {
+		@include fontTitleBold;
+		pointer-events: none;
+		color: $color5;
+	}
+	&::after {
+		content: '';
+		display: block;
+		width: 24px;
+		height: 24px;
+		background: url('../../../public/img/sort.svg') no-repeat center;
+		margin-top: 2px;
+		@media (max-width: 768px) {
+			content: none;
+		}
+	}
+	.list {
+		display: none;
+		border-radius: 7px;
+		flex-flow: column nowrap;
+		padding: $mainStep * 3;
+		gap: $mainStep * 2;
+		background-color: #fff;
+		box-shadow: 0px -5.39px 2.21px 0px #00000003, 0px -8.06px 5.32px 0px #00000005,
+			0px -6.59px 10.02px 0px #00000007, 0px 1.97px 17.87px 0px #00000009, 0px 25.95px 33.42px 0px #0000000c;
+		z-index: 1;
+		@media (max-width: 768px) {
+			display: flex;
+			transition: 0.3s;
+			transform: translateX(-100%);
+			padding: $mainStep * 2;
+			border-radius: 0;
+			position: fixed;
+			left: 0;
+			top: 0;
+			margin: 0;
+			height: 100dvh;
+			width: 80%;
+			min-width: auto;
+		}
+		.mobile-title {
+			display: none;
+			@media (max-width: 768px) {
+				display: block;
+				@include fontTitleBold;
+				color: $black;
+				padding-bottom: $mainStep * 2;
+				margin-bottom: $mainStep;
+				border-bottom: 1px solid $gray2;
+			}
+		}
+		.active {
+			font-weight: 700;
+			&:hover {
+				color: $color9 !important;
+			}
+		}
+	}
+	&.open {
+		position: relative;
+		@media (max-width: 768px) {
+			position: initial;
+			overflow: visible;
+		}
+		.list {
+			z-index: 100;
+			margin-top: $mainStep;
+			position: absolute;
+			top: 32px;
+			right: 0;
+			min-width: 235px;
+			display: flex;
+			@media (max-width: 768px) {
+				position: fixed;
+				display: flex;
+				border-radius: 0;
+				top: 0;
+				left: 0;
+				min-width: auto;
+				margin: 0;
+				transform: translateX(0);
+			}
+			a,
+			div[data-value] {
+				color: $black;
+				&:hover {
+					color: $black;
+				}
+			}
+		}
+	}
+}
+
+.sort-mobile-bg {
+	display: none;
+	@media (max-width: 768px) {
+		opacity: 0;
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		background-color: rgba($color: #000000, $alpha: 0.2);
+		transition: 0.3s;
+		pointer-events: none;
+	}
+}
+
+body:has(.sort-block.open) {
+	@media (max-width: 768px) {
+		overflow: hidden;
+	}
+	.sort-mobile-bg {
+		@media (max-width: 768px) {
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
+}

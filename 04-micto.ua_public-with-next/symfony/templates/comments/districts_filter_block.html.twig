@@ -1,0 +1,46 @@
+{% set startingLimit = 5 %}
+
+<div class="filter-block-wrapper district" 
+    data-block-type="district" 
+    data-starting-limit="{{ startingLimit }}"
+    {{ dependsOn is defined ? 'data-depends-on=' ~ dependsOn : '' }}
+>
+    <div class="filter-title">Район</div>
+
+    <fieldset>
+        {% for city in items.cities %}
+            <div class="radio-wrapper">
+                <input
+                        type="radio"
+                        name="filter[district]"
+                        value="{{ 'c' ~ city.id }}"
+                        id="district_city_{{ city.id }}"
+                        {% if selectedValue == 'c' ~ city.id %}
+                            checked="checked"
+                        {% endif %}
+                />
+                <label for="district_city_{{ city.id }}">{{ tu_name(city) }}</label>
+            </div>
+        {% endfor %}
+
+        {% for district in items.districts %}
+            <div class="radio-wrapper">
+                <input
+                        type="radio"
+                        name="filter[district]"
+                        value="{{ district.id }}"
+                        id="district_{{ district.id }}"
+                        {% if selectedValue == district.id %}
+                            checked="checked"
+                        {% endif %}
+                />
+                <label for="district_{{ district.id }}">{{ tu_name(district) }}</label>
+            </div>
+        {% endfor %}
+
+            <button class="button show-all plain-text" data-alt-text="Приховати">
+                <span>Показати всі</span>
+                <i class="icon chevron-down blue"></i>
+            </button>
+    </fieldset>
+</div>

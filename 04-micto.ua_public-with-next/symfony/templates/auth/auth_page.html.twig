@@ -1,0 +1,20 @@
+{% extends "layout/auth_page_layout.html.twig" %}
+
+{% block body %}
+    <section class="auth-page">
+
+        <div class="content">
+        
+            <h1>Станьте частиною MICTO.UA</h1>
+
+            <img src="{{asset('img/auth-page-pic.svg')}}" alt="MICTO.UA" width="297" height="210">
+
+            <div class="buttons-wrapper">
+                <a class="button primary" href="{{ path('cabinet_login') }}">Увійти</a>
+                <a class="button secondary" href="{{ path('registration_page') }}">Зареєструватись</a>
+            </div>
+
+        </div>
+        
+    </section>
+{% endblock %}

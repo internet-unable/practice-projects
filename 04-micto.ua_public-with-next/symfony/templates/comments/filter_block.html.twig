@@ -1,0 +1,38 @@
+{% set startingLimit = 5 %}
+
+
+<div class="filter-block-wrapper {{ blockType is defined ? blockType : "" }}" 
+    data-block-type="{{ blockType }}" 
+    {{ dependsOn is defined ? 'data-depends-on=' ~ dependsOn : '' }} 
+    data-starting-limit="{{ startingLimit }}"
+>
+    <div class="filter-title">{{ title }}</div>
+
+    <fieldset>
+        {% for item in items %}
+            <div class="radio-wrapper">
+                <input
+                        type="radio"
+                        name="filter[{{ key }}]"
+                        value="{{ item.id }}"
+                        id="{{ key }}_{{ item.id }}"
+                        {% if selectedValue == item.id %}
+                            checked="checked"
+                        {% endif %}
+                />
+                <label for="{{ key }}_{{ item.id }}">
+                    {% if showName is defined and showName %}
+                        {{ item.name }}
+                    {% else %}
+                        {{ tu_name(item) }}
+                    {% endif %}
+                </label>
+            </div>
+        {% endfor %}
+
+            <button class="button show-all plain-text" data-alt-text="Приховати">
+                <span>Показати всі</span>
+                <i class="icon chevron-down blue"></i>
+            </button>
+    </fieldset>
+</div>

@@ -1,0 +1,31 @@
+{% set startingAreasLimit = 5 %}
+
+{% if areas %}
+        <form 
+            action="{{ path('api_unit_list') }}" 
+            data-starting-limit="{{ startingAreasLimit }}" 
+            data-get-new-filter="{{ path('api_district_city_list') }}"
+            data-new-filter-type="district_and_city"
+            data-form-type="areas"
+            autocomplete="off"
+        >
+            <input type="hidden" name="type" value="{{ unitType.id }}" />
+
+            <div class="filter-title">Область</div>
+
+            <fieldset style="max-height: {{ startingAreasLimit * 43 }}px">
+                {% for area in areas %}
+                    <div class="radio-wrapper">
+                        <input type="radio" name="area" value="{{ area.id }}" id="area_{{ area.id }}">
+                        <label for="area_{{ area.id }}">{{ tu_name(area) }}</label>
+                    </div>
+                {% endfor %}
+                {% if areas|length > startingAreasLimit %}
+                    <button class="button show-all plain-text" data-alt-text="Приховати">
+                        <span>Показати всі</span>
+                        <i class="icon chevron-down blue"></i>
+                    </button>
+                {% endif %}
+            </fieldset>
+        </form>
+{% endif %}

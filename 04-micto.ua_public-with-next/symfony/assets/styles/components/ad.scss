@@ -1,0 +1,242 @@
+@import '../vars';
+
+.custom-info {
+	margin: 0 auto !important;
+	padding: 0;
+	max-width: 1320px;
+
+	a {
+		display: block;
+		height: 100%;
+		width: 100%;
+		background-image: none !important;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+
+	&.popup {
+		transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+		transform: translateX(120%);
+		opacity: 0;
+		width: 330px;
+		height: 330px;
+		position: fixed;
+		bottom: 16px;
+		right: 24px;
+		z-index: 900;
+
+		@media (max-width: 767px) {
+			height: 200px;
+			width: 190px;
+		}
+
+		picture {
+			height: 100%;
+			width: 100%;
+			display: block;
+		}
+
+		&.visible {
+			transform: translateX(0);
+			opacity: 1;
+		}
+
+		a {
+			display: block;
+			height: 100%;
+			width: 100%;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0px 0.22px 2.21px 0px #00000007;
+
+			box-shadow: 0px 0.53px 5.32px 0px #0000000a;
+
+			box-shadow: 0px 1px 10.02px 0px #0000000d;
+
+			box-shadow: 0px 1.79px 17.87px 0px #0000000f;
+
+			box-shadow: 0px 3.34px 33.42px 0px #00000012;
+
+			box-shadow: 0px 8px 80px 0px #0000001a;
+		}
+
+		.close-popup {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background-color: white;
+			border: none;
+			position: absolute;
+			right: -20px;
+			top: -20px;
+			box-shadow: 0px 4px 14.7px 0px #00000040;
+			cursor: pointer;
+			z-index: 1;
+		}
+	}
+	&.top {
+		position: initial;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 900;
+		width: 100%;
+		transition: 0.15s;
+		max-height: 115px;
+		max-width: 100%;
+		a {
+			text-align: center;
+			@media (min-width: 1441px) {
+				max-width: 100%;
+				margin: auto;
+			}
+		}
+		img {
+			height: auto;
+			max-height: 115px;
+			object-position: top;
+			max-width: 100%;
+			@media (min-width: 1441px) {
+				object-fit: contain;
+				max-width: initial;
+			}
+		}
+		&.fixed {
+			position: fixed;
+		}
+	}
+	&.middle-static {
+		@media (max-width: 1440px) {
+			max-width: 100%;
+		}
+	}
+}
+
+body {
+	&:has(section.ad.top.fixed) {
+		padding-top: 119px;
+		@media (max-width: 768px) {
+			padding-top: 60px;
+		}
+	}
+}
+
+.custom-info {
+	&.top {
+		@media (min-width: 1900px) {
+			&.number-1 {
+				background: #fff;
+			}
+			&.number-2 {
+				background: linear-gradient(90deg, #cce0e7 40%, #ffffff 60%);
+			}
+			&.number-3 {
+				background: $color1;
+			}
+		}
+	}
+}
+
+$banner-width: 436px;
+$banner-height: 459px;
+$mobile-banner-width: 296px;
+$mobile-banner-height: 312px;
+$border-radius: 20px;
+$shadow-color: rgba(0, 0, 0, 0.04);
+$background-color: rgba(0, 0, 0, 0.2);
+$transition-duration: 0.5s;
+$close-icon-size: 40px;
+$box-shadow: 0px 3px 10px 0px $shadow-color;
+
+#eh_banner_big {
+	position: fixed;
+	background-color: transparent;
+	z-index: 999;
+	border-radius: $border-radius;
+	opacity: 0;
+	transition: opacity $transition-duration ease, transform $transition-duration ease;
+	width: $banner-width;
+	height: $banner-height;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+
+	&.active {
+		display: block;
+		opacity: 1;
+		z-index: 1000;
+	}
+
+	&.opacity {
+		opacity: 0;
+	}
+
+	a {
+		display: flex;
+		box-shadow: $box-shadow;
+		border-radius: $border-radius;
+		overflow: hidden;
+		background-image: none;
+	}
+
+	.eh_banner-block {
+		position: relative;
+	}
+
+	.close {
+		background-image: url('../../../public/img/close.svg');
+		position: absolute;
+		right: -8px;
+		top: -12px;
+		width: $close-icon-size;
+		height: $close-icon-size;
+		cursor: pointer;
+		z-index: 1;
+		background-repeat: no-repeat;
+		background-color: white;
+		border-radius: 50%;
+		background-position: center;
+		box-shadow: 0 0 8px silver;
+	}
+
+	img {
+		max-width: $banner-width;
+		max-height: $banner-height;
+	}
+}
+
+@media (max-width: 767px) {
+	#eh_banner_big {
+		width: $mobile-banner-width;
+		height: $mobile-banner-height;
+
+		img {
+			max-width: $mobile-banner-width;
+			max-height: $mobile-banner-height;
+		}
+	}
+}
+
+#background {
+	background-color: $background-color;
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	transition: 0.3s;
+	width: 100%;
+	z-index: 100;
+
+	#eh_banner_big.active + & {
+		opacity: 1;
+		pointer-events: all;
+		backdrop-filter: blur(3.5px);
+		z-index: 999;
+	}
+}

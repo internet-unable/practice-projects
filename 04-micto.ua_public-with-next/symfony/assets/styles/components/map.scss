@@ -1,0 +1,75 @@
+@import '../vars';
+
+.map-block {
+	font-family: 'Inter Bold';
+	font-weight: 700;
+	font-size: 12px;
+	@media (max-width: 768px) {
+		padding-bottom: $mainStep * 10;
+	}
+	a {
+		background-image: none;
+	}
+	.mobile-links {
+		display: none;
+		@media (max-width: 768px) {
+			display: flex;
+			flex-flow: column nowrap;
+			gap: $mainStep * 3;
+			min-height: 300px;
+		}
+		> span {
+			@include fontMediumBold;
+			color: $gray3;
+		}
+		> div {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			> a {
+				color: $color5;
+				&.city {
+					@include fontMediumRegular;
+				}
+				&.area {
+					@include fontUbuntu20Bold;
+				}
+			}
+		}
+	}
+	svg {
+		@media (max-width: 768px) {
+			display: none;
+		}
+	}
+	text {
+		fill: $color9;
+	}
+	path {
+		stroke: $color9 !important;
+	}
+	#layer1 {
+		a {
+			transition: 0.3s;
+			&:hover {
+				text {
+					text-decoration: underline;
+					text-decoration-color: $color9;
+				}
+			}
+		}
+	}
+	#layer2 {
+		a {
+			path {
+				transition: 0.3s;
+			}
+			path:hover {
+				fill: $color2 !important;
+			}
+		}
+	}
+	.kyiv {
+		font-size: 16px;
+	}
+}

@@ -1,0 +1,51 @@
+.comments-container{
+  padding-bottom:20px;
+
+  &__empty-text{
+    text-align: center;
+  }
+}
+
+.comment {
+  background: #eaf4f6;
+  margin: 15px 0;
+  padding: 15px;
+
+  &__name {
+    font-weight: bold;
+  }
+
+  &__reply-info {
+    font-weight: normal;
+  }
+
+  &__header {
+    display: flex;
+  }
+
+  &__type {
+    color: grey;
+    font-size: small;
+    margin-left: 10px;
+  }
+
+  &__mark {
+    display: flex;
+  }
+
+  &__footer {
+    padding-top: 10px;
+    font-size: medium;
+  }
+
+  &__date{
+    color: grey;
+    font-size: medium;
+  }
+}
+
+.comment-replies{
+  &__reply{
+    margin-left: 20px;
+  }
+}

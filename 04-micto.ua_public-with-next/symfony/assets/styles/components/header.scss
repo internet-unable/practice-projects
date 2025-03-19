@@ -1,0 +1,131 @@
+@import '../colors';
+@import '../vars.scss';
+
+header {
+  .added-block {
+    .button {
+      height: 50px;
+    }
+  }
+  .main-nav {
+    padding: $mainStep * 2 0;
+    ul,
+    > div {
+      display: flex;
+      align-items: center;
+      flex-flow: row nowrap;
+      list-style: none;
+      gap: $mainStep * 3;
+      .logo-block {
+        a {
+          background-image: none;
+        }
+        img {
+          max-width: 215px;
+        }
+      }
+      &.static-pages {
+        justify-content: space-between;
+        margin-top: $mainStep * 3;
+        position: relative;
+        li {
+          a {
+            color: $color9;
+            text-decoration: none;
+            position: relative;
+            transition: background-size 0.3s;
+            padding-bottom: 4px;
+            &::before {
+              content: '';
+              display: block;
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+              height: 2px;
+              border-radius: 2px 2px 0 0;
+              background-size: 0;
+              transform-origin: center;
+              background-color: $color9;
+              transition: 0.3s;
+              transform: scaleX(0);
+            }
+            &.active,
+            &:hover {
+              &::before {
+                transform: scaleX(1);
+              }
+            }
+          }
+        }
+      }
+      a {
+        display: flex;
+      }
+    }
+    button {
+      min-width: fit-content;
+      white-space: nowrap;
+    }
+  }
+}
+
+.catalog-btn {
+  letter-spacing: 0.03em;
+  height: 50px;
+}
+
+@media (max-width: 991px) {
+  header {
+    .main-nav {
+      .login-block {
+        display: none;
+      }
+      > ul,
+      > div {
+        .logo-block {
+          img {
+            max-width: 155px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  header {
+    .main-nav {
+      padding-bottom: $mainStep * 3;
+      > ul,
+      > div {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: $mainStep * 3 $mainStep;
+        .logo-block {
+          margin-right: auto;
+          img {
+            max-width: 155px;
+          }
+        }
+        .add-new-unit {
+          .button {
+            font-size: 14px;
+            padding: 1px 16px;
+            line-height: 1;
+            height: 35px;
+            &::before {
+              content: '';
+              display: block;
+              background: url('../../../public/img/add.svg') center no-repeat;
+              height: 24px;
+              width: 24px;
+            }
+          }
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

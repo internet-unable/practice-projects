@@ -1,0 +1,10 @@
+comment:
+  mark_is_required: 'The ''Mark'' field is required for review type'
+common:
+  incorrect_value: 'The specified value is incorrect'
+  incorrect_password: 'Provided password is incorrect'
+  phone_is_in_use: 'The phone number is in use by another user'
+  email_is_in_use: 'The email is in use by another user'
+upload:
+  only_image_allowed: 'Only JPEG, PNG, GIF or WEBP files are allowed.'
+  too_large: 'The file is too large. Maximum size is {{ maxSize }}MB.'

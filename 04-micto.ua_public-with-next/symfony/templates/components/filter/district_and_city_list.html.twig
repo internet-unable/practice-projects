@@ -1,0 +1,33 @@
+{% set startingCitiesLimit = 5 %}
+
+{% if (cities is defined and cities is not empty) or (districts is defined and districts is not empty) %}
+        <form action="{{ path('api_unit_list') }}" data-starting-limit="{{ startingCitiesLimit }}" data-form-type="district_and_city" autocomplete="off">
+            <input type="hidden" name="type" value="{{ typeId }}" />
+            <input type="hidden" name="area" value="{{ areaId }}" />
+            <input type="hidden" name="district[]" value="" />
+            <input type="hidden" name="city[]" value="" />
+
+            <div class="filter-title">Населений пункт / Район</div>
+
+            <fieldset style="max-height: {{ startingCitiesLimit * 43 }}px">
+                {% for city in cities %}
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="city[]" value="{{ city.id }}" id="city_{{ city.id }}">
+                        <label for="city_{{ city.id }}">{{ tu_name(city) }}</label>
+                    </div>
+                {% endfor %}
+                {% for district in districts %}
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="district[]" value="{{ district.id }}" id="district_{{ district.id }}">
+                        <label for="district_{{ district.id }}">{{ tu_name(district) }}</label>
+                    </div>
+                {% endfor %}
+                {% if cities|length + districts|length > startingCitiesLimit %}
+                    <button class="button show-all plain-text" data-alt-text="Приховати">
+                        <span>Показати всі</span>
+                        <i class="icon chevron-down blue"></i>
+                    </button>
+                {% endif %}
+            </fieldset>
+        </form>
+{% endif %}

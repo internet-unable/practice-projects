@@ -1,0 +1,29 @@
+{% extends '/mail/base.html.twig' %}
+{% trans_default_domain 'mail' %}
+
+{% block body %}
+
+    <table class="registration">
+        <tr>
+            <td>
+                <h1 style="margin-top:12px">Запит на прийом психолога</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ім`я: {{ formData.name }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Телефон: {{ formData.phone }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Повідомлення: {{ formData.comment }}
+            </td>
+        </tr>
+    </table>
+
+{% endblock %}

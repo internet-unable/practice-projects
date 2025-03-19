@@ -1,0 +1,60 @@
+security:
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+    providers:
+        app_user_provider:
+            entity:
+                class: SoftUa\UserBundle\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin_area:
+            pattern: ^/admin-area
+            provider: app_user_provider
+            form_login:
+                login_path: admin_login
+                check_path: admin_login
+            logout:
+                path: admin_logout
+                target: admin
+        api:
+            lazy: true
+            provider: app_user_provider
+            stateless: true
+            request_matcher: App\Security\ApiRequestMatcher
+            jwt: ~
+        main:
+            lazy: true
+            provider: app_user_provider
+            form_login:
+                username_parameter: 'login_form[username]'
+                password_parameter: 'login_form[password]'
+                success_handler: App\Security\LoginSuccessHandler
+                failure_handler: App\Security\LoginFailureHandler
+                login_path: cabinet_login
+                check_path: cabinet_login
+            logout:
+                path: cabinet_logout
+                target: home
+
+    access_control:
+        - { path: ^/admin-area/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin-area/logout, roles: ROLE_ADMIN }
+        - { path: ^/admin-area, roles: ROLE_ADMIN }
+        - { path: ^/cabinet/login, roles: PUBLIC_ACCESS }
+        - { path: ^/cabinet, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: [ 'ROLE_ADMIN' ]
+        ROLE_ADMIN: ROLE_USER
+
+when@test:
+    security:
+        password_hashers:
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4 # Lowest possible value for bcrypt
+                time_cost: 3 # Lowest possible value for argon
+                memory_cost: 10 # Lowest possible value for argon

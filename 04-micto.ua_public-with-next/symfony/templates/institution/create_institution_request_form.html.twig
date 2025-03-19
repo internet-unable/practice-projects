@@ -1,0 +1,55 @@
+{% form_theme form 'form/register_form_layout.html.twig' %}
+
+        {{ form_start(form, {'action': path('create_institution_request'), 'attr':{'id': 'create-institution-request-form'} }) }}
+            <h2 class="form-title">Додати медзаклад</h2>
+
+            <p class="required-help">* Обов’язково до заповнення</p>
+
+            <div class="user-type-wrapper">
+                {{ form_row(form.userType)}}
+
+                <div class="conditional-fields">
+                    {{ form_row(form.contacts)}}
+
+                    <div class="input-row checkbox-wrapper">
+                    {{ form_widget(form.agreeTerms) }}
+                    {{ form_label(form.agreeTerms) }}
+                    {{ form_help(form.agreeTerms) }}
+
+                        {% if form_errors(form.agreeTerms) %}
+                            <div class="error-message">
+                                {{ form_errors(form.agreeTerms) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="institution-info">Дані про медзаклад</div>
+
+            {{ form_row(form.fullName)}}
+
+            {{ form_row(form.shortName)}}
+
+            {{ form_row(form.institutionType)}}
+
+            {{ form_row(form.ownershipForm)}}
+
+            {{ form_row(form.phones)}}
+
+            {{ form_row(form.address)}}
+
+            {{ form_row(form.chiefFullName)}}
+
+            {{ form_row(form.headDoctorFullName)}}
+
+            {{ form_row(form.email)}}
+
+            {{ form_row(form.schedule)}}
+
+            {{ form_row(form.edrpou)}}
+
+            {{ form_row(form.institutionStatus)}}
+
+        {{ form_end(form) }}

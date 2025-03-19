@@ -1,0 +1,142 @@
+@import '../vars';
+
+.block-title {
+  @include fontTitleBold;
+  color: $black;
+  margin: $mainStep * 3 0;
+  @media (max-width:768px) {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  &.main-title {
+    @include fontHeaderBold;
+    color: $black;
+    margin: $mainStep * 3 0;
+    @media (max-width: 768px) {
+      @include fontTitleBold;
+    }
+    span {
+      color: $color5;
+    }
+  }
+}
+
+.block-title-mobile {
+  @media (max-width:768px) {
+    @include fontMediumBold;
+  }
+}
+
+.result-block {
+  display: flex;
+  flex-direction: column;
+  gap: $mainStep;
+  margin-bottom: $mainStep * 3;
+  > a,
+  .right-side a {
+    color: $color5;
+  }
+  > div:not(.right-side) {
+    > a {
+      color: $color9;
+      white-space: nowrap;
+    }
+  }
+  .chain {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    a {
+      color: $color9;
+      white-space: nowrap;
+      @media (max-width: 768px) {
+        @include fontRegular;
+      }
+    }
+  }
+  .right-side {
+    .chain {
+      @media (max-width: 768px) {
+        margin-top: $mainStep * 2;
+      }
+      i {
+        @media (max-width: 768px) {
+          width: 20px;
+          height: 24px;
+          min-width: 20px;
+          min-height: 24px;
+        }
+      }
+    }
+  }
+  &.unit {
+    flex-direction: row;
+    gap: $mainStep * 2;
+    max-width: 630px;
+    @media (max-width: 768px) {
+      flex-flow: row wrap;
+    }
+    i {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      min-height: 40px;
+    }
+  }
+}
+
+.sections,
+.types {
+  margin-bottom: 60px;
+  @media (max-width:768px) {
+    margin-bottom: $mainStep * 4;
+  }
+}
+
+.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: $mainStep * 14;
+  margin-top: $mainStep * 10;
+  @media (max-width: 768px) {
+    margin-top: 60px;
+  }
+  .buttons-wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: $mainStep * 2;
+    justify-content: center;
+    @media (max-width: 768px) {
+      flex-flow: column nowrap;
+      align-items: center;
+      display: flex;
+    }
+  }
+  button {
+    width: 264px;
+    @media (max-width: 768px) {
+      @include fontMedium;
+      font-size: 16px;
+      width: 100%;
+    }
+  }
+  p {
+    @include fontHeaderBold;
+    color: $color9;
+    @media (max-width: 768px) {
+      @include fontTitleBold;
+    }
+  }
+  span {
+    color: $error;
+  }
+  img {
+    @media (max-width: 768px) {
+      max-height: 250px;
+    }
+  }
+}
