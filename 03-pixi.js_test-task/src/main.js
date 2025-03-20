@@ -1,5 +1,9 @@
 import { Application, Container, Rectangle, Graphics, Text } from "pixi.js";
 
+import Square from "./shapes/Square";
+import Circle from "./shapes/Circle";
+import Triangle from "./shapes/Triangle";
+
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 660;
 const CANVAS_BG_COLOR = "white";
@@ -12,103 +16,56 @@ const BASE_FONT_SIZE = 18;
 const HEADER_HEIGHT = 60;
 const HEADER_Z_INDEX = 1;
 
-const HEADER_SHAPES_CONTAINER_WIDTH = 170;
-const HEADER_SHAPES_CONTAINER_HEIGHT = 30;
-const HEADER_SHAPES_CONTAINER_OFFSET_X = BASE_STROKE_WIDTH / 2;
-const HEADER_SHAPES_CONTAINER_OFFSET_Y =
-    HEADER_SHAPES_CONTAINER_HEIGHT + BASE_STROKE_WIDTH / 2;
-const HEADER_SHAPES_TEXT_OFFSET_X = 10 + BASE_STROKE_WIDTH / 2;
-const HEADER_SHAPES_TEXT_OFFSET_Y =
-    HEADER_SHAPES_CONTAINER_HEIGHT + 5 + BASE_STROKE_WIDTH / 2;
+const SHAPES_WIDTH = 170;
+const SHAPES_HEIGHT = 30;
+const SHAPES_OFFSET_X = BASE_STROKE_WIDTH / 2;
+const SHAPES_OFFSET_Y =
+    SHAPES_HEIGHT + BASE_STROKE_WIDTH / 2;
+const SHAPES_TEXT_OFFSET_X = 10 + BASE_STROKE_WIDTH / 2;
+const SHAPES_TEXT_OFFSET_Y =
+    SHAPES_HEIGHT + 5 + BASE_STROKE_WIDTH / 2;
 
-const HEADER_AREA_CONTAINER_WIDTH = 170;
-const HEADER_AREA_CONTAINER_HEIGHT = 30;
-const HEADER_AREA_CONTAINER_OFFSET_X =
-    HEADER_SHAPES_CONTAINER_WIDTH + BASE_STROKE_WIDTH / 2;
-const HEADER_AREA_CONTAINER_OFFSET_Y =
-    HEADER_AREA_CONTAINER_HEIGHT + BASE_STROKE_WIDTH / 2;
-const HEADER_AREA_TEXT_OFFSET_X =
-    HEADER_AREA_CONTAINER_WIDTH + 10 + BASE_STROKE_WIDTH / 2;
-const HEADER_AREA_TEXT_OFFSET_Y =
-    HEADER_AREA_CONTAINER_HEIGHT + 5 + BASE_STROKE_WIDTH / 2;
+const AREA_WIDTH = 170;
+const AREA_HEIGHT = 30;
+const AREA_OFFSET_X =
+    SHAPES_WIDTH + BASE_STROKE_WIDTH / 2;
+const AREA_OFFSET_Y =
+    AREA_HEIGHT + BASE_STROKE_WIDTH / 2;
+const AREA_TEXT_OFFSET_X =
+    AREA_WIDTH + 10 + BASE_STROKE_WIDTH / 2;
+const AREA_TEXT_OFFSET_Y =
+    AREA_HEIGHT + 5 + BASE_STROKE_WIDTH / 2;
 
-const BODY_CONTAINER_WIDTH = CANVAS_WIDTH - BASE_STROKE_WIDTH;
-const BODY_CONTAINER_HEIGHT = CANVAS_HEIGHT - HEADER_HEIGHT - BASE_STROKE_WIDTH;
-const BODY_CONTAINER_OFFSET_X = BASE_STROKE_WIDTH / 2;
-const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
+const CONTENT_WIDTH = CANVAS_WIDTH - BASE_STROKE_WIDTH;
+const CONTENT_HEIGHT = CANVAS_HEIGHT - HEADER_HEIGHT - BASE_STROKE_WIDTH;
+const CONTENT_OFFSET_X = BASE_STROKE_WIDTH / 2;
+const CONTENT_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
+
+// Todo
+const EXPERIMENTAL_VALUE = 760;
+const OFFSET_Y = Number(`-${HEADER_HEIGHT}`);
+
+const GRAVITY = 1;
+const SPAWN_RATE = 1000;
 
 (async () => {
     // === ИНИЦИАЛИЗАЦИЯ PIXI === //
+    const entry = document.getElementById("app");
     const app = new Application();
     await app.init({
         width: CANVAS_WIDTH,
         height: CANVAS_HEIGHT,
         background: CANVAS_BG_COLOR,
     });
-    document.body.appendChild(app.canvas);
+    entry.appendChild(app.canvas);
 
     // === MODEL (МОДЕЛЬ) === //
-    class Shape {
-        constructor(x, y, color) {
-            this.x = x;
-            this.y = y;
-            this.color = color || Math.random() * 0xffffff;
-            this.graphics = new Graphics();
-            this.draw();
-        }
-
-        draw() {
-            this.graphics.clear();
-            this.graphics.setFillStyle(this.color);
-        }
-
-        update(gravity) {
-            this.y += gravity;
-            this.graphics.y = this.y;
-        }
-
-        destroy() {
-            this.graphics.destroy();
-        }
-    }
-
-    class Square extends Shape {
-        draw() {
-            super.draw();
-            this.graphics.rect(this.x, this.y, 40, 40);
-            this.graphics.fill();
-        }
-    }
-
-    class Circle extends Shape {
-        draw() {
-            super.draw();
-            this.graphics.circle(this.x + 20, this.y + 20, 20);
-            this.graphics.fill();
-        }
-    }
-
-    class Triangle extends Shape {
-        draw() {
-            super.draw();
-            this.graphics.poly([
-                this.x,
-                this.y + 40,
-                this.x + 20,
-                this.y,
-                this.x + 40,
-                this.y + 40,
-            ]);
-            this.graphics.fill();
-        }
-    }
-
     class GameModel {
         constructor() {
             this.shapes = [];
-            this.gravity = 2;
-            this.spawnRate = 1000;
             this.totalArea = 0;
+            this.spawnRate = SPAWN_RATE;
+            this.gravity = GRAVITY;
         }
 
         addShape(shape) {
@@ -180,10 +137,10 @@ const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
             const shapesBorder = new Graphics();
             shapesBorder.clear();
             shapesBorder.rect(
-                HEADER_SHAPES_CONTAINER_OFFSET_X,
-                HEADER_SHAPES_CONTAINER_OFFSET_Y,
-                HEADER_SHAPES_CONTAINER_WIDTH,
-                HEADER_SHAPES_CONTAINER_HEIGHT
+                SHAPES_OFFSET_X,
+                SHAPES_OFFSET_Y,
+                SHAPES_WIDTH,
+                SHAPES_HEIGHT
             );
             shapesBorder.setStrokeStyle({
                 width: BASE_STROKE_WIDTH,
@@ -204,8 +161,8 @@ const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
             });
 
             this.shapesText.position.set(
-                HEADER_SHAPES_TEXT_OFFSET_X,
-                HEADER_SHAPES_TEXT_OFFSET_Y
+                SHAPES_TEXT_OFFSET_X,
+                SHAPES_TEXT_OFFSET_Y
             );
 
             this.header.addChild(this.shapesText);
@@ -215,10 +172,10 @@ const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
             const areaBorder = new Graphics();
             areaBorder.clear();
             areaBorder.rect(
-                HEADER_AREA_CONTAINER_OFFSET_X,
-                HEADER_AREA_CONTAINER_OFFSET_Y,
-                HEADER_AREA_CONTAINER_WIDTH,
-                HEADER_AREA_CONTAINER_HEIGHT
+                AREA_OFFSET_X,
+                AREA_OFFSET_Y,
+                AREA_WIDTH,
+                AREA_HEIGHT
             );
             areaBorder.setStrokeStyle({
                 width: BASE_STROKE_WIDTH,
@@ -239,8 +196,8 @@ const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
             });
 
             this.areaText.position.set(
-                HEADER_AREA_TEXT_OFFSET_X,
-                HEADER_AREA_TEXT_OFFSET_Y
+                AREA_TEXT_OFFSET_X,
+                AREA_TEXT_OFFSET_Y
             );
 
             this.header.addChild(this.areaText);
@@ -264,10 +221,10 @@ const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
             const bodyBorder = new Graphics();
             bodyBorder.clear();
             bodyBorder.rect(
-                BODY_CONTAINER_OFFSET_X,
-                BODY_CONTAINER_OFFSET_Y,
-                BODY_CONTAINER_WIDTH,
-                BODY_CONTAINER_HEIGHT
+                CONTENT_OFFSET_X,
+                CONTENT_OFFSET_Y,
+                CONTENT_WIDTH,
+                CONTENT_HEIGHT
             );
             bodyBorder.setStrokeStyle({
                 width: BASE_STROKE_WIDTH,
@@ -281,11 +238,13 @@ const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
         render() {
             // this.container.removeChildren(3); // Оставляем текстовые блоки и рамки
             this.model.shapes.forEach((shape) =>
-                this.container.addChild(shape.graphics)
+                this.content.addChild(shape.graphics)
             );
 
-            // this.textShapes.text = `Shapes: ${this.model.shapes.length}`;
-            // this.textArea.text = `Area: ${Math.round(this.model.totalArea)} px²`;
+            this.shapesText.text = `Shapes: ${this.model.shapes.length}`;
+            this.areaText.text = `Area: ${Math.round(
+                this.model.totalArea
+            )} px²`;
         }
     }
 
@@ -295,14 +254,14 @@ const BODY_CONTAINER_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
             this.model = model;
             this.view = view;
 
-            // this.view.container.interactive = true;
-            // this.view.container.onpointerdown = (event) =>
-            //     this.addShape(event.data.global.x, event.data.global.y);
+            this.view.content.interactive = true;
+            this.view.content.onpointerdown = (event) =>
+                this.addShape(event.data.global.x, event.data.global.y);
 
             app.ticker.add(() => this.update());
 
             setInterval(
-                () => this.addShape(Math.random() * 760, -50),
+                () => this.addShape(Math.random() * EXPERIMENTAL_VALUE, OFFSET_Y),
                 this.model.spawnRate
             );
 
