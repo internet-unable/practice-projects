@@ -6,6 +6,7 @@ export default class Shape {
         this.y = y;
         this.color = color || Math.random() * 0xffffff;
         this.graphics = new Graphics();
+        this.graphics.interactive = true;
         this.draw();
     }
 
@@ -16,7 +17,20 @@ export default class Shape {
 
     update(gravity) {
         this.y += gravity;
+
+        // из-за этого смещаеться по y
+        // console.log(this.graphics.y);
         this.graphics.y = this.y;
+
+    }
+
+    isVisibleInContent(contentY) {
+        // Todo: should be HEADER_HEIGHT
+        return this.y + 30 >= contentY;
+    }
+
+    getArea() {
+        return 0;
     }
 
     destroy() {
