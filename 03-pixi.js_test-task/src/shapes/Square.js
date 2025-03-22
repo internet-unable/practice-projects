@@ -19,9 +19,9 @@ export default class Square extends Shape {
         this.graphics.y = this.y;
     }
 
-    resize(scaleFactor) {
-        super.resize(scaleFactor);
-    }
+    // resize(scaleFactor) {
+    //     super.resize(scaleFactor);
+    // }
 
     getArea() {
         return this.size * this.size;

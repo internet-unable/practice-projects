@@ -35,9 +35,9 @@ export default class Pentagon extends Shape {
         this.graphics.y = this.y;
     }
 
-    resize(scaleFactor) {
-        super.resize(scaleFactor);
-    }
+    // resize(scaleFactor) {
+    //     super.resize(scaleFactor);
+    // }
 
     getArea() {
         const sideLength = this.size * Math.sin(Math.PI / 5) / Math.sin(2 * Math.PI / 5);

@@ -39,9 +39,9 @@ export default class Star extends Shape {
         this.graphics.y = this.y;
     }
 
-    resize(scaleFactor) {
-        super.resize(scaleFactor);
-    }
+    // resize(scaleFactor) {
+    //     super.resize(scaleFactor);
+    // }
 
     getArea() {
         const outerRadius = this.size / 2;

@@ -37,9 +37,9 @@ export default class Ellipse extends Shape {
         this.graphics.y = this.y;
     }
 
-    resize(scaleFactor) {
-        super.resize(scaleFactor);
-    }
+    // resize(scaleFactor) {
+    //     super.resize(scaleFactor);
+    // }
 
     getArea() {
         return Math.PI * this.radiusX * this.radiusY;

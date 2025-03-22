@@ -35,9 +35,9 @@ export default class Hexagon extends Shape {
         this.graphics.y = this.y;
     }
 
-    resize(scaleFactor) {
-        super.resize(scaleFactor);
-    }
+    // resize(scaleFactor) {
+    //     super.resize(scaleFactor);
+    // }
 
     getArea() {
         return (3 * Math.sqrt(3) / 2) * (this.radius * this.radius);
