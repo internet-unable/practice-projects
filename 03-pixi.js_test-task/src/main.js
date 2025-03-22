@@ -1,52 +1,56 @@
 import { Application, Container, Rectangle, Graphics, Text } from "pixi.js";
 
-import Square from "./shapes/Square";
-import Circle from "./shapes/Circle";
 import Triangle from "./shapes/Triangle";
+import Square from "./shapes/Square";
+import Pentagon from "./shapes/Pentagon";
+import Hexagon from "./shapes/Hexagon";
+import Ellipse from "./shapes/Ellipse";
+import Star from "./shapes/Star";
+import Circle from "./shapes/Circle";
 
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 660;
-const CANVAS_BG_COLOR = "white";
+import "./style.css";
 
+const SHAPES = [Triangle, Square, Pentagon, Hexagon, Ellipse, Star, Circle];
 const BASE_STROKE_WIDTH = 2;
 const BASE_STROKE_COLOR = "black";
 const BASE_TEXT_COLOR = "black";
 const BASE_FONT_SIZE = 18;
 
-const HEADER_HEIGHT = 60;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 600;
+const CANVAS_BG_COLOR = "white";
+
+const HEADER_WIDTH = CANVAS_WIDTH;
+const HEADER_HEIGHT = 30;
 const HEADER_Z_INDEX = 1;
 
 const SHAPES_WIDTH = 170;
-const SHAPES_HEIGHT = 30;
+const SHAPES_HEIGHT = HEADER_HEIGHT;
 const SHAPES_OFFSET_X = BASE_STROKE_WIDTH / 2;
-const SHAPES_OFFSET_Y =
-    SHAPES_HEIGHT + BASE_STROKE_WIDTH / 2;
+const SHAPES_OFFSET_Y = BASE_STROKE_WIDTH / 2;
 const SHAPES_TEXT_OFFSET_X = 10 + BASE_STROKE_WIDTH / 2;
-const SHAPES_TEXT_OFFSET_Y =
-    SHAPES_HEIGHT + 5 + BASE_STROKE_WIDTH / 2;
+const SHAPES_TEXT_OFFSET_Y = 5 + BASE_STROKE_WIDTH / 2;
 
 const AREA_WIDTH = 170;
-const AREA_HEIGHT = 30;
-const AREA_OFFSET_X =
-    SHAPES_WIDTH + BASE_STROKE_WIDTH / 2;
-const AREA_OFFSET_Y =
-    AREA_HEIGHT + BASE_STROKE_WIDTH / 2;
-const AREA_TEXT_OFFSET_X =
-    AREA_WIDTH + 10 + BASE_STROKE_WIDTH / 2;
-const AREA_TEXT_OFFSET_Y =
-    AREA_HEIGHT + 5 + BASE_STROKE_WIDTH / 2;
+const AREA_HEIGHT = HEADER_HEIGHT;
+const AREA_OFFSET_X = SHAPES_WIDTH + BASE_STROKE_WIDTH / 2;
+const AREA_OFFSET_Y = BASE_STROKE_WIDTH / 2;
+const AREA_TEXT_OFFSET_X = AREA_WIDTH + 10 + BASE_STROKE_WIDTH / 2;
+const AREA_TEXT_OFFSET_Y = 5 + BASE_STROKE_WIDTH / 2;
 
 const CONTENT_WIDTH = CANVAS_WIDTH - BASE_STROKE_WIDTH;
 const CONTENT_HEIGHT = CANVAS_HEIGHT - HEADER_HEIGHT - BASE_STROKE_WIDTH;
 const CONTENT_OFFSET_X = BASE_STROKE_WIDTH / 2;
 const CONTENT_OFFSET_Y = HEADER_HEIGHT + BASE_STROKE_WIDTH / 2;
 
-// Todo
-const EXPERIMENTAL_VALUE = 760;
-const OFFSET_Y = Number(`-${HEADER_HEIGHT}`);
+// Todo: should be canvas_width - largest figure in width
+const EXPERIMENTAL_VALUE = CANVAS_WIDTH - 50;
+// const OFFSET_Y = Number(`-${HEADER_HEIGHT}`);
+// const OFFSET_Y = HEADER_HEIGHT;
+const OFFSET_Y = 0;
 
 const GRAVITY = 1;
-const SPAWN_RATE = 1000;
+const SPAWN_RATE = 10000;
 
 (async () => {
     // === ИНИЦИАЛИЗАЦИЯ PIXI === //
@@ -56,6 +60,7 @@ const SPAWN_RATE = 1000;
         width: CANVAS_WIDTH,
         height: CANVAS_HEIGHT,
         background: CANVAS_BG_COLOR,
+        // resizeTo: window
     });
     entry.appendChild(app.canvas);
 
@@ -64,36 +69,52 @@ const SPAWN_RATE = 1000;
         constructor() {
             this.shapes = [];
             this.totalArea = 0;
+            this.visibleShapesCount = 0;
             this.spawnRate = SPAWN_RATE;
             this.gravity = GRAVITY;
         }
 
         addShape(shape) {
             this.shapes.push(shape);
-            this.updateArea();
+            this.updateVisibleShapes();
         }
 
         removeShape(shape) {
             shape.destroy();
             this.shapes = this.shapes.filter((s) => s !== shape);
-            this.updateArea();
+            this.updateVisibleShapes();
         }
 
-        updateArea() {
-            this.totalArea = this.shapes.reduce(
-                (sum, shape) =>
-                    sum +
-                    (shape instanceof Square
-                        ? 1600
-                        : shape instanceof Circle
-                        ? Math.PI * 400
-                        : 800),
-                0
-            );
+        updateVisibleShapes() {
+            let count = 0;
+            let totalArea = 0;
+            this.shapes.forEach((shape) => {
+                if (shape.isVisibleInContent(CONTENT_OFFSET_Y)) {
+                    count++;
+                    totalArea += shape.getArea();
+                }
+            });
+
+            this.visibleShapesCount = count;
+            this.totalArea = totalArea;
+        }
+
+        removeOutOfBoundsShapes() {
+            this.shapes = this.shapes.filter((shape) => {
+                if (shape.y > CANVAS_HEIGHT) {
+                    this.removeShape(shape);
+                    return false;
+                }
+                return true;
+            });
+
+            this.updateVisibleShapes();
         }
 
         update() {
             this.shapes.forEach((shape) => shape.update(this.gravity));
+            this.removeOutOfBoundsShapes();
+            this.updateVisibleShapes();
         }
     }
 
@@ -127,8 +148,8 @@ const SPAWN_RATE = 1000;
         createHeaderBg() {
             const headerBg = new Graphics();
             headerBg.clear();
-            headerBg.rect(0, 0, CANVAS_WIDTH, HEADER_HEIGHT);
-            headerBg.fill();
+            headerBg.rect(0, 0, HEADER_WIDTH, HEADER_HEIGHT);
+            headerBg.fill("cyan");
 
             this.header.addChild(headerBg);
         }
@@ -195,10 +216,7 @@ const SPAWN_RATE = 1000;
                 },
             });
 
-            this.areaText.position.set(
-                AREA_TEXT_OFFSET_X,
-                AREA_TEXT_OFFSET_Y
-            );
+            this.areaText.position.set(AREA_TEXT_OFFSET_X, AREA_TEXT_OFFSET_Y);
 
             this.header.addChild(this.areaText);
         }
@@ -208,40 +226,41 @@ const SPAWN_RATE = 1000;
             this.content.sortableChildren = true;
             this.content.interactive = true;
             this.content.hitArea = new Rectangle(
-                0,
-                0,
+                CONTENT_OFFSET_X,
+                CONTENT_OFFSET_Y,
                 CANVAS_WIDTH,
-                CANVAS_HEIGHT - HEADER_HEIGHT
+                CANVAS_HEIGHT
             );
 
             this.app.stage.addChild(this.content);
         }
 
         createContentBorder() {
-            const bodyBorder = new Graphics();
-            bodyBorder.clear();
-            bodyBorder.rect(
+            const contentBorder = new Graphics();
+            contentBorder.clear();
+            contentBorder.rect(
                 CONTENT_OFFSET_X,
                 CONTENT_OFFSET_Y,
                 CONTENT_WIDTH,
                 CONTENT_HEIGHT
             );
-            bodyBorder.setStrokeStyle({
+            contentBorder.setStrokeStyle({
                 width: BASE_STROKE_WIDTH,
                 color: BASE_STROKE_COLOR,
             });
-            bodyBorder.stroke();
+            contentBorder.stroke();
+            contentBorder.fill("yellow");
 
-            this.content.addChild(bodyBorder);
+            this.content.addChild(contentBorder);
         }
 
         render() {
-            // this.container.removeChildren(3); // Оставляем текстовые блоки и рамки
-            this.model.shapes.forEach((shape) =>
+            this.model.shapes.forEach((shape) =>{
+                // console.log(shape.y);
                 this.content.addChild(shape.graphics)
-            );
+            });
 
-            this.shapesText.text = `Shapes: ${this.model.shapes.length}`;
+            this.shapesText.text = `Shapes: ${this.model.visibleShapesCount}`;
             this.areaText.text = `Area: ${Math.round(
                 this.model.totalArea
             )} px²`;
@@ -253,32 +272,44 @@ const SPAWN_RATE = 1000;
         constructor(model, view) {
             this.model = model;
             this.view = view;
-
-            this.view.content.interactive = true;
-            this.view.content.onpointerdown = (event) =>
-                this.addShape(event.data.global.x, event.data.global.y);
+            this.spawnLoop = null;
 
             app.ticker.add(() => this.update());
-
-            setInterval(
-                () => this.addShape(Math.random() * EXPERIMENTAL_VALUE, OFFSET_Y),
-                this.model.spawnRate
-            );
-
+            this.handleContentPointerDown();
             this.createControlButtons();
+            this.startSpawning();
+        }
+
+        startSpawning() {
+            // if (this.spawnLoop) clearInterval(this.spawnLoop); // Удаляем старый интервал
+
+            // this.spawnLoop = setInterval(() => {
+            //     this.addShape(Math.random() * EXPERIMENTAL_VALUE, OFFSET_Y);
+            // }, this.model.spawnRate);
+        }
+
+        handleContentPointerDown() {
+            this.view.content.onpointerdown = (event) => {
+                if (event.target !== this.view.content) return;
+                this.addShape(event.data.global.x, event.data.global.y - HEADER_HEIGHT);
+            };
         }
 
         addShape(x, y) {
-            const ShapeClass = [Square, Circle, Triangle][
-                Math.floor(Math.random() * 3)
-            ];
-            const shape = new ShapeClass(x, y);
-            shape.graphics.interactive = true;
+            // const ShapeClass = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+            // const shape = new ShapeClass(x, y);
+            // const shape = new Hexagon(x, y);
+            const shape = new Square(x, y);
+
+            this.handleShapePointerDown(shape);
+            this.model.addShape(shape);
+        }
+
+        handleShapePointerDown(shape) {
             shape.graphics.onpointerdown = (event) => {
                 event.stopPropagation();
                 this.removeShape(shape);
             };
-            this.model.addShape(shape);
         }
 
         removeShape(shape) {
@@ -317,12 +348,14 @@ const SPAWN_RATE = 1000;
                 );
                 document.getElementById("spawnRate").textContent =
                     this.model.spawnRate;
+                this.startSpawning();
             };
 
             document.getElementById("increaseSpawn").onclick = () => {
                 this.model.spawnRate += 200;
                 document.getElementById("spawnRate").textContent =
                     this.model.spawnRate;
+                this.startSpawning();
             };
 
             document.getElementById("decreaseGravity").onclick = () => {
