@@ -4,7 +4,5 @@
 }
 
 #app {
-    max-width: 800px;
-    max-height: 600px;
-    margin: 0 auto;
+    text-align: center;
 }
