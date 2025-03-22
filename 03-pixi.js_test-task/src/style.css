@@ -6,3 +6,25 @@
 #app {
     text-align: center;
 }
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.btn {
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 20px;
+    padding: 8px 16px;
+}
