@@ -7,7 +7,7 @@ export default class Shape {
         this.color = color || Math.random() * 0xffffff;
         this.graphics = new Graphics();
         this.graphics.interactive = true;
-        this.draw();
+        this.scale = 1;
     }
 
     draw() {
@@ -17,11 +17,12 @@ export default class Shape {
 
     update(gravity) {
         this.y += gravity;
-
-        // из-за этого смещаеться по y
-        // console.log(this.graphics.y);
         this.graphics.y = this.y;
+    }
 
+    resize(scaleFactor) {
+        this.scale *= scaleFactor;
+        this.draw();
     }
 
     isVisibleInContent(contentY) {
