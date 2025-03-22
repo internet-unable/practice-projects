@@ -4,7 +4,9 @@ const SIZE = 20;
 
 export default class Triangle extends Shape {
     constructor(x, y, size = SIZE, color) {
-        super(x, y + size, color);
+        const adjustedY = y + size;
+
+        super(x, adjustedY, color);
         this.size = size * this.scale;
         this.draw();
     }

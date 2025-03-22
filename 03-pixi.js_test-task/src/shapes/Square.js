@@ -4,7 +4,10 @@ const SIZE = 40;
 
 export default class Square extends Shape {
     constructor(x, y, size = SIZE, color) {
-        super(x - size / 2, y + size / 2, color);
+        const adjustedX = x - size / 2;
+        const adjustedY = y + size / 2;
+
+        super(adjustedX, adjustedY, color);
         this.size = size * this.scale;
         this.draw();
     }

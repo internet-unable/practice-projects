@@ -5,7 +5,9 @@ const POINTS = 5;
 
 export default class Star extends Shape {
     constructor(x, y, size = SIZE, points = POINTS, color) {
-        super(x, y + size, color);
+        const adjustedY = y + size;
+
+        super(x, adjustedY, color);
         this.size = size * this.scale;
         this.points = points;
         this.draw();

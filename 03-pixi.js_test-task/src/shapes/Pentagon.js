@@ -4,7 +4,9 @@ const SIZE = 40;
 
 export default class Pentagon extends Shape {
     constructor(x, y, size = SIZE, color) {
-        super(x, y + size / 2, color);
+        const adjustedY = y + size / 2;
+
+        super(x, adjustedY, color);
         this.size = size * this.scale;
         this.draw();
     }

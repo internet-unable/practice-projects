@@ -6,7 +6,9 @@ const START_ANGLE = 0;
 
 export default class Hexagon extends Shape {
     constructor(x, y, radius = RADIUS, color) {
-        super(x, y + radius, color);
+        const adjustedY = y + radius;
+
+        super(x, adjustedY, color);
         this.radius = radius * this.scale;
         this.draw();
     }

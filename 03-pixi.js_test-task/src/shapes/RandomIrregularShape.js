@@ -6,8 +6,10 @@ const MAX_POINTS = 12;
 
 export default class RandomIrregularShape extends Shape {
     constructor(x, y, size = SIZE, color) {
-        super(x, y + size / 2, color);
-        this.size = size;
+        const adjustedY = y + size / 2;
+
+        super(x, adjustedY, color);
+        this.size = size * this.scale;
         this.points = [];
         this.generatePoints();
         this.draw();
