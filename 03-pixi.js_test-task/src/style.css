@@ -7,11 +7,20 @@
     text-align: center;
 }
 
+.ctrl-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+
+}
+
 .row {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    text-align: center;
 }
 
 .col {

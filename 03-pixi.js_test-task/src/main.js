@@ -11,7 +11,15 @@ import Triangle from "./shapes/Triangle";
 
 import "./style.css";
 
-const SHAPES = [Circle, Ellipse, Hexagon, Pentagon, RandomIrregularShape, Square, Star, Triangle];
+const SHAPES = [
+    Circle,
+    Ellipse,
+    Hexagon,
+    Pentagon,
+    /*RandomIrregularShape,*/ Square,
+    Star,
+    Triangle,
+];
 const BASE_CANVAS_WIDTH = 800;
 const BASE_CANVAS_HEIGHT = 600;
 const BASE_STROKE_WIDTH = 2;
@@ -453,21 +461,21 @@ let gameApp, gameModel, gameView, gameController;
         }
 
         startSpawning() {
-            // if (this.spawnLoop) clearInterval(this.spawnLoop); // Удаляем старый интервал
+            if (this.spawnLoop) clearInterval(this.spawnLoop); // Удаляем старый интервал
 
-            // this.spawnLoop = setInterval(() => {
-            //     this.addShape(
-            //         Math.random() * dimensions.EXPERIMENTAL_VALUE,
-            //         OFFSET_Y
-            //     );
-            // }, this.model.spawnRate);
+            this.spawnLoop = setInterval(() => {
+                this.addShape(
+                    Math.random() * dimensions.EXPERIMENTAL_VALUE,
+                    OFFSET_Y
+                );
+            }, this.model.spawnRate);
         }
 
         addShape(x, y) {
             // Создаем случайную фигуру из доступных типов
-            // const ShapeClass =
-            //     SHAPES[Math.floor(Math.random() * SHAPES.length)];
-            // const shape = new ShapeClass(x, y);
+            const ShapeClass =
+                SHAPES[Math.floor(Math.random() * SHAPES.length)];
+            const shape = new ShapeClass(x, y);
 
             // const SHAPES = [Circle, Ellipse, Hexagon, Pentagon, RandomIrregularShape, Square, Star, Triangle];
             // const shape = new Circle(x, y);
@@ -477,7 +485,7 @@ let gameApp, gameModel, gameView, gameController;
             // const shape = new RandomIrregularShape(x, y);
             // const shape = new Square(x, y);
             // const shape = new Star(x, y);
-            const shape = new Triangle(x, y);
+            // const shape = new Triangle(x, y);
 
             // Добавляем обработчик события для удаления фигуры
             this.handleShapePointerDown(shape);
@@ -504,32 +512,26 @@ let gameApp, gameModel, gameView, gameController;
 
         createControlButtons() {
             const controls = document.createElement("div");
-            controls.style.textAlign = "center";
-            controls.style.marginTop = "10px";
-            controls.style.display = "flex";
-            controls.style.flexDirection = "column";
-            controls.style.gap = "10px";
+            controls.className = "ctrl-group";
 
             // Создаем мобильно-дружественные элементы управления
             controls.innerHTML = `
-                <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
-                  <button id="decreaseSpawn" style="width: 40px; height: 40px; font-size: 20px">-</button>
-                  <div>
-                    <div>Spawn Rate</div>
-                    <div id="spawnRate">${this.model.spawnRate} ms</div>
-                  </div>
-                  <button id="increaseSpawn" style="width: 40px; height: 40px; font-size: 20px">+</button>
+                <div class="row">
+                    <button id="decreaseSpawn" class="btn">-</button>
+                    <div>
+                        <div>Spawn Rate</div>
+                        <div id="spawnRate">${this.model.spawnRate} ms</div>
+                    </div>
+                    <button id="increaseSpawn" class="btn">+</button>
                 </div>
-                <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
-                  <button id="decreaseGravity" style="width: 40px; height: 40px; font-size: 20px">-</button>
-                  <div>
-                    <div>Gravity</div>
-                    <div id="gravity">${this.model.gravity}</div>
-                  </div>
-                  <button id="increaseGravity" style="width: 40px; height: 40px; font-size: 20px">+</button>
-                </div>
-                <div>
-                  <button id="clearAll" style="padding: 8px 16px">Clear All</button>
+
+                <div class="row">
+                    <button id="decreaseGravity" class="btn">-</button>
+                    <div>
+                        <div>Gravity</div>
+                        <div id="gravity">${this.model.gravity}</div>
+                    </div>
+                    <button id="increaseGravity" class="btn">+</button>
                 </div>
             `;
 
@@ -565,13 +567,6 @@ let gameApp, gameModel, gameView, gameController;
                 this.model.gravity += 1;
                 document.getElementById("gravity").textContent =
                     this.model.gravity;
-            };
-
-            // Добавляем кнопку для очистки всех фигур
-            document.getElementById("clearAll").onclick = () => {
-                while (this.model.shapes.length > 0) {
-                    this.removeShape(this.model.shapes[0]);
-                }
             };
         }
     }
