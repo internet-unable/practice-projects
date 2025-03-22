@@ -1,28 +1,33 @@
 import Shape from "./Shape";
 
-const BASE = 40;
-const HEIGTH = 40;
+const SIZE = 20;
 
 export default class Triangle extends Shape {
-    constructor(x, y, base = BASE, height = HEIGTH, color) {
-        super(x, y, color);
-        this.base = base;
-        this.height = height;
+    constructor(x, y, size = SIZE, color) {
+        super(x, y + size, color);
+        this.size = size * this.scale;
         this.draw();
     }
 
     draw() {
         super.draw();
-        this.graphics.poly([
-            this.x, this.y + this.height,
-            this.x + this.base / 2, this.y,
-            this.x + this.base, this.y + this.height
-        ]);
+
+        this.graphics.beginPath();
+        this.graphics.moveTo(0, -this.size);
+        this.graphics.lineTo(-this.size, this.size);
+        this.graphics.lineTo(this.size, this.size);
+        this.graphics.closePath();
+
         this.graphics.fill();
+        this.graphics.x = this.x;
         this.graphics.y = this.y;
     }
 
+    resize(scaleFactor) {
+        super.resize(scaleFactor);
+    }
+
     getArea() {
-        return 0.5 * this.base * this.height;
+        return (this.size * this.size * Math.sqrt(3)) / 4;
     }
 }

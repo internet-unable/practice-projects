@@ -1,26 +1,47 @@
 import Shape from "./Shape";
 
+const SIZE = 40;
+
 export default class Pentagon extends Shape {
+    constructor(x, y, size = SIZE, color) {
+        super(x, y + size / 2, color);
+        this.size = size * this.scale;
+        this.draw();
+    }
+
     draw() {
         super.draw();
-        this.graphics.setFillStyle(this.color);
-        this.graphics.poly([
-            this.x,
-            this.y + 40,
-            this.x + 15,
-            this.y,
-            this.x + 45,
-            this.y,
-            this.x + 60,
-            this.y + 40,
-            this.x + 30,
-            this.y + 60,
-        ]);
+
+        const radius = this.size / 2;
+
+        this.graphics.beginPath();
+
+        for (let i = 0; i < 5; i++) {
+            const angle = (i * 2 * Math.PI / 5) - Math.PI / 2;
+
+            const x = radius * Math.cos(angle);
+            const y = radius * Math.sin(angle);
+
+            if (i === 0) {
+                this.graphics.moveTo(x, y);
+            } else {
+                this.graphics.lineTo(x, y);
+            }
+        }
+
+        this.graphics.closePath();
         this.graphics.fill();
+        this.graphics.x = this.x;
         this.graphics.y = this.y;
     }
 
+    resize(scaleFactor) {
+        super.resize(scaleFactor);
+    }
+
     getArea() {
-        return 1200;
+        const sideLength = this.size * Math.sin(Math.PI / 5) / Math.sin(2 * Math.PI / 5);
+        const apothem = this.size / 2 * Math.cos(Math.PI / 5);
+        return 5 * sideLength * apothem / 2;
     }
 }
