@@ -18,7 +18,7 @@ export function getDeviceDimensions() {
             BASE_SETTINGS.ENTRY_POINT_PADDING * 2 -
             BASE_SETTINGS.STROKE_WIDTH * 2,
         BASE_SETTINGS.CANVAS_HEIGHT
-    ); // Учитываем пространство для элементов управления
+    );
     return { width, height };
 }
 
