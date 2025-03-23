@@ -1,4 +1,5 @@
 import { Graphics } from "pixi.js";
+import { HEADER_SETTINGS } from "../utils/constants";
 
 export default class Shape {
     constructor(x, y, color) {
@@ -26,8 +27,7 @@ export default class Shape {
     }
 
     isVisibleInContent(contentY) {
-        // Todo: should be HEADER_HEIGHT
-        return this.y + 30 >= contentY;
+        return this.y + HEADER_SETTINGS.HEIGHT >= contentY;
     }
 
     getSize() {
