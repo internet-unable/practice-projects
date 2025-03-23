@@ -7,7 +7,27 @@
         <title>Pixi App</title>
     </head>
     <body>
-        <div id="app"></div>
+        <div id="app">
+            <div class="ctrl-group">
+                <div class="row">
+                    <button id="decreaseSpawn" class="btn">-</button>
+                    <div>
+                        <div>Spawn Rate</div>
+                        <div id="spawnRate">1000 ms</div>
+                    </div>
+                    <button id="increaseSpawn" class="btn">+</button>
+                </div>
+
+                <div class="row">
+                    <button id="decreaseGravity" class="btn">-</button>
+                    <div>
+                        <div>Gravity</div>
+                        <div id="gravity">1</div>
+                    </div>
+                    <button id="increaseGravity" class="btn">+</button>
+                </div>
+            </div>
+        </div>
         <script type="module" src="/src/main.js"></script>
     </body>
 </html>

@@ -1,10 +1,12 @@
 import { Application, Container, Rectangle, Graphics, Text } from "pixi.js";
 
+import { getAbsoluteHeight } from "./utils";
+
 import Circle from "./shapes/Circle";
 import Ellipse from "./shapes/Ellipse";
 import Hexagon from "./shapes/Hexagon";
 import Pentagon from "./shapes/Pentagon";
-import RandomIrregularShape from "./shapes/RandomIrregularShape";
+// import RandomIrregularShape from "./shapes/RandomIrregularShape";
 import Square from "./shapes/Square";
 import Star from "./shapes/Star";
 import Triangle from "./shapes/Triangle";
@@ -16,7 +18,8 @@ const SHAPES = [
     Ellipse,
     Hexagon,
     Pentagon,
-    /*RandomIrregularShape,*/ Square,
+    // RandomIrregularShape,
+    Square,
     Star,
     Triangle,
 ];
@@ -36,6 +39,7 @@ const AREA_WIDTH = 140;
 const OFFSET_Y = 0;
 const GRAVITY = 1;
 const SPAWN_RATE = 2000;
+const CTRL_GROUP = document.querySelector(".ctrl-group");
 
 // Функция для получения размеров устройства
 function getDeviceDimensions() {
@@ -44,7 +48,7 @@ function getDeviceDimensions() {
         BASE_CANVAS_WIDTH
     );
     const height = Math.min(
-        window.innerHeight - 80 - BASE_ENTRY_PADDING * 2,
+        window.innerHeight - getAbsoluteHeight(CTRL_GROUP) - BASE_ENTRY_PADDING * 2 - BASE_STROKE_WIDTH * 2,
         BASE_CANVAS_HEIGHT
     ); // Учитываем пространство для элементов управления
     return { width, height };
@@ -152,7 +156,8 @@ let gameApp, gameModel, gameView, gameController;
         background: CANVAS_BG_COLOR,
     });
 
-    entry.appendChild(gameApp.canvas);
+    // entry.appendChild(gameApp.canvas);
+    entry.insertBefore(gameApp.canvas, CTRL_GROUP);
 
     // === MODEL (МОДЕЛЬ) === //
     class GameModel {
@@ -511,62 +516,66 @@ let gameApp, gameModel, gameView, gameController;
         }
 
         createControlButtons() {
-            const controls = document.createElement("div");
-            controls.className = "ctrl-group";
+            // const controls = document.createElement("div");
+            // controls.className = "ctrl-group";
 
             // Создаем мобильно-дружественные элементы управления
-            controls.innerHTML = `
-                <div class="row">
-                    <button id="decreaseSpawn" class="btn">-</button>
-                    <div>
-                        <div>Spawn Rate</div>
-                        <div id="spawnRate">${this.model.spawnRate} ms</div>
-                    </div>
-                    <button id="increaseSpawn" class="btn">+</button>
-                </div>
+            // controls.innerHTML = `
+            //     <div class="row">
+            //         <button id="decreaseSpawn" class="btn">-</button>
+            //         <div>
+            //             <div>Spawn Rate</div>
+            //             <div id="spawnRate">${this.model.spawnRate} ms</div>
+            //         </div>
+            //         <button id="increaseSpawn" class="btn">+</button>
+            //     </div>
 
-                <div class="row">
-                    <button id="decreaseGravity" class="btn">-</button>
-                    <div>
-                        <div>Gravity</div>
-                        <div id="gravity">${this.model.gravity}</div>
-                    </div>
-                    <button id="increaseGravity" class="btn">+</button>
-                </div>
-            `;
+            //     <div class="row">
+            //         <button id="decreaseGravity" class="btn">-</button>
+            //         <div>
+            //             <div>Gravity</div>
+            //             <div id="gravity">${this.model.gravity}</div>
+            //         </div>
+            //         <button id="increaseGravity" class="btn">+</button>
+            //     </div>
+            // `;
 
-            document.body.appendChild(controls);
+            // document.body.appendChild(controls);
 
             // Добавляем обработчики событий
-            document.getElementById("decreaseSpawn").onclick = () => {
+            const decreaseSpawnBtn = document.getElementById("decreaseSpawn");
+            const spawnRateEl = document.getElementById("spawnRate");
+            const increaseSpawnBtn = document.getElementById("increaseSpawn");
+            const decreaseGravityBtn = document.getElementById("decreaseGravity");
+            const gtavityEl = document.getElementById("gravity");
+            const increaseGravityBtn = document.getElementById("increaseGravity");
+
+            spawnRateEl.textContent = `${this.model.spawnRate} ms`;
+            gtavityEl.textContent = this.model.gravity;
+
+            decreaseSpawnBtn.onclick = () => {
                 this.model.spawnRate = Math.max(
-                    200,
-                    this.model.spawnRate - 200
+                    1000,
+                    this.model.spawnRate - 1000
                 );
-                document.getElementById(
-                    "spawnRate"
-                ).textContent = `${this.model.spawnRate} ms`;
+                spawnRateEl.textContent = `${this.model.spawnRate} ms`;
                 this.startSpawning();
             };
 
-            document.getElementById("increaseSpawn").onclick = () => {
-                this.model.spawnRate += 200;
-                document.getElementById(
-                    "spawnRate"
-                ).textContent = `${this.model.spawnRate} ms`;
+            increaseSpawnBtn.onclick = () => {
+                this.model.spawnRate += 1000;
+                spawnRateEl.textContent = `${this.model.spawnRate} ms`;
                 this.startSpawning();
             };
 
-            document.getElementById("decreaseGravity").onclick = () => {
+            decreaseGravityBtn.onclick = () => {
                 this.model.gravity = Math.max(1, this.model.gravity - 1);
-                document.getElementById("gravity").textContent =
-                    this.model.gravity;
+                gtavityEl.textContent = this.model.gravity;
             };
 
-            document.getElementById("increaseGravity").onclick = () => {
+            increaseGravityBtn.onclick = () => {
                 this.model.gravity += 1;
-                document.getElementById("gravity").textContent =
-                    this.model.gravity;
+                gtavityEl.textContent = this.model.gravity;
             };
         }
     }

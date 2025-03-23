@@ -11,8 +11,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+    gap: 50px;
+    margin-top: 50px;
+}
 
+@media screen and (max-width: 425px) {
+    .ctrl-group {
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 25px;
+    }
 }
 
 .row {
