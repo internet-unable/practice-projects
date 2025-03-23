@@ -23,9 +23,9 @@ export default class Circle extends Shape {
         this.graphics.y = this.y;
     }
 
-    // resize(scaleFactor) {
-    //     super.resize(scaleFactor);
-    // }
+    getSize() {
+        return { width: this.radius, height: this.radius };
+    }
 
     getArea() {
         return Math.PI * this.radius * this.radius;

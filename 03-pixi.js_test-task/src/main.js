@@ -97,17 +97,6 @@ function calculateDimensions() {
 
 let dimensions = calculateDimensions();
 
-// Добавляем прослушиватель событий для перерасчета размеров при изменении размера окна
-// window.addEventListener('resize', () => {
-//     dimensions = calculateDimensions();
-//     console.log(dimensions);
-//     if (gameApp) {
-//         gameApp.renderer.resize(CANVAS_WIDTH, CANVAS_HEIGHT);
-//         // Обновляем представление, если оно существует
-//         if (gameView) gameView.resize(dimensions);
-//     }
-// });
-
 window.addEventListener("resize", () => {
     // Сохраняем прежние размеры для вычисления пропорций
     const oldWidth = CANVAS_WIDTH;
@@ -156,7 +145,6 @@ let gameApp, gameModel, gameView, gameController;
         background: CANVAS_BG_COLOR,
     });
 
-    // entry.appendChild(gameApp.canvas);
     entry.insertBefore(gameApp.canvas, CTRL_GROUP);
 
     // === MODEL (МОДЕЛЬ) === //
@@ -196,7 +184,7 @@ let gameApp, gameModel, gameView, gameController;
 
         removeOutOfBoundsShapes() {
             this.shapes = this.shapes.filter((shape) => {
-                if (shape.y > CANVAS_HEIGHT) {
+                if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
                     this.removeShape(shape);
                     return false;
                 }

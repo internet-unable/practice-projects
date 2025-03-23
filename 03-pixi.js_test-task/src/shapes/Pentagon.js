@@ -19,7 +19,7 @@ export default class Pentagon extends Shape {
         this.graphics.beginPath();
 
         for (let i = 0; i < 5; i++) {
-            const angle = (i * 2 * Math.PI / 5) - Math.PI / 2;
+            const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
 
             const x = radius * Math.cos(angle);
             const y = radius * Math.sin(angle);
@@ -37,13 +37,14 @@ export default class Pentagon extends Shape {
         this.graphics.y = this.y;
     }
 
-    // resize(scaleFactor) {
-    //     super.resize(scaleFactor);
-    // }
+    getSize() {
+        return { width: this.size * 2, height: 1.538 * this.size };
+    }
 
     getArea() {
-        const sideLength = this.size * Math.sin(Math.PI / 5) / Math.sin(2 * Math.PI / 5);
-        const apothem = this.size / 2 * Math.cos(Math.PI / 5);
-        return 5 * sideLength * apothem / 2;
+        const sideLength =
+            (this.size * Math.sin(Math.PI / 5)) / Math.sin((2 * Math.PI) / 5);
+        const apothem = (this.size / 2) * Math.cos(Math.PI / 5);
+        return (5 * sideLength * apothem) / 2;
     }
 }

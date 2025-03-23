@@ -1,7 +1,7 @@
 import Shape from "./Shape";
 
 const RADIUS = 30;
-const SIDES = 6
+const SIDES = 6;
 const START_ANGLE = 0;
 
 export default class Hexagon extends Shape {
@@ -25,7 +25,7 @@ export default class Hexagon extends Shape {
         );
 
         for (let i = 1; i <= sides; i++) {
-            const angle = startAngle + i * (Math.PI * 2) / sides;
+            const angle = startAngle + (i * (Math.PI * 2)) / sides;
             this.graphics.lineTo(
                 this.radius * Math.cos(angle),
                 this.radius * Math.sin(angle)
@@ -37,11 +37,11 @@ export default class Hexagon extends Shape {
         this.graphics.y = this.y;
     }
 
-    // resize(scaleFactor) {
-    //     super.resize(scaleFactor);
-    // }
+    getSize() {
+        return { width: this.radius * 2, height: Math.sqrt(3) * this.radius };
+    }
 
     getArea() {
-        return (3 * Math.sqrt(3) / 2) * (this.radius * this.radius);
+        return ((3 * Math.sqrt(3)) / 2) * (this.radius * this.radius);
     }
 }

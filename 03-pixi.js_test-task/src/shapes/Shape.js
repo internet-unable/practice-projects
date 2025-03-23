@@ -30,6 +30,10 @@ export default class Shape {
         return this.y + 30 >= contentY;
     }
 
+    getSize() {
+        return { width: 0, height: 0 };
+    }
+
     getArea() {
         return 0;
     }

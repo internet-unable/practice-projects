@@ -25,9 +25,9 @@ export default class Triangle extends Shape {
         this.graphics.y = this.y;
     }
 
-    // resize(scaleFactor) {
-    //     super.resize(scaleFactor);
-    // }
+    getSize() {
+        return { width: this.size, height: 0.866 * this.size };
+    }
 
     getArea() {
         return (this.size * this.size * Math.sqrt(3)) / 4;

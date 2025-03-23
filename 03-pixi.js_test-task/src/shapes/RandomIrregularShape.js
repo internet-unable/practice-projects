@@ -59,9 +59,10 @@ export default class RandomIrregularShape extends Shape {
         this.graphics.y = this.y;
     }
 
-    // resize(scaleFactor) {
-    //     super.resize(scaleFactor);
-    // }
+    getSize() {
+        const bounds = this.graphics.getBounds();
+        return { width: bounds.width, height: bounds.height };
+    }
 
     getArea() {
         let area = 0;

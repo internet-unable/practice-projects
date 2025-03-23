@@ -17,13 +17,13 @@ export default class Star extends Shape {
         super.draw();
         const outerRadius = this.size / 2;
         const innerRadius = outerRadius * 0.4;
-        
+
         this.graphics.beginPath();
 
         for (let i = 0; i < this.points * 2; i++) {
             const radius = i % 2 === 0 ? outerRadius : innerRadius;
 
-            const angle = (i * Math.PI / this.points) - Math.PI / 2;
+            const angle = (i * Math.PI) / this.points - Math.PI / 2;
 
             const x = radius * Math.cos(angle);
             const y = radius * Math.sin(angle);
@@ -41,19 +41,25 @@ export default class Star extends Shape {
         this.graphics.y = this.y;
     }
 
-    // resize(scaleFactor) {
-    //     super.resize(scaleFactor);
-    // }
+    getSize() {
+        return { width: this.size * 2, height: this.size * 2 };
+    }
 
     getArea() {
         const outerRadius = this.size / 2;
         const innerRadius = outerRadius * 0.4;
 
-        const pointArea = this.points * (
-            (1/2) * outerRadius * outerRadius * Math.sin(2 * Math.PI / this.points) +
-            (1/2) * innerRadius * innerRadius * Math.sin(2 * Math.PI / this.points)
-        );
-        
+        const pointArea =
+            this.points *
+            ((1 / 2) *
+                outerRadius *
+                outerRadius *
+                Math.sin((2 * Math.PI) / this.points) +
+                (1 / 2) *
+                    innerRadius *
+                    innerRadius *
+                    Math.sin((2 * Math.PI) / this.points));
+
         return pointArea;
     }
 }
