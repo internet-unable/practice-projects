@@ -39,7 +39,7 @@ export default class RandomIrregularShape extends Shape {
 
     draw() {
         super.draw();
-
+        // Todo: need to find different approach to draw such random figure, to avoid effect of scaling
         this.graphics.beginPath();
 
         const firstPoint = this.points[0];
