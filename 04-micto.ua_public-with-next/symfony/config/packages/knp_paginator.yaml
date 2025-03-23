@@ -1,6 +1,0 @@
-knp_paginator:
-  page_range: 5
-  default_options:
-    page_name: page
-  template:
-    pagination: 'components/pagination_template.html.twig'

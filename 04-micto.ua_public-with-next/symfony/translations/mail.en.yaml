@@ -1,9 +1,0 @@
-ownership_form:
-    state: 'State'
-    private: 'Private'
-    collective: 'Collective'
-
-status:
-    occupied: 'In the occupied territory'
-    relocated: 'Relocated'
-    attacked: 'Was attacked'

@@ -1,6 +1,0 @@
-comment:
-  replies_count: '{count, plural, one {# відповідь} few {# відповіді} other {# відповідей}}'
-  total: '{count, plural, one {# відгук} few {# відгуки} other {# відгуків}}'
-
-common:
-  institution_count_label: '{count, plural, one {заклад} few {заклади} other {закладів}}'
