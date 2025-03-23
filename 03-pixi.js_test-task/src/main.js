@@ -1,5 +1,11 @@
 import { Application, Container, Rectangle, Graphics, Text } from "pixi.js";
-
+import {
+    BASE_SETTINGS,
+    HEADER_SETTINGS,
+    SHAPES_SETTINGS,
+    AREA_SETTINGS,
+    CONTENT_SETTINGS,
+} from "./utils/constants";
 import { getAbsoluteHeight } from "./utils";
 
 import Circle from "./shapes/Circle";
@@ -23,40 +29,25 @@ const SHAPES = [
     Star,
     Triangle,
 ];
-const BASE_CANVAS_WIDTH = 800;
-const BASE_CANVAS_HEIGHT = 600;
-const BASE_STROKE_WIDTH = 2;
-const BASE_STROKE_COLOR = "black";
-const BASE_TEXT_COLOR = "black";
-const BASE_FONT_SIZE = 18;
-const BASE_ENTRY_PADDING = 20;
-
-const HEADER_HEIGHT = 30;
-const HEADER_Z_INDEX = 1;
-const SHAPES_WIDTH = 105;
-const AREA_WIDTH = 140;
-
-const OFFSET_Y = 0;
-const GRAVITY = 1;
-const SPAWN_RATE = 2000;
-const CTRL_GROUP = document.querySelector(".ctrl-group");
 
 // Функция для получения размеров устройства
 function getDeviceDimensions() {
     const width = Math.min(
-        window.innerWidth - BASE_ENTRY_PADDING * 2,
-        BASE_CANVAS_WIDTH
+        window.innerWidth - BASE_SETTINGS.ENTRY_POINT_PADDING * 2,
+        BASE_SETTINGS.CANVAS_WIDTH
     );
     const height = Math.min(
-        window.innerHeight - getAbsoluteHeight(CTRL_GROUP) - BASE_ENTRY_PADDING * 2 - BASE_STROKE_WIDTH * 2,
-        BASE_CANVAS_HEIGHT
+        window.innerHeight -
+            getAbsoluteHeight(BASE_SETTINGS.CTRL_GROUP) -
+            BASE_SETTINGS.ENTRY_POINT_PADDING * 2 -
+            BASE_SETTINGS.STROKE_WIDTH * 2,
+        BASE_SETTINGS.CANVAS_HEIGHT
     ); // Учитываем пространство для элементов управления
     return { width, height };
 }
 
 // Базовые размеры, которые будут меняться в зависимости от размера устройства
 let { width: CANVAS_WIDTH, height: CANVAS_HEIGHT } = getDeviceDimensions();
-const CANVAS_BG_COLOR = "white";
 
 // Расчет размеров элементов интерфейса
 function calculateDimensions() {
@@ -64,33 +55,10 @@ function calculateDimensions() {
     CANVAS_WIDTH = width;
     CANVAS_HEIGHT = height;
 
-    // Изменяем размеры в зависимости от ширины экрана
-    // const SHAPES_WIDTH = Math.min(width * 0.3, 130);
-    // const AREA_WIDTH = Math.min(width * 0.3, 150);
-
     return {
         HEADER_WIDTH: width,
-        HEADER_HEIGHT,
-
-        SHAPES_WIDTH,
-        SHAPES_HEIGHT: HEADER_HEIGHT,
-        SHAPES_OFFSET_X: BASE_STROKE_WIDTH / 2,
-        SHAPES_OFFSET_Y: BASE_STROKE_WIDTH / 2,
-        SHAPES_TEXT_OFFSET_X: 5 + BASE_STROKE_WIDTH / 2,
-        SHAPES_TEXT_OFFSET_Y: 5 + BASE_STROKE_WIDTH / 2,
-
-        AREA_WIDTH,
-        AREA_HEIGHT: HEADER_HEIGHT,
-        AREA_OFFSET_X: SHAPES_WIDTH + BASE_STROKE_WIDTH / 2,
-        AREA_OFFSET_Y: BASE_STROKE_WIDTH / 2,
-        AREA_TEXT_OFFSET_X: 5 + SHAPES_WIDTH + BASE_STROKE_WIDTH / 2,
-        AREA_TEXT_OFFSET_Y: 5 + BASE_STROKE_WIDTH / 2,
-
-        CONTENT_WIDTH: width - BASE_STROKE_WIDTH,
-        CONTENT_HEIGHT: height - HEADER_HEIGHT - BASE_STROKE_WIDTH,
-        CONTENT_OFFSET_X: BASE_STROKE_WIDTH / 2,
-        CONTENT_OFFSET_Y: HEADER_HEIGHT + BASE_STROKE_WIDTH / 2,
-
+        CONTENT_WIDTH: width - BASE_SETTINGS.STROKE_WIDTH,
+        CONTENT_HEIGHT: height - HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH,
         EXPERIMENTAL_VALUE: width - 50,
     };
 }
@@ -106,10 +74,11 @@ window.addEventListener("resize", () => {
     dimensions = calculateDimensions();
 
     // Вычисляем коэффициенты масштабирования
-    const scaleX = dimensions.CONTENT_WIDTH / (oldWidth - BASE_STROKE_WIDTH);
+    const scaleX =
+        dimensions.CONTENT_WIDTH / (oldWidth - BASE_SETTINGS.STROKE_WIDTH);
     const scaleY =
         dimensions.CONTENT_HEIGHT /
-        (oldHeight - HEADER_HEIGHT - BASE_STROKE_WIDTH);
+        (oldHeight - HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH);
 
     if (gameApp) {
         // Изменяем размер холста
@@ -127,25 +96,25 @@ window.addEventListener("resize", () => {
 });
 
 // Добавим переменные для отслеживания касаний
-let touchStartX = 0;
-let touchStartY = 0;
-let isTouching = false;
+// let touchStartX = 0;
+// let touchStartY = 0;
+// let isTouching = false;
 
 let gameApp, gameModel, gameView, gameController;
 
 (async () => {
     // === ИНИЦИАЛИЗАЦИЯ PIXI === //
     const entry = document.getElementById("app");
-    entry.style.padding = `${BASE_ENTRY_PADDING}px`;
+    entry.style.padding = `${BASE_SETTINGS.ENTRY_POINT_PADDING}px`;
 
     gameApp = new Application();
     await gameApp.init({
         width: CANVAS_WIDTH,
         height: CANVAS_HEIGHT,
-        background: CANVAS_BG_COLOR,
+        background: BASE_SETTINGS.CANVAS_BG_COLOR,
     });
 
-    entry.insertBefore(gameApp.canvas, CTRL_GROUP);
+    entry.insertBefore(gameApp.canvas, BASE_SETTINGS.CTRL_GROUP);
 
     // === MODEL (МОДЕЛЬ) === //
     class GameModel {
@@ -153,8 +122,8 @@ let gameApp, gameModel, gameView, gameController;
             this.shapes = [];
             this.totalArea = 0;
             this.visibleShapesCount = 0;
-            this.spawnRate = SPAWN_RATE;
-            this.gravity = GRAVITY;
+            this.spawnRate = BASE_SETTINGS.SPAWN_RATE;
+            this.gravity = BASE_SETTINGS.GRAVITY;
         }
 
         addShape(shape) {
@@ -172,7 +141,7 @@ let gameApp, gameModel, gameView, gameController;
             let count = 0;
             let totalArea = 0;
             this.shapes.forEach((shape) => {
-                if (shape.isVisibleInContent(dimensions.CONTENT_OFFSET_Y)) {
+                if (shape.isVisibleInContent(CONTENT_SETTINGS.OFFSET_Y)) {
                     count++;
                     totalArea += shape.getArea();
                 }
@@ -215,7 +184,7 @@ let gameApp, gameModel, gameView, gameController;
             this.content = new Container();
 
             this.header.sortableChildren = true;
-            this.header.zIndex = HEADER_Z_INDEX;
+            this.header.zIndex = HEADER_SETTINGS.Z_INDEX;
 
             this.content.sortableChildren = true;
             this.content.interactive = true;
@@ -236,8 +205,8 @@ let gameApp, gameModel, gameView, gameController;
             this.shapesText = new Text({
                 text: `Shapes: 0`,
                 style: {
-                    fill: BASE_TEXT_COLOR,
-                    fontSize: BASE_FONT_SIZE,
+                    fill: BASE_SETTINGS.TEXT_COLOR,
+                    fontSize: BASE_SETTINGS.FONT_SIZE,
                 },
             });
 
@@ -246,8 +215,8 @@ let gameApp, gameModel, gameView, gameController;
             this.areaText = new Text({
                 text: `Area: 0 px²`,
                 style: {
-                    fill: BASE_TEXT_COLOR,
-                    fontSize: BASE_FONT_SIZE,
+                    fill: BASE_SETTINGS.TEXT_COLOR,
+                    fontSize: BASE_SETTINGS.FONT_SIZE,
                 },
             });
 
@@ -274,47 +243,47 @@ let gameApp, gameModel, gameView, gameController;
 
             // Header background
             this.headerBg.clear();
-            this.headerBg.rect(0, 0, d.HEADER_WIDTH, d.HEADER_HEIGHT);
+            this.headerBg.rect(0, 0, d.HEADER_WIDTH, HEADER_SETTINGS.HEIGHT);
             this.headerBg.fill("cyan");
 
             // Shapes border
             this.shapesBorder.clear();
             this.shapesBorder.rect(
-                d.SHAPES_OFFSET_X,
-                d.SHAPES_OFFSET_Y,
-                d.SHAPES_WIDTH,
-                d.SHAPES_HEIGHT
+                SHAPES_SETTINGS.OFFSET_X,
+                SHAPES_SETTINGS.OFFSET_Y,
+                SHAPES_SETTINGS.WIDTH,
+                SHAPES_SETTINGS.HEIGHT
             );
             this.shapesBorder.setStrokeStyle({
-                width: BASE_STROKE_WIDTH,
-                color: BASE_STROKE_COLOR,
+                width: BASE_SETTINGS.STROKE_WIDTH,
+                color: BASE_SETTINGS.STROKE_COLOR,
             });
             this.shapesBorder.stroke();
 
             // Shapes text position
             this.shapesText.position.set(
-                d.SHAPES_TEXT_OFFSET_X,
-                d.SHAPES_TEXT_OFFSET_Y
+                SHAPES_SETTINGS.TEXT_OFFSET_X,
+                SHAPES_SETTINGS.TEXT_OFFSET_Y
             );
 
             // Area border
             this.areaBorder.clear();
             this.areaBorder.rect(
-                d.AREA_OFFSET_X,
-                d.AREA_OFFSET_Y,
-                d.AREA_WIDTH,
-                d.AREA_HEIGHT
+                AREA_SETTINGS.OFFSET_X,
+                AREA_SETTINGS.OFFSET_Y,
+                AREA_SETTINGS.WIDTH,
+                AREA_SETTINGS.HEIGHT
             );
             this.areaBorder.setStrokeStyle({
-                width: BASE_STROKE_WIDTH,
-                color: BASE_STROKE_COLOR,
+                width: BASE_SETTINGS.STROKE_WIDTH,
+                color: BASE_SETTINGS.STROKE_COLOR,
             });
             this.areaBorder.stroke();
 
             // Area text position
             this.areaText.position.set(
-                d.AREA_TEXT_OFFSET_X,
-                d.AREA_TEXT_OFFSET_Y
+                AREA_SETTINGS.TEXT_OFFSET_X,
+                AREA_SETTINGS.TEXT_OFFSET_Y
             );
         }
 
@@ -323,8 +292,8 @@ let gameApp, gameModel, gameView, gameController;
 
             // Content hit area
             this.content.hitArea = new Rectangle(
-                d.CONTENT_OFFSET_X,
-                d.CONTENT_OFFSET_Y,
+                CONTENT_SETTINGS.OFFSET_X,
+                CONTENT_SETTINGS.OFFSET_Y,
                 d.CONTENT_WIDTH,
                 d.CONTENT_HEIGHT
             );
@@ -332,14 +301,14 @@ let gameApp, gameModel, gameView, gameController;
             // Content border
             this.contentBorder.clear();
             this.contentBorder.rect(
-                d.CONTENT_OFFSET_X,
-                d.CONTENT_OFFSET_Y,
+                CONTENT_SETTINGS.OFFSET_X,
+                CONTENT_SETTINGS.OFFSET_Y,
                 d.CONTENT_WIDTH,
                 d.CONTENT_HEIGHT
             );
             this.contentBorder.setStrokeStyle({
-                width: BASE_STROKE_WIDTH,
-                color: BASE_STROKE_COLOR,
+                width: BASE_SETTINGS.STROKE_WIDTH,
+                color: BASE_SETTINGS.STROKE_COLOR,
             });
             this.contentBorder.stroke();
             // this.contentBorder.fill("yellow");
@@ -348,10 +317,10 @@ let gameApp, gameModel, gameView, gameController;
         adjustShapesPositions(scaleX, scaleY) {
             // Получаем границы контента
             const contentBounds = {
-                left: dimensions.CONTENT_OFFSET_X,
-                top: dimensions.CONTENT_OFFSET_Y,
-                right: dimensions.CONTENT_OFFSET_X + dimensions.CONTENT_WIDTH,
-                bottom: dimensions.CONTENT_OFFSET_Y + dimensions.CONTENT_HEIGHT,
+                left: CONTENT_SETTINGS.OFFSET_X,
+                top: CONTENT_SETTINGS.OFFSET_Y,
+                right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
+                bottom: CONTENT_SETTINGS.OFFSET_Y + dimensions.CONTENT_HEIGHT,
             };
 
             // Перебираем все фигуры и обновляем их позиции
@@ -422,7 +391,7 @@ let gameApp, gameModel, gameView, gameController;
             // Обработка события касания/клика
             this.view.content.onpointerdown = (event) => {
                 if (event.target !== this.view.content) return;
-                const y = event.data.global.y - dimensions.HEADER_HEIGHT;
+                const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
                 this.addShape(event.data.global.x, y);
             };
 
@@ -457,10 +426,7 @@ let gameApp, gameModel, gameView, gameController;
             if (this.spawnLoop) clearInterval(this.spawnLoop); // Удаляем старый интервал
 
             this.spawnLoop = setInterval(() => {
-                this.addShape(
-                    Math.random() * dimensions.EXPERIMENTAL_VALUE,
-                    OFFSET_Y
-                );
+                this.addShape(Math.random() * dimensions.EXPERIMENTAL_VALUE, 0);
             }, this.model.spawnRate);
         }
 
@@ -534,9 +500,11 @@ let gameApp, gameModel, gameView, gameController;
             const decreaseSpawnBtn = document.getElementById("decreaseSpawn");
             const spawnRateEl = document.getElementById("spawnRate");
             const increaseSpawnBtn = document.getElementById("increaseSpawn");
-            const decreaseGravityBtn = document.getElementById("decreaseGravity");
+            const decreaseGravityBtn =
+                document.getElementById("decreaseGravity");
             const gtavityEl = document.getElementById("gravity");
-            const increaseGravityBtn = document.getElementById("increaseGravity");
+            const increaseGravityBtn =
+                document.getElementById("increaseGravity");
 
             spawnRateEl.textContent = `${this.model.spawnRate} ms`;
             gtavityEl.textContent = this.model.gravity;
