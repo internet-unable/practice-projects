@@ -1,14 +1,10 @@
 # Recipe page solution
-- [Links](#links)
+- [Live Site](https://practice-projects-tau.vercel.app)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
-
-## Links
-- Live Site: [URL](https://practice-projects-tau.vercel.app)
 
 ## My process
 ### Built with
