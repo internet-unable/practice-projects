@@ -7,6 +7,7 @@ export default class GameView {
         this.dimensions = dimensions;
 
         this.initializeUI();
+        this.getControlElements();
     }
 
     initializeUI() {
@@ -129,11 +130,29 @@ export default class GameView {
         // this.contentBorder.fill("yellow");
     }
 
+    setSpawnRateText(value) {
+        this.spawnRateEl.textContent = value;
+    }
+
+    setGravityText(value) {
+        this.gravityEl.textContent = value;
+    }
+
+    getControlElements() {
+        this.decreaseSpawnBtn = BASE_SETTINGS.CTRL_DECREASE_SPAWN;
+        this.increaseSpawnBtn = BASE_SETTINGS.CTRL_INCREASE_SPAWN;
+        this.decreaseGravityBtn = BASE_SETTINGS.CTRL_DECREASE_GRAVITY;
+        this.increaseGravityBtn = BASE_SETTINGS.CTRL_INCREASE_GRAVITY;
+
+        this.spawnRateEl = BASE_SETTINGS.CTRL_SPAWN_EL;
+        this.gravityEl = BASE_SETTINGS.CTRL_GRAVITY_EL;
+    }
+    
     resize(dimensions) {
         this.drawHeaderElements(dimensions);
         this.drawContentElements(dimensions);
     }
-
+    
     render(model) {
         model.shapes.forEach((shape) => {
             this.content.addChild(shape.graphics);

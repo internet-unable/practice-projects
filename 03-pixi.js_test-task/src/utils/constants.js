@@ -10,6 +10,12 @@ export const BASE_SETTINGS = {
     GRAVITY: 1,
     SPAWN_RATE: 1000,
     CTRL_GROUP: document.querySelector(".ctrl-group"),
+    CTRL_DECREASE_SPAWN: document.getElementById("decreaseSpawn"),
+    CTRL_INCREASE_SPAWN: document.getElementById("increaseSpawn"),
+    CTRL_DECREASE_GRAVITY: document.getElementById("decreaseGravity"),
+    CTRL_INCREASE_GRAVITY: document.getElementById("increaseGravity"),
+    CTRL_SPAWN_EL: document.getElementById("spawnRate"),
+    CTRL_GRAVITY_EL: document.getElementById("gravity")
 };
 
 export const HEADER_SETTINGS = {

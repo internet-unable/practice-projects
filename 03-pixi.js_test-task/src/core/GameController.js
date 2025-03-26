@@ -21,91 +21,101 @@ const SHAPES = [
 ];
 
 export default class GameController {
-    constructor(app, model, view, dimensions) {
-        this.app = app;
+    constructor(gameBoard, model, view, dimensions) {
+        this.gameBoard = gameBoard;
         this.model = model;
         this.view = view;
         this.dimensions = dimensions;
         this.spawnLoop = null;
 
-        app.ticker.add(() => this.update());
+        this.gameBoard.ticker.add(() => this.updateModelAndView());
 
-        this.handleContentPointerDown();
-        this.createHandlersForControlsButtons();
+        this.setControlsText();
         this.startSpawning();
+        this.handleContentPointerDown();
+        this.handleDecreaseSpawnClick();
+        this.handleIncreaseSpawnClick();
+        this.handleDecreaseGravityClick();
+        this.handleIncreaseGravityClick();
     }
 
-    handleContentPointerDown() {
-        this.view.content.onpointerdown = (event) => {
-            if (event.target !== this.view.content) return;
-            const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
-            this.addShape(event.data.global.x, y);
-        };
+    setControlsText() {
+        this.view.setSpawnRateText(`${this.model.spawnRate} ms`);
+        this.view.setGravityText(this.model.gravity);
     }
 
     startSpawning() {
         if (this.spawnLoop) clearInterval(this.spawnLoop);
 
         this.spawnLoop = setInterval(() => {
-            this.addShape(Math.random() * this.dimensions.EXPERIMENTAL_VALUE, 0);
+            this.addShape(
+                Math.random() * this.dimensions.EXPERIMENTAL_VALUE,
+                0
+            );
         }, this.model.spawnRate);
+    }
+
+    handleContentPointerDown() {
+        this.view.content.onpointerdown = (event) => {
+            if (event.target !== this.view.content) return;
+
+            const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
+            this.addShape(event.data.global.x, y);
+        };
+    }
+
+    handleShapePointerDown(shape) {
+        shape.graphics.onpointerdown = () => {
+            this.removeShape(shape);
+        };
     }
 
     addShape(x, y) {
         const ShapeClass = SHAPES[Math.floor(Math.random() * SHAPES.length)];
         const shape = new ShapeClass(x, y);
 
-        this.handleShapePointerDown(shape);
         this.model.addShape(shape);
-    }
-
-    handleShapePointerDown(shape) {
-        shape.graphics.onpointerdown = (event) => {
-            event.stopPropagation();
-            this.removeShape(shape);
-        };
+        this.handleShapePointerDown(shape);
     }
 
     removeShape(shape) {
+        // delete handler for shape, memory performance
+        shape.graphics.off("pointerdown");
         this.model.removeShape(shape);
     }
 
-    update() {
+    updateModelAndView() {
         this.model.update();
-        this.view.render();
+        this.view.render(this.model);
     }
 
-    createHandlersForControlsButtons() {
-        const decreaseSpawnBtn = document.getElementById("decreaseSpawn");
-        const spawnRateEl = document.getElementById("spawnRate");
-        const increaseSpawnBtn = document.getElementById("increaseSpawn");
-        const decreaseGravityBtn = document.getElementById("decreaseGravity");
-        const gtavityEl = document.getElementById("gravity");
-        const increaseGravityBtn = document.getElementById("increaseGravity");
-
-        spawnRateEl.textContent = `${this.model.spawnRate} ms`;
-        gtavityEl.textContent = this.model.gravity;
-
-        decreaseSpawnBtn.onclick = () => {
+    handleDecreaseSpawnClick() {
+        this.view.decreaseSpawnBtn.onclick = () => {
             this.model.spawnRate = Math.max(1000, this.model.spawnRate - 1000);
-            spawnRateEl.textContent = `${this.model.spawnRate} ms`;
+            this.view.setSpawnRateText(`${this.model.spawnRate} ms`);
             this.startSpawning();
         };
+    }
 
-        increaseSpawnBtn.onclick = () => {
+    handleIncreaseSpawnClick() {
+        this.view.increaseSpawnBtn.onclick = () => {
             this.model.spawnRate += 1000;
-            spawnRateEl.textContent = `${this.model.spawnRate} ms`;
+            this.view.setSpawnRateText(`${this.model.spawnRate} ms`);
             this.startSpawning();
         };
+    }
 
-        decreaseGravityBtn.onclick = () => {
+    handleDecreaseGravityClick() {
+        this.view.decreaseGravityBtn.onclick = () => {
             this.model.gravity = Math.max(1, this.model.gravity - 1);
-            gtavityEl.textContent = this.model.gravity;
+            this.view.setGravityText(this.model.gravity);
         };
+    }
 
-        increaseGravityBtn.onclick = () => {
+    handleIncreaseGravityClick() {
+        this.view.increaseGravityBtn.onclick = () => {
             this.model.gravity += 1;
-            gtavityEl.textContent = this.model.gravity;
+            this.view.setGravityText(this.model.gravity);
         };
     }
 }
