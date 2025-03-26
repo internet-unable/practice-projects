@@ -37,7 +37,7 @@ export default class GameModel {
         this.totalArea = totalArea;
     }
 
-    removeShapeOnOutOfBoard() {
+    removeShapesOnOutOfBoard() {
         this.shapes = this.shapes.filter((shape) => {
             if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
                 this.removeShape(shape);
@@ -79,7 +79,7 @@ export default class GameModel {
 
     update() {
         this.shapes.forEach((shape) => shape.update(this.gravity));
-        this.removeShapeOnOutOfBoard();
+        this.removeShapesOnOutOfBoard();
         this.updateCounters();
     }
 }
