@@ -2,9 +2,8 @@ import { Container, Rectangle, Graphics, Text } from "pixi.js";
 import { BASE_SETTINGS, HEADER_SETTINGS, SHAPES_SETTINGS, AREA_SETTINGS, CONTENT_SETTINGS } from "../utils/constants";
 
 export default class GameView {
-    constructor(gameBoard, model, dimensions) {
+    constructor(gameBoard, dimensions) {
         this.gameBoard = gameBoard;
-        this.model = model;
         this.dimensions = dimensions;
 
         this.initializeUI();
@@ -135,14 +134,12 @@ export default class GameView {
         this.drawContentElements(dimensions);
     }
 
-    render(shapes) {
-        shapes.forEach((shape) => {
+    render(model) {
+        model.shapes.forEach((shape) => {
             this.content.addChild(shape.graphics);
         });
 
-        this.shapesText.text = `Shapes: ${this.model.visibleShapesCount}`;
-        this.areaText.text = `Area: ${Math.round(
-            this.model.totalArea
-        )} px²`;
+        this.shapesText.text = `Shapes: ${model.visibleShapesCount}`;
+        this.areaText.text = `Area: ${Math.round(model.totalArea)} px²`;
     }
 }
