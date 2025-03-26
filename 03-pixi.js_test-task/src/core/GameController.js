@@ -89,6 +89,14 @@ export default class GameController {
         this.view.render(this.model);
     }
 
+    resizeHeaderAndContent(dimension) {
+        this.view.resize(dimension);
+    }
+
+    adjustShapesPositions(dimensions, scaleX, scaleY) {
+        this.model.adjustShapesPositions(dimensions, scaleX, scaleY);
+    }
+
     handleDecreaseSpawnClick() {
         this.view.decreaseSpawnBtn.onclick = () => {
             this.model.spawnRate = Math.max(1000, this.model.spawnRate - 1000);

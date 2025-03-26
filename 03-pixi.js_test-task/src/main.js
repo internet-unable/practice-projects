@@ -49,18 +49,16 @@ window.addEventListener("resize", () => {
         );
     }
 
-    if (gameView) {
+    if (gameController) {
         // adjust header and content size
-        gameView.resize(dimensions);
-    }
+        gameController.resizeHeaderAndContent(dimensions);
 
-    if (gameModel) {
+        // adjust position for each shape (x, y)
         const scaleX =
             dimensions.CONTENT_WIDTH / (oldWidth - BASE_SETTINGS.STROKE_WIDTH);
         const scaleY =
             dimensions.CONTENT_HEIGHT /
             (oldHeight - HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH);
-        // adjust position for each shape (x, y)
-        gameModel.adjustShapesPositions(dimensions, scaleX, scaleY);
+        gameController.adjustShapesPositions(dimensions, scaleX, scaleY);
     }
 });
