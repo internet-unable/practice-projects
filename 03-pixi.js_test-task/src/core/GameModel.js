@@ -14,16 +14,16 @@ export default class GameModel {
 
     addShape(shape) {
         this.shapes.push(shape);
-        this.updateVisibleShapes();
+        this.updateCounters();
     }
 
     removeShape(shape) {
         shape.destroy();
         this.shapes = this.shapes.filter((s) => s !== shape);
-        this.updateVisibleShapes();
+        this.updateCounters();
     }
 
-    updateVisibleShapes() {
+    updateCounters() {
         let count = 0;
         let totalArea = 0;
         this.shapes.forEach((shape) => {
@@ -37,7 +37,7 @@ export default class GameModel {
         this.totalArea = totalArea;
     }
 
-    removeOutOfBoundsShapes() {
+    removeShapeOnOutOfBoard() {
         this.shapes = this.shapes.filter((shape) => {
             if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
                 this.removeShape(shape);
@@ -46,12 +46,40 @@ export default class GameModel {
             return true;
         });
 
-        this.updateVisibleShapes();
+        this.updateCounters();
+    }
+
+    adjustShapesPositions(dimensions, scaleX, scaleY) {
+        const contentBounds = {
+            left: CONTENT_SETTINGS.OFFSET_X,
+            top: CONTENT_SETTINGS.OFFSET_Y,
+            right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
+            bottom: CONTENT_SETTINGS.OFFSET_Y + dimensions.CONTENT_HEIGHT,
+        };
+
+        this.shapes.forEach((shape) => {
+            shape.x = Math.min(
+                Math.max(shape.x * scaleX, contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING),
+                contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
+            );
+
+            if (shape.y > CONTENT_SETTINGS.OFFSET_Y) {
+                shape.y = Math.min(
+                    Math.max(shape.y * scaleY, contentBounds.top),
+                    contentBounds.bottom - BASE_SETTINGS.ENTRY_POINT_PADDING
+                );
+            }
+
+            shape.graphics.x = shape.x;
+            shape.graphics.y = shape.y;
+
+            shape.resize(Math.min(scaleX, scaleY));
+        });
     }
 
     update() {
         this.shapes.forEach((shape) => shape.update(this.gravity));
-        this.removeOutOfBoundsShapes();
-        this.updateVisibleShapes();
+        this.removeShapeOnOutOfBoard();
+        this.updateCounters();
     }
 }

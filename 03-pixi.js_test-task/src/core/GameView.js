@@ -2,8 +2,8 @@ import { Container, Rectangle, Graphics, Text } from "pixi.js";
 import { BASE_SETTINGS, HEADER_SETTINGS, SHAPES_SETTINGS, AREA_SETTINGS, CONTENT_SETTINGS } from "../utils/constants";
 
 export default class GameView {
-    constructor(app, model, dimensions) {
-        this.app = app;
+    constructor(gameBoard, model, dimensions) {
+        this.gameBoard = gameBoard;
         this.model = model;
         this.dimensions = dimensions;
 
@@ -20,8 +20,8 @@ export default class GameView {
         this.content.sortableChildren = true;
         this.content.interactive = true;
 
-        this.app.stage.addChild(this.header);
-        this.app.stage.addChild(this.content);
+        this.gameBoard.stage.addChild(this.header);
+        this.gameBoard.stage.addChild(this.content);
 
         this.createHeaderElements();
         this.createContentElements();
@@ -68,6 +68,7 @@ export default class GameView {
         this.headerBg.clear();
         this.headerBg.rect(0, 0, dimensions.HEADER_WIDTH, HEADER_SETTINGS.HEIGHT);
         this.headerBg.fill("white");
+        // this.headerBg.fill("cyan");
 
         this.shapesBorder.clear();
         this.shapesBorder.rect(
@@ -129,43 +130,13 @@ export default class GameView {
         // this.contentBorder.fill("yellow");
     }
 
-    adjustShapesPositions(dimensions, scaleX, scaleY) {
-        const contentBounds = {
-            left: CONTENT_SETTINGS.OFFSET_X,
-            top: CONTENT_SETTINGS.OFFSET_Y,
-            right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
-            bottom: CONTENT_SETTINGS.OFFSET_Y + dimensions.CONTENT_HEIGHT,
-        };
-
-        this.model.shapes.forEach((shape) => {
-            shape.x = Math.min(
-                Math.max(shape.x * scaleX, contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING),
-                contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
-            );
-
-            if (shape.y > CONTENT_SETTINGS.OFFSET_Y) {
-                shape.y = Math.min(
-                    Math.max(shape.y * scaleY, contentBounds.top),
-                    contentBounds.bottom - BASE_SETTINGS.ENTRY_POINT_PADDING
-                );
-            }
-
-            shape.graphics.x = shape.x;
-            shape.graphics.y = shape.y;
-
-            if (typeof shape.resize === "function") {
-                shape.resize(Math.min(scaleX, scaleY));
-            }
-        });
-    }
-
     resize(dimensions) {
         this.drawHeaderElements(dimensions);
         this.drawContentElements(dimensions);
     }
 
-    render() {
-        this.model.shapes.forEach((shape) => {
+    render(shapes) {
+        shapes.forEach((shape) => {
             this.content.addChild(shape.graphics);
         });
 
