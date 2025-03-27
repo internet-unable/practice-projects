@@ -35,11 +35,10 @@ let dimensions = calculateDimensions();
 
 // Todo: consider move to controller
 window.addEventListener("resize", () => {
-    // get prev canvas width and height
+    // get prev canvas width
     const oldWidth = dimensions.CANVAS_WIDTH;
-    const oldHeight = dimensions.CANVAS_HEIGHT;
 
-    // update dimension, according to resize
+    // update dimension, because of resize
     dimensions = calculateDimensions();
 
     if (gameBoard) {
@@ -54,12 +53,9 @@ window.addEventListener("resize", () => {
         // adjust header and content size
         gameController.resizeHeaderAndContent(dimensions);
 
-        // adjust position for each shape (x, y)
+        // adjust X position for each shape
         const scaleX =
             dimensions.CONTENT_WIDTH / (oldWidth - BASE_SETTINGS.STROKE_WIDTH);
-        const scaleY =
-            dimensions.CONTENT_HEIGHT /
-            (oldHeight - HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH);
-        gameController.adjustShapesPositions(dimensions, scaleX, scaleY);
+        gameController.adjustShapesPositionX(dimensions, scaleX);
     }
 });

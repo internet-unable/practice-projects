@@ -1,7 +1,7 @@
 import { BASE_SETTINGS, CONTENT_SETTINGS } from "../utils/constants";
-import { getDeviceDimensions } from "../utils/helpers";
+import { calculateDimensions, getDeviceDimensions } from "../utils/helpers";
 
-let { height: CANVAS_HEIGHT } = getDeviceDimensions();
+// let { height: CANVAS_HEIGHT } = getDeviceDimensions();
 
 export default class GameModel {
     constructor() {
@@ -39,24 +39,25 @@ export default class GameModel {
     }
 
     removeShapesOnOutOfBoard() {
-        // Todo: need to update height on resize
-        this.shapes = this.shapes.filter((shape) => {
-            if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
-                this.removeShape(shape);
-                return false;
-            }
-            return true;
-        });
+        const {height: CANVAS_HEIGHT } = getDeviceDimensions();
 
-        this.updateCounters();
+        if (this.shapes.length) {
+            this.shapes = this.shapes.filter((shape) => {
+                if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
+                    this.removeShape(shape);
+                    return false;
+                }
+                return true;
+            });
+
+            this.updateCounters();
+        }
     }
 
-    adjustShapesPositions(dimensions, scaleX, scaleY) {
+    adjustShapesPositionX(dimensions, scaleX) {
         const contentBounds = {
             left: CONTENT_SETTINGS.OFFSET_X,
-            top: CONTENT_SETTINGS.OFFSET_Y,
             right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
-            bottom: CONTENT_SETTINGS.OFFSET_Y + dimensions.CONTENT_HEIGHT,
         };
 
         this.shapes.forEach((shape) => {
@@ -65,17 +66,8 @@ export default class GameModel {
                 contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
             );
 
-            if (shape.y > CONTENT_SETTINGS.OFFSET_Y) {
-                shape.y = Math.min(
-                    Math.max(shape.y * scaleY, contentBounds.top),
-                    contentBounds.bottom - BASE_SETTINGS.ENTRY_POINT_PADDING
-                );
-            }
-
             shape.graphics.x = shape.x;
-            shape.graphics.y = shape.y;
-
-            shape.resize(Math.min(scaleX, scaleY));
+            shape.resize(scaleX);
         });
     }
 

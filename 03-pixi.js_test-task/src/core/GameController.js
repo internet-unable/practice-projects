@@ -99,8 +99,8 @@ export default class GameController {
         this.view.resize(dimension);
     }
 
-    adjustShapesPositions(dimensions, scaleX, scaleY) {
-        this.model.adjustShapesPositions(dimensions, scaleX, scaleY);
+    adjustShapesPositionX(dimensions, scaleX) {
+        this.model.adjustShapesPositionX(dimensions, scaleX);
     }
 
     handleDecreaseSpawnClick() {
