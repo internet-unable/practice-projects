@@ -38,6 +38,7 @@ export default class GameModel {
     }
 
     removeShapesOnOutOfBoard() {
+        // Todo: need to update height on resize
         this.shapes = this.shapes.filter((shape) => {
             if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
                 this.removeShape(shape);
