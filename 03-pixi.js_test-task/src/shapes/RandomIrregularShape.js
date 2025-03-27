@@ -7,9 +7,10 @@ const MAX_POINTS = 12;
 export default class RandomIrregularShape extends Shape {
     constructor(x, y, size = SIZE, color) {
         const adjustedY = y + size / 2;
-
         super(x, adjustedY, color);
-        this.size = size * this.scale;
+
+        this.initialScale = this.scale;
+        this.size = size * this.initialScale;
         this.points = [];
         this.generatePoints();
         this.draw();
@@ -39,18 +40,17 @@ export default class RandomIrregularShape extends Shape {
 
     draw() {
         super.draw();
-        // Todo: need to find different approach to draw such random figure, to avoid effect of scaling
         this.graphics.beginPath();
 
         const firstPoint = this.points[0];
         this.graphics.moveTo(
-            firstPoint.x * this.scale,
-            firstPoint.y * this.scale
+            firstPoint.x * this.initialScale,
+            firstPoint.y * this.initialScale
         );
 
         for (let i = 1; i < this.points.length; i++) {
             const point = this.points[i];
-            this.graphics.lineTo(point.x * this.scale, point.y * this.scale);
+            this.graphics.lineTo(point.x * this.initialScale, point.y * this.initialScale);
         }
 
         this.graphics.closePath();
@@ -74,7 +74,7 @@ export default class RandomIrregularShape extends Shape {
             area -= this.points[j].x * this.points[i].y;
         }
 
-        area = (Math.abs(area) / 2) * this.scale * this.scale;
+        area = (Math.abs(area) / 2) * this.initialScale * this.initialScale;
         return area;
     }
 }

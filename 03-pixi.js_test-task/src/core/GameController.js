@@ -4,7 +4,7 @@ import Circle from "../shapes/Circle";
 import Ellipse from "../shapes/Ellipse";
 import Hexagon from "../shapes/Hexagon";
 import Pentagon from "../shapes/Pentagon";
-// import RandomIrregularShape from "../shapes/RandomIrregularShape";
+import RandomIrregularShape from "../shapes/RandomIrregularShape";
 import Square from "../shapes/Square";
 import Star from "../shapes/Star";
 import Triangle from "../shapes/Triangle";
@@ -14,7 +14,7 @@ const SHAPES = [
     Ellipse,
     Hexagon,
     Pentagon,
-    // RandomIrregularShape,
+    RandomIrregularShape,
     Square,
     Star,
     Triangle,
