@@ -33,6 +33,7 @@ let dimensions = calculateDimensions();
     );
 })();
 
+// Todo: consider move to controller
 window.addEventListener("resize", () => {
     // get prev canvas width and height
     const oldWidth = dimensions.CANVAS_WIDTH;
