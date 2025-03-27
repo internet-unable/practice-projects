@@ -56,18 +56,18 @@ export default class GameController {
     }
 
     handleContentPointerDown() {
-        this.view.content.onpointerdown = (event) => {
+        this.view.content.on("pointerdown", (event) => {
             if (event.target !== this.view.content) return;
-
+    
             const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
             this.addShape(event.data.global.x, y);
-        };
+        });
     }
 
     handleShapePointerDown(shape) {
-        shape.graphics.onpointerdown = () => {
+        shape.graphics.on("pointerdown", () => {
             this.removeShape(shape);
-        };
+        });
     }
 
     addShape(x, y) {
