@@ -30,7 +30,8 @@ export default class GameController {
 
         this.gameBoard.ticker.add(() => this.updateModelAndView());
 
-        this.setControlsText();
+        this.setSpawnRateText();
+        this.setGravityText();
         this.startSpawning();
         this.handleContentPointerDown();
         this.handleDecreaseSpawnClick();
@@ -39,26 +40,31 @@ export default class GameController {
         this.handleIncreaseGravityClick();
     }
 
-    setControlsText() {
-        this.view.setSpawnRateText(`${this.model.spawnRate} ms`);
+    setSpawnRateText() {
+        this.view.setSpawnRateText(`${this.model.spawnCount} shapes/sec`);
+    }
+
+    setGravityText() {
         this.view.setGravityText(this.model.gravity);
     }
 
     startSpawning() {
-        if (this.spawnLoop) clearInterval(this.spawnLoop);
-
-        this.spawnLoop = setInterval(() => {
-            this.addShape(
-                Math.random() * this.dimensions.EXPERIMENTAL_VALUE,
-                0
-            );
-        }, this.model.spawnRate);
+        if (!this.spawnLoop) {
+            this.spawnLoop = setInterval(() => {
+                for (let i = 0; i < this.model.spawnCount; i++) {
+                    this.addShape(
+                        Math.random() * this.dimensions.EXPERIMENTAL_VALUE,
+                        -HEADER_SETTINGS.HEIGHT
+                    );
+                }
+            }, this.model.spawnRate);
+        }
     }
 
     handleContentPointerDown() {
         this.view.content.on("pointerdown", (event) => {
             if (event.target !== this.view.content) return;
-    
+
             const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
             this.addShape(event.data.global.x, y);
         });
@@ -99,16 +105,16 @@ export default class GameController {
 
     handleDecreaseSpawnClick() {
         this.view.decreaseSpawnBtn.onclick = () => {
-            this.model.spawnRate = Math.max(1000, this.model.spawnRate - 1000);
-            this.view.setSpawnRateText(`${this.model.spawnRate} ms`);
+            this.model.spawnCount = Math.max(1, this.model.spawnCount - 1);
+            this.setSpawnRateText();
             this.startSpawning();
         };
     }
 
     handleIncreaseSpawnClick() {
         this.view.increaseSpawnBtn.onclick = () => {
-            this.model.spawnRate += 1000;
-            this.view.setSpawnRateText(`${this.model.spawnRate} ms`);
+            this.model.spawnCount += 1;
+            this.setSpawnRateText();
             this.startSpawning();
         };
     }
@@ -116,14 +122,14 @@ export default class GameController {
     handleDecreaseGravityClick() {
         this.view.decreaseGravityBtn.onclick = () => {
             this.model.gravity = Math.max(1, this.model.gravity - 1);
-            this.view.setGravityText(this.model.gravity);
+            this.setGravityText();
         };
     }
 
     handleIncreaseGravityClick() {
         this.view.increaseGravityBtn.onclick = () => {
             this.model.gravity += 1;
-            this.view.setGravityText(this.model.gravity);
+            this.setGravityText();
         };
     }
 }

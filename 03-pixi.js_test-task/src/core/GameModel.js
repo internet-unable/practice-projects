@@ -8,6 +8,7 @@ export default class GameModel {
         this.shapes = [];
         this.totalArea = 0;
         this.visibleShapesCount = 0;
+        this.spawnCount = 1;
         this.spawnRate = BASE_SETTINGS.SPAWN_RATE;
         this.gravity = BASE_SETTINGS.GRAVITY;
     }
