@@ -1,5 +1,11 @@
 import { Container, Rectangle, Graphics, Text } from "pixi.js";
-import { BASE_SETTINGS, HEADER_SETTINGS, SHAPES_SETTINGS, AREA_SETTINGS, CONTENT_SETTINGS } from "../utils/constants";
+import {
+    BASE_SETTINGS,
+    HEADER_SETTINGS,
+    SHAPES_SETTINGS,
+    AREA_SETTINGS,
+    CONTENT_SETTINGS,
+} from "../utils/constants";
 
 export default class GameView {
     constructor(gameBoard, dimensions) {
@@ -11,8 +17,10 @@ export default class GameView {
     }
 
     initializeUI() {
+        this.main = new Container()
         this.header = new Container();
         this.content = new Container();
+        this.test = new Container();
 
         this.header.sortableChildren = true;
         this.header.zIndex = HEADER_SETTINGS.Z_INDEX;
@@ -20,8 +28,14 @@ export default class GameView {
         this.content.sortableChildren = true;
         this.content.interactive = true;
 
-        this.gameBoard.stage.addChild(this.header);
-        this.gameBoard.stage.addChild(this.content);
+        this.gameBoard.stage.addChild(this.main);
+        this.main.addChild(this.header);
+        this.main.addChild(this.content);
+        this.content.addChild(this.test);
+        
+        // this.gameBoard.stage.addChild(this.header);
+        // this.gameBoard.stage.addChild(this.content);
+        // this.content.addChild(this.test);
 
         this.createHeaderElements();
         this.createContentElements();
@@ -48,6 +62,22 @@ export default class GameView {
             },
         });
 
+        this.headerBorder = new Graphics();
+        this.headerBorder.clear();
+        this.headerBorder.rect(
+            1,
+            1,
+            // Todo: dimensions
+            BASE_SETTINGS.CANVAS_WIDTH - 2,
+            HEADER_SETTINGS.HEIGHT - 2
+        );
+        this.headerBorder.setStrokeStyle({
+            width: BASE_SETTINGS.STROKE_WIDTH,
+            color: BASE_SETTINGS.STROKE_COLOR,
+        });
+        this.headerBorder.stroke();
+        this.header.addChild(this.headerBorder);
+
         this.header.addChild(this.headerBg);
         this.header.addChild(this.shapesBorder);
         this.header.addChild(this.shapesText);
@@ -59,14 +89,23 @@ export default class GameView {
 
     createContentElements() {
         this.contentBorder = new Graphics();
-        this.content.addChild(this.contentBorder);
+        // this.content.addChild(this.contentBorder);
+        this.main.addChild(this.contentBorder);
+
+        this.mask = new Graphics();
+        this.test.addChild(this.mask);
 
         this.drawContentElements(this.dimensions);
     }
 
     drawHeaderElements(dimensions) {
         this.headerBg.clear();
-        this.headerBg.rect(0, 0, dimensions.HEADER_WIDTH, HEADER_SETTINGS.HEIGHT);
+        this.headerBg.rect(
+            0,
+            0,
+            dimensions.HEADER_WIDTH,
+            HEADER_SETTINGS.HEIGHT - 2
+        );
         this.headerBg.fill("white");
         // this.headerBg.fill("cyan");
 
@@ -75,7 +114,7 @@ export default class GameView {
             SHAPES_SETTINGS.OFFSET_X,
             SHAPES_SETTINGS.OFFSET_Y,
             SHAPES_SETTINGS.WIDTH,
-            SHAPES_SETTINGS.HEIGHT
+            SHAPES_SETTINGS.HEIGHT - 2
         );
         this.shapesBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -93,7 +132,7 @@ export default class GameView {
             AREA_SETTINGS.OFFSET_X,
             AREA_SETTINGS.OFFSET_Y,
             AREA_SETTINGS.WIDTH,
-            AREA_SETTINGS.HEIGHT
+            AREA_SETTINGS.HEIGHT -2
         );
         this.areaBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -117,10 +156,10 @@ export default class GameView {
 
         this.contentBorder.clear();
         this.contentBorder.rect(
-            CONTENT_SETTINGS.OFFSET_X,
-            CONTENT_SETTINGS.OFFSET_Y,
-            dimensions.CONTENT_WIDTH,
-            dimensions.CONTENT_HEIGHT
+            1,
+            1,
+            dimensions.CANVAS_WIDTH - 2,
+            dimensions.CANVAS_HEIGHT - 2
         );
         this.contentBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -128,6 +167,17 @@ export default class GameView {
         });
         this.contentBorder.stroke();
         // this.contentBorder.fill("yellow");
+
+        // mask
+        // this.mask.clear();
+        // this.mask.rect(
+        //     1,
+        //     1,
+        //     dimensions.CANVAS_WIDTH,
+        //     dimensions.CANVAS_HEIGHT
+        // );
+        // this.test.mask = this.mask;
+        // this.mask.fill();
     }
 
     setSpawnRateText(value) {
@@ -147,12 +197,12 @@ export default class GameView {
         this.spawnRateEl = BASE_SETTINGS.CTRL_SPAWN_EL;
         this.gravityEl = BASE_SETTINGS.CTRL_GRAVITY_EL;
     }
-    
+
     resize(dimensions) {
         this.drawHeaderElements(dimensions);
         this.drawContentElements(dimensions);
     }
-    
+
     render(model) {
         model.shapes.forEach((shape) => {
             this.content.addChild(shape.graphics);
