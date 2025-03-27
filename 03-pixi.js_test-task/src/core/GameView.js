@@ -17,33 +17,103 @@ export default class GameView {
     }
 
     initializeUI() {
-        this.main = new Container()
-        this.header = new Container();
-        this.content = new Container();
-        this.test = new Container();
+        // this.main = new Container();
+        // this.header = new Container();
+        // this.content = new Container();
 
+        // this.header.sortableChildren = true;
+        // this.header.zIndex = HEADER_SETTINGS.Z_INDEX;
+
+        // this.content.sortableChildren = true;
+        // this.content.interactive = true;
+
+        // this.gameBoard.stage.addChild(this.main);
+        // this.main.addChild(this.header);
+        // this.main.addChild(this.content);
+
+        // this.createHeaderElements();
+        // this.createContentElements();
+
+        this.initializeMain();
+        this.initializeHeader();
+        this.initializeContent();
+    }
+
+    initializeMain() {
+        this.main = new Container();
+        this.gameBoard.stage.addChild(this.main);
+    }
+
+    initializeHeader() {
+        this.header = new Container();
         this.header.sortableChildren = true;
         this.header.zIndex = HEADER_SETTINGS.Z_INDEX;
-
-        this.content.sortableChildren = true;
-        this.content.interactive = true;
-
-        this.gameBoard.stage.addChild(this.main);
         this.main.addChild(this.header);
-        this.main.addChild(this.content);
-        this.content.addChild(this.test);
-        
         // this.gameBoard.stage.addChild(this.header);
-        // this.gameBoard.stage.addChild(this.content);
-        // this.content.addChild(this.test);
 
         this.createHeaderElements();
+    }
+
+    initializeContent() {
+        this.content = new Container();
+        this.content.sortableChildren = true;
+        this.content.interactive = true;
+        this.main.addChild(this.content);
+        // this.gameBoard.stage.addChild(this.content);
+
         this.createContentElements();
     }
 
     createHeaderElements() {
-        this.headerBg = new Graphics();
+        // this.headerBorder = new Graphics();
+        // this.headerBg = new Graphics();
+        
+        // this.shapesBorder = new Graphics();
+        // this.shapesText = new Text({
+        //     text: `Shapes: 0`,
+        //     style: {
+        //         fill: BASE_SETTINGS.TEXT_COLOR,
+        //         fontSize: BASE_SETTINGS.FONT_SIZE,
+        //     },
+        // });
+        
+        // this.areaBorder = new Graphics();
+        // this.areaText = new Text({
+        //     text: `Area: 0 px²`,
+        //     style: {
+        //         fill: BASE_SETTINGS.TEXT_COLOR,
+        //         fontSize: BASE_SETTINGS.FONT_SIZE,
+        //     },
+        // });
+        
+        // this.header.addChild(this.headerBorder);
+        // this.header.addChild(this.headerBg);
+        // this.header.addChild(this.shapesBorder);
+        // this.header.addChild(this.shapesText);
+        // this.header.addChild(this.areaBorder);
+        // this.header.addChild(this.areaText);
 
+        // this.drawHeaderElements(this.dimensions);
+
+        // this.createHeaderBorder();
+        this.createHeaderBg();
+        this.createShapesBorderAndText();
+        this.createAreaBorderAndText();
+
+        this.drawHeaderElements(this.dimensions);
+    }
+
+    createHeaderBorder() {
+        this.headerBorder = new Graphics();
+        this.header.addChild(this.headerBorder);
+    }
+
+    createHeaderBg() {
+        this.headerBg = new Graphics();
+        this.header.addChild(this.headerBg);
+    }
+
+    createShapesBorderAndText() {
         this.shapesBorder = new Graphics();
         this.shapesText = new Text({
             text: `Shapes: 0`,
@@ -52,7 +122,11 @@ export default class GameView {
                 fontSize: BASE_SETTINGS.FONT_SIZE,
             },
         });
+        this.header.addChild(this.shapesBorder);
+        this.header.addChild(this.shapesText);
+    }
 
+    createAreaBorderAndText() {
         this.areaBorder = new Graphics();
         this.areaText = new Text({
             text: `Area: 0 px²`,
@@ -61,44 +135,100 @@ export default class GameView {
                 fontSize: BASE_SETTINGS.FONT_SIZE,
             },
         });
-
-        this.headerBorder = new Graphics();
-        this.headerBorder.clear();
-        this.headerBorder.rect(
-            1,
-            1,
-            // Todo: dimensions
-            BASE_SETTINGS.CANVAS_WIDTH - 2,
-            HEADER_SETTINGS.HEIGHT - 2
-        );
-        this.headerBorder.setStrokeStyle({
-            width: BASE_SETTINGS.STROKE_WIDTH,
-            color: BASE_SETTINGS.STROKE_COLOR,
-        });
-        this.headerBorder.stroke();
-        this.header.addChild(this.headerBorder);
-
-        this.header.addChild(this.headerBg);
-        this.header.addChild(this.shapesBorder);
-        this.header.addChild(this.shapesText);
         this.header.addChild(this.areaBorder);
         this.header.addChild(this.areaText);
-
-        this.drawHeaderElements(this.dimensions);
     }
 
     createContentElements() {
         this.contentBorder = new Graphics();
-        // this.content.addChild(this.contentBorder);
         this.main.addChild(this.contentBorder);
-
-        this.mask = new Graphics();
-        this.test.addChild(this.mask);
+        // this.content.addChild(this.contentBorder);
 
         this.drawContentElements(this.dimensions);
     }
 
     drawHeaderElements(dimensions) {
+        // this.headerBorder.clear();
+        // this.headerBorder.rect(
+        //     0,
+        //     1,
+        //     dimensions.HEADER_WIDTH - 2,
+        //     HEADER_SETTINGS.HEIGHT - 2
+        // );
+        // this.headerBorder.setStrokeStyle({
+        //     width: BASE_SETTINGS.STROKE_WIDTH,
+        //     color: BASE_SETTINGS.STROKE_COLOR,
+        // });
+        // this.headerBorder.stroke();
+
+        // this.headerBg.clear();
+        // this.headerBg.rect(
+        //     0,
+        //     0,
+        //     dimensions.HEADER_WIDTH,
+        //     HEADER_SETTINGS.HEIGHT - 2
+        // );
+        // this.headerBg.fill("white");
+        // // this.headerBg.fill("cyan"); // for debugging
+
+        // this.shapesBorder.clear();
+        // this.shapesBorder.rect(
+        //     SHAPES_SETTINGS.OFFSET_X,
+        //     SHAPES_SETTINGS.OFFSET_Y,
+        //     SHAPES_SETTINGS.WIDTH,
+        //     SHAPES_SETTINGS.HEIGHT - 2
+        // );
+        // this.shapesBorder.setStrokeStyle({
+        //     width: BASE_SETTINGS.STROKE_WIDTH,
+        //     color: BASE_SETTINGS.STROKE_COLOR,
+        // });
+        // this.shapesBorder.stroke();
+
+        // this.shapesText.position.set(
+        //     SHAPES_SETTINGS.TEXT_OFFSET_X,
+        //     SHAPES_SETTINGS.TEXT_OFFSET_Y
+        // );
+
+        // this.areaBorder.clear();
+        // this.areaBorder.rect(
+        //     AREA_SETTINGS.OFFSET_X,
+        //     AREA_SETTINGS.OFFSET_Y,
+        //     AREA_SETTINGS.WIDTH,
+        //     AREA_SETTINGS.HEIGHT -2
+        // );
+        // this.areaBorder.setStrokeStyle({
+        //     width: BASE_SETTINGS.STROKE_WIDTH,
+        //     color: BASE_SETTINGS.STROKE_COLOR,
+        // });
+        // this.areaBorder.stroke();
+
+        // this.areaText.position.set(
+        //     AREA_SETTINGS.TEXT_OFFSET_X,
+        //     AREA_SETTINGS.TEXT_OFFSET_Y
+        // );
+
+        this.drawHeaderBorder(dimensions);
+        this.drawHeaderBg(dimensions);
+        this.drawShapesBorderAndText();
+        this.drawAreaBorderAndText();
+    }
+
+    drawHeaderBorder(dimensions) {
+        // this.headerBorder.clear();
+        // this.headerBorder.rect(
+        //     0,
+        //     1,
+        //     dimensions.HEADER_WIDTH,
+        //     HEADER_SETTINGS.HEIGHT - 2
+        // );
+        // this.headerBorder.setStrokeStyle({
+        //     width: BASE_SETTINGS.STROKE_WIDTH,
+        //     color: BASE_SETTINGS.STROKE_COLOR,
+        // });
+        // this.headerBorder.stroke();
+    }
+
+    drawHeaderBg(dimensions) {
         this.headerBg.clear();
         this.headerBg.rect(
             0,
@@ -107,8 +237,10 @@ export default class GameView {
             HEADER_SETTINGS.HEIGHT - 2
         );
         this.headerBg.fill("white");
-        // this.headerBg.fill("cyan");
+        // this.headerBg.fill("cyan"); // for debugging
+    }
 
+    drawShapesBorderAndText() {
         this.shapesBorder.clear();
         this.shapesBorder.rect(
             SHAPES_SETTINGS.OFFSET_X,
@@ -126,7 +258,9 @@ export default class GameView {
             SHAPES_SETTINGS.TEXT_OFFSET_X,
             SHAPES_SETTINGS.TEXT_OFFSET_Y
         );
+    }
 
+    drawAreaBorderAndText() {
         this.areaBorder.clear();
         this.areaBorder.rect(
             AREA_SETTINGS.OFFSET_X,
@@ -147,37 +281,54 @@ export default class GameView {
     }
 
     drawContentElements(dimensions) {
+        // this.content.hitArea = new Rectangle(
+        //     CONTENT_SETTINGS.OFFSET_X,
+        //     CONTENT_SETTINGS.OFFSET_Y,
+        //     dimensions.CONTENT_WIDTH,
+        //     dimensions.CONTENT_HEIGHT
+        // );
+
+        // this.contentBorder.clear();
+        // this.contentBorder.rect(
+        //     1,
+        //     29,
+        //     dimensions.CANVAS_WIDTH - 2,
+        //     dimensions.CANVAS_HEIGHT - 30
+        // );
+        // this.contentBorder.setStrokeStyle({
+        //     width: BASE_SETTINGS.STROKE_WIDTH,
+        //     color: BASE_SETTINGS.STROKE_COLOR,
+        // });
+        // this.contentBorder.stroke();
+        // // this.contentBorder.fill("yellow"); // for debugging
+
+        this.drawContentHitArea(dimensions);
+        this.drawContentBorder(dimensions);
+    }
+
+    drawContentHitArea(dimensions) {
         this.content.hitArea = new Rectangle(
             CONTENT_SETTINGS.OFFSET_X,
             CONTENT_SETTINGS.OFFSET_Y,
             dimensions.CONTENT_WIDTH,
             dimensions.CONTENT_HEIGHT
         );
+    }
 
+    drawContentBorder(dimensions) {
         this.contentBorder.clear();
         this.contentBorder.rect(
             1,
-            1,
+            29,
             dimensions.CANVAS_WIDTH - 2,
-            dimensions.CANVAS_HEIGHT - 2
+            dimensions.CANVAS_HEIGHT - 30
         );
         this.contentBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
             color: BASE_SETTINGS.STROKE_COLOR,
         });
         this.contentBorder.stroke();
-        // this.contentBorder.fill("yellow");
-
-        // mask
-        // this.mask.clear();
-        // this.mask.rect(
-        //     1,
-        //     1,
-        //     dimensions.CANVAS_WIDTH,
-        //     dimensions.CANVAS_HEIGHT
-        // );
-        // this.test.mask = this.mask;
-        // this.mask.fill();
+        // this.contentBorder.fill("yellow"); // for debugging
     }
 
     setSpawnRateText(value) {
