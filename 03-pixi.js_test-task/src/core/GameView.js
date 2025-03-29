@@ -1,3 +1,4 @@
+import { EventEmitter } from "pixi.js";
 import { Container, Rectangle, Graphics, Text } from "pixi.js";
 import {
     BASE_SETTINGS,
@@ -7,13 +8,15 @@ import {
     CONTENT_SETTINGS,
 } from "../utils/constants";
 
-export default class GameView {
+export default class GameView extends EventEmitter {
     constructor(gameBoard, dimensions) {
+        super();
         this.gameBoard = gameBoard;
         this.dimensions = dimensions;
 
         this.initializeUI();
         this.getControlElements();
+        this.setupEventHandlers();
     }
 
     initializeUI() {
@@ -67,7 +70,7 @@ export default class GameView {
     createHeaderElements() {
         // this.headerBorder = new Graphics();
         // this.headerBg = new Graphics();
-        
+
         // this.shapesBorder = new Graphics();
         // this.shapesText = new Text({
         //     text: `Shapes: 0`,
@@ -76,7 +79,7 @@ export default class GameView {
         //         fontSize: BASE_SETTINGS.FONT_SIZE,
         //     },
         // });
-        
+
         // this.areaBorder = new Graphics();
         // this.areaText = new Text({
         //     text: `Area: 0 px²`,
@@ -85,7 +88,7 @@ export default class GameView {
         //         fontSize: BASE_SETTINGS.FONT_SIZE,
         //     },
         // });
-        
+
         // this.header.addChild(this.headerBorder);
         // this.header.addChild(this.headerBg);
         // this.header.addChild(this.shapesBorder);
@@ -266,7 +269,7 @@ export default class GameView {
             AREA_SETTINGS.OFFSET_X,
             AREA_SETTINGS.OFFSET_Y,
             AREA_SETTINGS.WIDTH,
-            AREA_SETTINGS.HEIGHT -2
+            AREA_SETTINGS.HEIGHT - 2
         );
         this.areaBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -340,13 +343,48 @@ export default class GameView {
     }
 
     getControlElements() {
-        this.decreaseSpawnBtn = BASE_SETTINGS.CTRL_DECREASE_SPAWN;
-        this.increaseSpawnBtn = BASE_SETTINGS.CTRL_INCREASE_SPAWN;
-        this.decreaseGravityBtn = BASE_SETTINGS.CTRL_DECREASE_GRAVITY;
-        this.increaseGravityBtn = BASE_SETTINGS.CTRL_INCREASE_GRAVITY;
+        this.spawnRateEl = document.getElementById(BASE_SETTINGS.CTRL_SPAWN_EL);
+        this.gravityEl = document.getElementById(BASE_SETTINGS.CTRL_GRAVITY_EL);
+    }
 
-        this.spawnRateEl = BASE_SETTINGS.CTRL_SPAWN_EL;
-        this.gravityEl = BASE_SETTINGS.CTRL_GRAVITY_EL;
+    setupEventHandlers() {
+        this.handleContentClick();
+        this.handleDecreaseSpawnClick();
+        this.handleIncreaseSpawnClick();
+        this.handleDecreaseGravityClick();
+        this.handleIncreaseGravityClick();
+    }
+
+    handleContentClick() {
+        this.content.addEventListener("pointerdown", (event) => {
+            if (event.target !== this.content) return;
+
+            this.emit("addShape", event);
+        });
+    }
+
+    handleDecreaseSpawnClick() {
+        document.getElementById(BASE_SETTINGS.CTRL_DECREASE_SPAWN).addEventListener("click", () =>
+            this.emit("decreaseSpawn")
+        );
+    }
+
+    handleIncreaseSpawnClick() {
+        document.getElementById(BASE_SETTINGS.CTRL_INCREASE_SPAWN).addEventListener("click", () =>
+            this.emit("increaseSpawn")
+        );
+    }
+
+    handleDecreaseGravityClick() {
+        document.getElementById(BASE_SETTINGS.CTRL_DECREASE_GRAVITY).addEventListener("click", () =>
+            this.emit("decreaseGravity")
+        );
+    }
+
+    handleIncreaseGravityClick() {
+        document.getElementById(BASE_SETTINGS.CTRL_INCREASE_GRAVITY).addEventListener("click", () =>
+            this.emit("increaseGravity")
+        );
     }
 
     resize(dimensions) {

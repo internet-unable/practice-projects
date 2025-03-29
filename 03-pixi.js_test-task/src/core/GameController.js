@@ -33,11 +33,8 @@ export default class GameController {
         this.setSpawnRateText();
         this.setGravityText();
         this.startSpawning();
-        this.handleContentPointerDown();
-        this.handleDecreaseSpawnClick();
-        this.handleIncreaseSpawnClick();
-        this.handleDecreaseGravityClick();
-        this.handleIncreaseGravityClick();
+        // this.handleContentPointerDown();
+        this.setupEventListeners();
     }
 
     setSpawnRateText() {
@@ -46,6 +43,14 @@ export default class GameController {
 
     setGravityText() {
         this.view.setGravityText(this.model.gravity);
+    }
+
+    setupEventListeners() {
+        this.view.on("addShape", (event) => this.handleAddShape(event));
+        this.view.on("decreaseSpawn", () => this.handleSpawnRateChange(-1));
+        this.view.on("increaseSpawn", () => this.handleSpawnRateChange(1));
+        this.view.on("decreaseGravity", () => this.handleGravityChange(-1));
+        this.view.on("increaseGravity", () => this.handleGravityChange(1));
     }
 
     startSpawning() {
@@ -82,14 +87,14 @@ export default class GameController {
         this.spawnLoop = requestAnimationFrame(spawn);
     }
 
-    handleContentPointerDown() {
-        this.view.content.on("pointerdown", (event) => {
-            if (event.target !== this.view.content) return;
+    // handleContentPointerDown() {
+    //     this.view.content.on("pointerdown", (event) => {
+    //         if (event.target !== this.view.content) return;
 
-            const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
-            this.addShape(event.data.global.x, y);
-        });
-    }
+    //         const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
+    //         this.addShape(event.data.global.x, y);
+    //     });
+    // }
 
     handleShapePointerDown(shape) {
         shape.graphics.on("pointerdown", () => {
@@ -124,33 +129,19 @@ export default class GameController {
         this.model.adjustShapesPositionX(dimensions, scaleX);
     }
 
-    handleDecreaseSpawnClick() {
-        this.view.decreaseSpawnBtn.onclick = () => {
-            this.model.spawnCount = Math.max(1, this.model.spawnCount - 1);
-            this.setSpawnRateText();
-            this.startSpawning();
-        };
+    handleAddShape(event) {
+        const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
+        this.addShape(event.data.global.x, y);
     }
 
-    handleIncreaseSpawnClick() {
-        this.view.increaseSpawnBtn.onclick = () => {
-            this.model.spawnCount += 1;
-            this.setSpawnRateText();
-            this.startSpawning();
-        };
+    handleSpawnRateChange(value) {
+        this.model.spawnCount = Math.max(1, this.model.spawnCount + value);
+        this.setSpawnRateText();
+        this.startSpawning();
     }
 
-    handleDecreaseGravityClick() {
-        this.view.decreaseGravityBtn.onclick = () => {
-            this.model.gravity = Math.max(1, this.model.gravity - 1);
-            this.setGravityText();
-        };
-    }
-
-    handleIncreaseGravityClick() {
-        this.view.increaseGravityBtn.onclick = () => {
-            this.model.gravity += 1;
-            this.setGravityText();
-        };
+    handleGravityChange(value) {
+        this.model.gravity = Math.max(1, this.model.gravity + value);
+        this.setGravityText();
     }
 }
