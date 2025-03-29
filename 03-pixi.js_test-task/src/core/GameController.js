@@ -49,16 +49,37 @@ export default class GameController {
     }
 
     startSpawning() {
-        if (!this.spawnLoop) {
-            this.spawnLoop = setInterval(() => {
+        if (this.spawnLoop) return;
+
+        // On init - time snapshot before the first shape spawn
+        let shapeLastSpawnTime = performance.now();
+
+        /*
+            This function receives `currentTime` from the browser when it is called.
+            It then calculates `deltaTime`, the number of milliseconds that have passed since the last shape spawn.
+            If the required time has passed, it spawns a new shape.
+            It then updates `shapeLastSpawnTime` with the current timestamp.
+            Finally, it calls itself again using `requestAnimationFrame(spawn)`
+        */
+        const spawn = (currentTime) => {
+            const deltaTime = currentTime - shapeLastSpawnTime;
+
+            if (deltaTime >= this.model.spawnRate) {
                 for (let i = 0; i < this.model.spawnCount; i++) {
                     this.addShape(
                         Math.random() * this.dimensions.EXPERIMENTAL_VALUE,
                         -HEADER_SETTINGS.HEIGHT
                     );
                 }
-            }, this.model.spawnRate);
-        }
+
+                shapeLastSpawnTime = currentTime;
+            }
+
+            this.spawnLoop = requestAnimationFrame(spawn);
+        };
+
+        // Initial call of spawn
+        this.spawnLoop = requestAnimationFrame(spawn);
     }
 
     handleContentPointerDown() {
