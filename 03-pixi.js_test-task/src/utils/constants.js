@@ -9,13 +9,13 @@ export const BASE_SETTINGS = {
     FONT_SIZE: 18,
     GRAVITY: 1,
     SPAWN_RATE: 1000,
-    CTRL_GROUP: document.querySelector(".ctrl-group"),
-    CTRL_DECREASE_SPAWN: document.getElementById("decreaseSpawn"),
-    CTRL_INCREASE_SPAWN: document.getElementById("increaseSpawn"),
-    CTRL_DECREASE_GRAVITY: document.getElementById("decreaseGravity"),
-    CTRL_INCREASE_GRAVITY: document.getElementById("increaseGravity"),
-    CTRL_SPAWN_EL: document.getElementById("spawnRate"),
-    CTRL_GRAVITY_EL: document.getElementById("gravity")
+    CTRL_GROUP: "ctrlGroup",
+    CTRL_DECREASE_SPAWN: "decreaseSpawn",
+    CTRL_INCREASE_SPAWN: "increaseSpawn",
+    CTRL_DECREASE_GRAVITY: "decreaseGravity",
+    CTRL_INCREASE_GRAVITY: "increaseGravity",
+    CTRL_SPAWN_EL: "spawnRate",
+    CTRL_GRAVITY_EL: "gravity"
 };
 
 export const HEADER_SETTINGS = {

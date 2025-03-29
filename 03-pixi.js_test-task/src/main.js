@@ -1,5 +1,5 @@
 import { Application } from "pixi.js";
-import { BASE_SETTINGS, HEADER_SETTINGS } from "./utils/constants";
+import { BASE_SETTINGS } from "./utils/constants";
 import { calculateDimensions } from "./utils/helpers";
 
 import GameModel from "./core/GameModel";
@@ -9,6 +9,7 @@ import GameController from "./core/GameController";
 import "./style.css";
 
 const entryPoint = document.getElementById("app");
+const ctrlGroup = document.getElementById(BASE_SETTINGS.CTRL_GROUP);
 let gameBoard, gameModel, gameView, gameController;
 let dimensions = calculateDimensions();
 
@@ -20,7 +21,7 @@ let dimensions = calculateDimensions();
         height: dimensions.CANVAS_HEIGHT,
         background: BASE_SETTINGS.CANVAS_BG_COLOR,
     });
-    entryPoint.insertBefore(gameBoard.canvas, BASE_SETTINGS.CTRL_GROUP);
+    entryPoint.insertBefore(gameBoard.canvas, ctrlGroup);
     entryPoint.style.padding = `${BASE_SETTINGS.ENTRY_POINT_PADDING}px`;
 
     gameModel = new GameModel();

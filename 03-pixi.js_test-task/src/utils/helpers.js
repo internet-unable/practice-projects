@@ -14,7 +14,7 @@ export function getDeviceDimensions() {
     );
     const height = Math.min(
         window.innerHeight -
-            getAbsoluteHeight(BASE_SETTINGS.CTRL_GROUP) -
+            getAbsoluteHeight(document.getElementById(BASE_SETTINGS.CTRL_GROUP)) -
             BASE_SETTINGS.ENTRY_POINT_PADDING * 2 -
             BASE_SETTINGS.STROKE_WIDTH * 2,
         BASE_SETTINGS.CANVAS_HEIGHT
