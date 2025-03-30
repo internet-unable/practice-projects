@@ -16,7 +16,7 @@ export default class Shape {
         this.graphics.setFillStyle(this.color);
     }
 
-    update(gravity) {
+    updateY(gravity) {
         this.y += gravity;
         this.graphics.y = this.y;
     }

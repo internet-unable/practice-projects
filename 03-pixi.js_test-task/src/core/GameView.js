@@ -6,7 +6,7 @@ import {
     SHAPES_SETTINGS,
     AREA_SETTINGS,
     CONTENT_SETTINGS,
-    CUSTOM_EVENTS
+    CUSTOM_EVENTS,
 } from "../utils/constants";
 
 export default class GameView extends Observable {
@@ -14,31 +14,13 @@ export default class GameView extends Observable {
         super();
         this.gameBoard = gameBoard;
         this.dimensions = dimensions;
-        // this.visibleShapesCount = 0;
-        // this.totalArea = 0;
 
         this.initializeUI();
         this.setupEventHandlers();
+        this.gameBoard.ticker.add(() => this.onViewUpdate());
     }
 
     initializeUI() {
-        // this.main = new Container();
-        // this.header = new Container();
-        // this.content = new Container();
-
-        // this.header.sortableChildren = true;
-        // this.header.zIndex = HEADER_SETTINGS.Z_INDEX;
-
-        // this.content.sortableChildren = true;
-        // this.content.interactive = true;
-
-        // this.gameBoard.stage.addChild(this.main);
-        // this.main.addChild(this.header);
-        // this.main.addChild(this.content);
-
-        // this.createHeaderElements();
-        // this.createContentElements();
-
         this.initializeMain();
         this.initializeHeader();
         this.initializeContent();
@@ -71,46 +53,25 @@ export default class GameView extends Observable {
     }
 
     initializeControls() {
-        this.decreaseSpawnBtn = document.getElementById(BASE_SETTINGS.CTRL_DECREASE_SPAWN);
-        this.increaseSpawnBtn = document.getElementById(BASE_SETTINGS.CTRL_INCREASE_SPAWN);
-        this.spawnAmountEl = document.getElementById(BASE_SETTINGS.CTRL_SPAWN_EL);
-        this.decreaseGravityBtn = document.getElementById(BASE_SETTINGS.CTRL_DECREASE_GRAVITY);
-        this.increaseGravityBtn = document.getElementById(BASE_SETTINGS.CTRL_INCREASE_GRAVITY);
+        this.decreaseSpawnBtn = document.getElementById(
+            BASE_SETTINGS.CTRL_DECREASE_SPAWN
+        );
+        this.increaseSpawnBtn = document.getElementById(
+            BASE_SETTINGS.CTRL_INCREASE_SPAWN
+        );
+        this.spawnAmountEl = document.getElementById(
+            BASE_SETTINGS.CTRL_SPAWN_EL
+        );
+        this.decreaseGravityBtn = document.getElementById(
+            BASE_SETTINGS.CTRL_DECREASE_GRAVITY
+        );
+        this.increaseGravityBtn = document.getElementById(
+            BASE_SETTINGS.CTRL_INCREASE_GRAVITY
+        );
         this.gravityEl = document.getElementById(BASE_SETTINGS.CTRL_GRAVITY_EL);
     }
 
     createHeaderElements() {
-        // this.headerBorder = new Graphics();
-        // this.headerBg = new Graphics();
-
-        // this.shapesBorder = new Graphics();
-        // this.shapesText = new Text({
-        //     text: `Shapes: 0`,
-        //     style: {
-        //         fill: BASE_SETTINGS.TEXT_COLOR,
-        //         fontSize: BASE_SETTINGS.FONT_SIZE,
-        //     },
-        // });
-
-        // this.areaBorder = new Graphics();
-        // this.areaText = new Text({
-        //     text: `Area: 0 px²`,
-        //     style: {
-        //         fill: BASE_SETTINGS.TEXT_COLOR,
-        //         fontSize: BASE_SETTINGS.FONT_SIZE,
-        //     },
-        // });
-
-        // this.header.addChild(this.headerBorder);
-        // this.header.addChild(this.headerBg);
-        // this.header.addChild(this.shapesBorder);
-        // this.header.addChild(this.shapesText);
-        // this.header.addChild(this.areaBorder);
-        // this.header.addChild(this.areaText);
-
-        // this.drawHeaderElements(this.dimensions);
-
-        // this.createHeaderBorder();
         this.createHeaderBg();
         this.createShapesBorderAndText();
         this.createAreaBorderAndText();
@@ -163,65 +124,6 @@ export default class GameView extends Observable {
     }
 
     drawHeaderElements(dimensions) {
-        // this.headerBorder.clear();
-        // this.headerBorder.rect(
-        //     0,
-        //     1,
-        //     dimensions.HEADER_WIDTH - 2,
-        //     HEADER_SETTINGS.HEIGHT - 2
-        // );
-        // this.headerBorder.setStrokeStyle({
-        //     width: BASE_SETTINGS.STROKE_WIDTH,
-        //     color: BASE_SETTINGS.STROKE_COLOR,
-        // });
-        // this.headerBorder.stroke();
-
-        // this.headerBg.clear();
-        // this.headerBg.rect(
-        //     0,
-        //     0,
-        //     dimensions.HEADER_WIDTH,
-        //     HEADER_SETTINGS.HEIGHT - 2
-        // );
-        // this.headerBg.fill("white");
-        // // this.headerBg.fill("cyan"); // for debugging
-
-        // this.shapesBorder.clear();
-        // this.shapesBorder.rect(
-        //     SHAPES_SETTINGS.OFFSET_X,
-        //     SHAPES_SETTINGS.OFFSET_Y,
-        //     SHAPES_SETTINGS.WIDTH,
-        //     SHAPES_SETTINGS.HEIGHT - 2
-        // );
-        // this.shapesBorder.setStrokeStyle({
-        //     width: BASE_SETTINGS.STROKE_WIDTH,
-        //     color: BASE_SETTINGS.STROKE_COLOR,
-        // });
-        // this.shapesBorder.stroke();
-
-        // this.shapesText.position.set(
-        //     SHAPES_SETTINGS.TEXT_OFFSET_X,
-        //     SHAPES_SETTINGS.TEXT_OFFSET_Y
-        // );
-
-        // this.areaBorder.clear();
-        // this.areaBorder.rect(
-        //     AREA_SETTINGS.OFFSET_X,
-        //     AREA_SETTINGS.OFFSET_Y,
-        //     AREA_SETTINGS.WIDTH,
-        //     AREA_SETTINGS.HEIGHT -2
-        // );
-        // this.areaBorder.setStrokeStyle({
-        //     width: BASE_SETTINGS.STROKE_WIDTH,
-        //     color: BASE_SETTINGS.STROKE_COLOR,
-        // });
-        // this.areaBorder.stroke();
-
-        // this.areaText.position.set(
-        //     AREA_SETTINGS.TEXT_OFFSET_X,
-        //     AREA_SETTINGS.TEXT_OFFSET_Y
-        // );
-
         this.drawHeaderBorder(dimensions);
         this.drawHeaderBg(dimensions);
         this.drawShapesBorderAndText();
@@ -249,7 +151,7 @@ export default class GameView extends Observable {
             0,
             0,
             dimensions.HEADER_WIDTH,
-            HEADER_SETTINGS.HEIGHT - 2
+            HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH
         );
         this.headerBg.fill("white");
         // this.headerBg.fill("cyan"); // for debugging
@@ -261,7 +163,7 @@ export default class GameView extends Observable {
             SHAPES_SETTINGS.OFFSET_X,
             SHAPES_SETTINGS.OFFSET_Y,
             SHAPES_SETTINGS.WIDTH,
-            SHAPES_SETTINGS.HEIGHT - 2
+            SHAPES_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH
         );
         this.shapesBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -281,7 +183,7 @@ export default class GameView extends Observable {
             AREA_SETTINGS.OFFSET_X,
             AREA_SETTINGS.OFFSET_Y,
             AREA_SETTINGS.WIDTH,
-            AREA_SETTINGS.HEIGHT - 2
+            AREA_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH
         );
         this.areaBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -296,27 +198,6 @@ export default class GameView extends Observable {
     }
 
     drawContentElements(dimensions) {
-        // this.content.hitArea = new Rectangle(
-        //     CONTENT_SETTINGS.OFFSET_X,
-        //     CONTENT_SETTINGS.OFFSET_Y,
-        //     dimensions.CONTENT_WIDTH,
-        //     dimensions.CONTENT_HEIGHT
-        // );
-
-        // this.contentBorder.clear();
-        // this.contentBorder.rect(
-        //     1,
-        //     29,
-        //     dimensions.CANVAS_WIDTH - 2,
-        //     dimensions.CANVAS_HEIGHT - 30
-        // );
-        // this.contentBorder.setStrokeStyle({
-        //     width: BASE_SETTINGS.STROKE_WIDTH,
-        //     color: BASE_SETTINGS.STROKE_COLOR,
-        // });
-        // this.contentBorder.stroke();
-        // // this.contentBorder.fill("yellow"); // for debugging
-
         this.drawContentHitArea(dimensions);
         this.drawContentBorder(dimensions);
     }
@@ -333,10 +214,10 @@ export default class GameView extends Observable {
     drawContentBorder(dimensions) {
         this.contentBorder.clear();
         this.contentBorder.rect(
-            1,
-            29,
-            dimensions.CANVAS_WIDTH - 2,
-            dimensions.CANVAS_HEIGHT - 30
+            BASE_SETTINGS.STROKE_WIDTH / 2,
+            HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH / 2,
+            dimensions.CANVAS_WIDTH - BASE_SETTINGS.STROKE_WIDTH,
+            dimensions.CANVAS_HEIGHT - HEADER_SETTINGS.HEIGHT
         );
         this.contentBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -355,41 +236,51 @@ export default class GameView extends Observable {
     }
 
     setupEventHandlers() {
-        this.content.addEventListener("pointerdown", (event) => this.handleContentClick(event));
-        this.decreaseSpawnBtn.addEventListener("click", () => this.handleDecreaseSpawnClick());
-        this.increaseSpawnBtn.addEventListener("click", () => this.handleIncreaseSpawnClick());
-        this.decreaseGravityBtn.addEventListener("click", () => this.handleDecreaseGravityClick());
-        this.increaseGravityBtn.addEventListener("click", () => this.handleIncreaseGravityClick());
+        this.content.addEventListener("pointerdown", (event) =>
+            this.onContentClick(event)
+        );
+        this.decreaseSpawnBtn.addEventListener("click", () =>
+            this.onDecreaseSpawnClick()
+        );
+        this.increaseSpawnBtn.addEventListener("click", () =>
+            this.onIncreaseSpawnClick()
+        );
+        this.decreaseGravityBtn.addEventListener("click", () =>
+            this.onDecreaseGravityClick()
+        );
+        this.increaseGravityBtn.addEventListener("click", () =>
+            this.onIncreaseGravityClick()
+        );
 
-        window.addEventListener("resize", () => this.handleWindowResize());
+        window.addEventListener("resize", () => this.onWindowResize());
     }
 
-    handleContentClick(event) {
+    onContentClick(event) {
         if (event.target !== this.content) return;
         this.emit(CUSTOM_EVENTS.ADD_SHAPE, event);
     }
 
-    handleDecreaseSpawnClick() {
+    onDecreaseSpawnClick() {
         console.log("Decrease spawn btn was clicked");
         this.emit(CUSTOM_EVENTS.DECREASE_SPAWN_AMOUNT);
     }
 
-    handleIncreaseSpawnClick() {
+    onIncreaseSpawnClick() {
         console.log("Increase spawn btn was clicked");
         this.emit(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT);
     }
 
-    handleDecreaseGravityClick() {
+    onDecreaseGravityClick() {
         console.log("Decrease gravity btn was clicked");
         this.emit(CUSTOM_EVENTS.DECREASE_GRAVITY);
     }
 
-    handleIncreaseGravityClick() {
+    onIncreaseGravityClick() {
         console.log("Increase gravity btn was clicked");
         this.emit(CUSTOM_EVENTS.INCREASE_GRAVITY);
     }
 
-    handleWindowResize() {
+    onWindowResize() {
         this.emit(CUSTOM_EVENTS.WINDOW_RESIZE);
     }
 
@@ -406,14 +297,18 @@ export default class GameView extends Observable {
 
     handleShapeAdded(shape) {
         console.log("Shape pointerdown handler was created in view", shape);
+
         shape.graphics.on("pointerdown", () => {
             this.emit(CUSTOM_EVENTS.REMOVE_SHAPE, shape);
         });
+        this.content.addChild(shape.graphics);
     }
 
     handleShapeRemoved(shape) {
         console.log("Shape pointerdown handler was removed in view", shape);
+
         shape.graphics.off("pointerdown");
+        this.content.removeChild(shape.graphics);
     }
 
     updateShapesText(value) {
@@ -434,16 +329,7 @@ export default class GameView extends Observable {
         this.drawContentElements(dimensions);
     }
 
-    update(model) {
-        // Todo: fire custom event
-        // Everything else, move to controller
-        model.shapes.forEach((shape) => {
-            this.content.addChild(shape.graphics);
-        });
-
-        // this.shapesText.text = `Shapes: ${this.visibleShapesCount}`;
-        // this.areaText.text = `Area: ${Math.round(this.totalArea)} px²`;
-        // this.shapesText.text = `Shapes: ${model.visibleShapesCount}`;
-        // this.areaText.text = `Area: ${Math.round(model.totalArea)} px²`;
+    onViewUpdate() {
+        this.emit(CUSTOM_EVENTS.SHAPES_Y_UPDATE);
     }
 }

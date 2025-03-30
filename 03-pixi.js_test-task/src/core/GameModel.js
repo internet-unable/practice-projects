@@ -3,6 +3,7 @@ import {
     BASE_SETTINGS,
     CUSTOM_EVENTS,
 } from "../utils/constants";
+import { calculateDimensions } from "../utils/helpers";
 
 export default class GameModel extends Observable {
     constructor() {
@@ -16,43 +17,54 @@ export default class GameModel extends Observable {
     }
 
     addShape(shape) {
-        console.log("Shape was added to model", shape);
         this.shapes.push(shape);
         this.notify(CUSTOM_EVENTS.SHAPE_ADDED, shape);
     }
 
     removeShape(shape) {
-        console.log("Shape was removed from model", shape);
         shape.destroy();
         this.shapes = this.shapes.filter((s) => s !== shape);
         this.notify(CUSTOM_EVENTS.SHAPE_REMOVED, shape);
     }
 
     updateTotalCount(value) {
-        console.log("Total count was updated in model", value);
         this.totalCount = value;
         this.notify(CUSTOM_EVENTS.TOTAL_COUNT_UPDATED, value);
     }
 
     updateTotalArea(value) {
-        console.log("Total area was updated in model", value);
         this.totalArea = value;
         this.notify(CUSTOM_EVENTS.TOTAL_AREA_UPDATED, value);
     }
 
     updateSpawnAmount(value) {
-        console.log("Spawn amount was updated in model", value);
         this.spawnAmount = value;
         this.notify(CUSTOM_EVENTS.SPAWN_AMOUNT_UPDATED, value);
     }
 
     updateGravity(value) {
-        console.log("Gravity was updated in model", value);
         this.gravity = value;
         this.notify(CUSTOM_EVENTS.GRAVITY_UPDATED, value);
     }
 
-    adjustShapesPositionX(contentBounds, scaleX) {
+    updateShapesY() {
+        if (this.shapes.length) {
+            const { CANVAS_HEIGHT } = calculateDimensions();
+
+            this.shapes = this.shapes.filter((shape) => {
+                shape.updateY(this.gravity);
+
+                if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
+                    this.removeShape(shape);
+                    return false;
+                }
+
+                return true;
+            });
+        }
+    }
+
+    updateShapesX(contentBounds, scaleX) {
         this.shapes.forEach((shape) => {
             shape.x = Math.min(
                 Math.max(
@@ -66,14 +78,4 @@ export default class GameModel extends Observable {
             shape.resize(scaleX);
         });
     }
-
-    updateShapesGravity() {
-        this.shapes.forEach((shape) => shape.update(this.gravity));
-    }
-
-    // update() {
-    //     this.shapes.forEach((shape) => shape.update(this.gravity));
-    //     this.removeShapesOnOutOfBoard();
-    //     this.updateCounters();
-    // }
 }

@@ -4,7 +4,7 @@ import {
     CONTENT_SETTINGS,
     CUSTOM_EVENTS,
 } from "../utils/constants";
-import { getDeviceDimensions, calculateDimensions } from "../utils/helpers";
+import { calculateDimensions } from "../utils/helpers";
 
 import Circle from "../shapes/Circle";
 import Ellipse from "../shapes/Ellipse";
@@ -34,55 +34,10 @@ export default class GameController {
         this.dimensions = dimensions;
         this.spawnLoop = null;
 
-        this.gameBoard.ticker.add(() => this.handleModelAndViewUpdate());
-
-        this.setupEventHandlers();
         // this.view.initSpawnAmountText();
         // this.view.initGravityText();
+        this.setupEventHandlers();
         this.startSpawning();
-    }
-
-    handleModelAndViewUpdate() {
-        // this.model.update(); // gravity update
-        // this.view.update(this.model);
-
-        this.model.updateShapesGravity();
-        this.handleShapesRemoveOnOutOfBoard();
-        this.view.update(this.model);
-    }
-
-    startSpawning() {
-        if (this.spawnLoop) return;
-
-        // On init - time snapshot before the first shape spawn
-        let shapeLastSpawnTime = performance.now();
-
-        /*
-            This function receives `currentTime` from the browser when it is called.
-            It then calculates `deltaTime`, the number of milliseconds that have passed since the last shape spawn.
-            If the required time has passed, it spawns a new shape.
-            It then updates `shapeLastSpawnTime` with the current timestamp.
-            Finally, it calls itself again using `requestAnimationFrame(spawn)`
-        */
-        const spawn = (currentTime) => {
-            const deltaTime = currentTime - shapeLastSpawnTime;
-
-            if (deltaTime >= this.model.spawnRate) {
-                for (let i = 0; i < this.model.spawnAmount; i++) {
-                    const x = Math.random() * this.dimensions.EXPERIMENTAL_VALUE;
-                    const y = -HEADER_SETTINGS.HEIGHT;
-
-                    this.addShape(x, y);
-                }
-
-                shapeLastSpawnTime = currentTime;
-            }
-
-            this.spawnLoop = requestAnimationFrame(spawn);
-        };
-
-        // Initial call of spawn
-        this.spawnLoop = requestAnimationFrame(spawn);
     }
 
     setupEventHandlers() {
@@ -105,6 +60,9 @@ export default class GameController {
             this.handleModelGravityUpdated(value)
         );
 
+        this.view.subscribe(CUSTOM_EVENTS.SHAPES_Y_UPDATE, () =>
+            this.handleShapesYUpdate()
+        );
         this.view.subscribe(CUSTOM_EVENTS.ADD_SHAPE, (event) =>
             this.handleViewAddShape(event)
         );
@@ -125,7 +83,9 @@ export default class GameController {
             this.handleViewGravityChange(1)
         );
         // this.view.subscribe(CUSTOM_EVENTS.SET_GRAVITY_TEXT, () => this.handleGravityTextChange());
-        this.view.subscribe(CUSTOM_EVENTS.WINDOW_RESIZE, () => this.handleWindowResize())
+        this.view.subscribe(CUSTOM_EVENTS.WINDOW_RESIZE, () =>
+            this.handleWindowResize()
+        );
     }
 
     // ------------------------------------------------------------
@@ -164,6 +124,10 @@ export default class GameController {
 
     // ------------------------------------------------------------
     // Handlers for model update - Start
+    handleShapesYUpdate() {
+        this.model.updateShapesY();
+    }
+
     handleViewAddShape(event) {
         const x = event.data.global.x;
         const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
@@ -186,6 +150,41 @@ export default class GameController {
     }
     // Handlers for model update - End
     // ------------------------------------------------------------
+
+    startSpawning() {
+        if (this.spawnLoop) return;
+
+        // On init - time snapshot before the first shape spawn
+        let shapeLastSpawnTime = performance.now();
+
+        /*
+            This function receives `currentTime` from the browser when it is called.
+            It then calculates `deltaTime`, the number of milliseconds that have passed since the last shape spawn.
+            If the required time has passed, it spawns a new shape.
+            It then updates `shapeLastSpawnTime` with the current timestamp.
+            Finally, it calls itself again using `requestAnimationFrame(spawn)`
+        */
+        const spawn = (currentTime) => {
+            const deltaTime = currentTime - shapeLastSpawnTime;
+
+            if (deltaTime >= this.model.spawnRate) {
+                for (let i = 0; i < this.model.spawnAmount; i++) {
+                    const x =
+                        Math.random() * this.dimensions.EXPERIMENTAL_VALUE;
+                    const y = -HEADER_SETTINGS.HEIGHT;
+
+                    this.addShape(x, y);
+                }
+
+                shapeLastSpawnTime = currentTime;
+            }
+
+            this.spawnLoop = requestAnimationFrame(spawn);
+        };
+
+        // Initial call of spawn
+        this.spawnLoop = requestAnimationFrame(spawn);
+    }
 
     addShape(x, y) {
         const shape = this.chooseShape(x, y);
@@ -221,18 +220,6 @@ export default class GameController {
         };
     }
 
-    handleShapesRemoveOnOutOfBoard() {
-        const { CANVAS_HEIGHT } = calculateDimensions();
-
-        if (this.model.shapes.length) {
-            this.model.shapes.forEach((shape) => {
-                if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
-                    this.removeShape(shape);
-                }
-            });
-        }
-    }
-
     handleWindowResize() {
         // Get prev canvas width, before resize
         const oldWidth = this.dimensions.CANVAS_WIDTH;
@@ -251,33 +238,13 @@ export default class GameController {
 
         // Adjust X position for each shape in model
         const scaleX =
-            this.dimensions.CONTENT_WIDTH / (oldWidth - BASE_SETTINGS.STROKE_WIDTH);
+            this.dimensions.CONTENT_WIDTH /
+            (oldWidth - BASE_SETTINGS.STROKE_WIDTH);
         const contentBounds = {
             left: CONTENT_SETTINGS.OFFSET_X,
             right: CONTENT_SETTINGS.OFFSET_X + this.dimensions.CONTENT_WIDTH,
         };
 
-        this.model.adjustShapesPositionX(contentBounds, scaleX);
+        this.model.updateShapesX(contentBounds, scaleX);
     }
-
-    // Todo: move resise into controller and call this function
-    // adjustShapesPositionX(dimensions, scaleX) {
-    //     const contentBounds = {
-    //         left: CONTENT_SETTINGS.OFFSET_X,
-    //         right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
-    //     };
-
-    //     this.model.shapes.forEach((shape) => {
-    //         shape.x = Math.min(
-    //             Math.max(
-    //                 shape.x * scaleX,
-    //                 contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING
-    //             ),
-    //             contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
-    //         );
-
-    //         shape.graphics.x = shape.x;
-    //         shape.resize(scaleX);
-    //     });
-    // }
 }

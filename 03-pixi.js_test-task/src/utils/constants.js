@@ -56,6 +56,7 @@ export const CUSTOM_EVENTS = {
 
     ADD_SHAPE: "addShape",
     REMOVE_SHAPE: "removeShape",
+    SHAPES_Y_UPDATE: "shapesYUpdate",
     DECREASE_SPAWN_AMOUNT: "decreaseSpawnAmount",
     INCREASE_SPAWN_AMOUNT: "increaseSpawnAmount",
     DECREASE_GRAVITY: "decreaseGravity",
