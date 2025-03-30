@@ -34,8 +34,6 @@ export default class GameController {
         this.dimensions = dimensions;
         this.spawnLoop = null;
 
-        // this.view.initSpawnAmountText();
-        // this.view.initGravityText();
         this.setupEventHandlers();
         this.startSpawning();
     }
@@ -61,7 +59,7 @@ export default class GameController {
         );
 
         this.view.subscribe(CUSTOM_EVENTS.SHAPES_Y_UPDATE, () =>
-            this.handleShapesYUpdate()
+            this.handleViewShapesYUpdate()
         );
         this.view.subscribe(CUSTOM_EVENTS.ADD_SHAPE, (event) =>
             this.handleViewAddShape(event)
@@ -75,21 +73,17 @@ export default class GameController {
         this.view.subscribe(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT, () =>
             this.handleViewSpawnAmountChange(1)
         );
-        // this.view.subscribe(CUSTOM_EVENTS.SET_SPAWN_AMOUNT_TEXT, () => this.handleSpawAmountTextChange());
         this.view.subscribe(CUSTOM_EVENTS.DECREASE_GRAVITY, () =>
             this.handleViewGravityChange(-1)
         );
         this.view.subscribe(CUSTOM_EVENTS.INCREASE_GRAVITY, () =>
             this.handleViewGravityChange(1)
         );
-        // this.view.subscribe(CUSTOM_EVENTS.SET_GRAVITY_TEXT, () => this.handleGravityTextChange());
         this.view.subscribe(CUSTOM_EVENTS.WINDOW_RESIZE, () =>
-            this.handleWindowResize()
+            this.handleViewWindowResize()
         );
     }
 
-    // ------------------------------------------------------------
-    // Handlers for view update - Start
     handleModelShapeAdded(shape) {
         const { totalCount, totalArea } = this.calcTotalCountAndArea();
 
@@ -119,12 +113,8 @@ export default class GameController {
     handleModelGravityUpdated(value) {
         this.view.updateGravityElText(value);
     }
-    // Handlers for view update - End
-    // ------------------------------------------------------------
 
-    // ------------------------------------------------------------
-    // Handlers for model update - Start
-    handleShapesYUpdate() {
+    handleViewShapesYUpdate() {
         this.model.updateShapesY();
     }
 
@@ -148,8 +138,6 @@ export default class GameController {
     handleViewGravityChange(value) {
         this.model.updateGravity(Math.max(1, this.model.gravity + value));
     }
-    // Handlers for model update - End
-    // ------------------------------------------------------------
 
     startSpawning() {
         if (this.spawnLoop) return;
@@ -220,7 +208,7 @@ export default class GameController {
         };
     }
 
-    handleWindowResize() {
+    handleViewWindowResize() {
         // Get prev canvas width, before resize
         const oldWidth = this.dimensions.CANVAS_WIDTH;
         // Update dimensions, because of resize
