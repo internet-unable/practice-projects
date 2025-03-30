@@ -30,7 +30,7 @@ export function calculateDimensions() {
         CANVAS_HEIGHT: height,
         HEADER_WIDTH: width,
         CONTENT_WIDTH: width - BASE_SETTINGS.STROKE_WIDTH,
-        CONTENT_HEIGHT: height - HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH,
+        CONTENT_HEIGHT: height - HEADER_SETTINGS.HEIGHT,
         EXPERIMENTAL_VALUE: width - 50,
     };
 }
