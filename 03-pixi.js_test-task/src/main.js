@@ -33,30 +33,3 @@ let dimensions = calculateDimensions();
         dimensions
     );
 })();
-
-// Todo: consider move to controller
-window.addEventListener("resize", () => {
-    // get prev canvas width
-    const oldWidth = dimensions.CANVAS_WIDTH;
-
-    // update dimension, because of resize
-    dimensions = calculateDimensions();
-
-    if (gameBoard) {
-        // adjust game board size
-        gameBoard.renderer.resize(
-            dimensions.CANVAS_WIDTH,
-            dimensions.CANVAS_HEIGHT
-        );
-    }
-
-    if (gameController) {
-        // adjust header and content size
-        gameController.resizeHeaderAndContent(dimensions);
-
-        // adjust X position for each shape
-        const scaleX =
-            dimensions.CONTENT_WIDTH / (oldWidth - BASE_SETTINGS.STROKE_WIDTH);
-        gameController.adjustShapesPositionX(dimensions, scaleX);
-    }
-});

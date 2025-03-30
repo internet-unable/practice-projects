@@ -355,53 +355,48 @@ export default class GameView extends Observable {
     }
 
     setupEventHandlers() {
-        this.handleContentClick();
-        this.handleDecreaseSpawnClick();
-        this.handleIncreaseSpawnClick();
-        this.handleDecreaseGravityClick();
-        this.handleIncreaseGravityClick();
+        this.content.addEventListener("pointerdown", (event) => this.handleContentClick(event));
+        this.decreaseSpawnBtn.addEventListener("click", () => this.handleDecreaseSpawnClick());
+        this.increaseSpawnBtn.addEventListener("click", () => this.handleIncreaseSpawnClick());
+        this.decreaseGravityBtn.addEventListener("click", () => this.handleDecreaseGravityClick());
+        this.increaseGravityBtn.addEventListener("click", () => this.handleIncreaseGravityClick());
+
+        window.addEventListener("resize", () => this.handleWindowResize());
     }
 
-    handleContentClick() {
-        this.content.addEventListener("pointerdown", (event) => {
-            if (event.target !== this.content) return;
-
-            this.emit(CUSTOM_EVENTS.ADD_SHAPE, event);
-        });
+    handleContentClick(event) {
+        if (event.target !== this.content) return;
+        this.emit(CUSTOM_EVENTS.ADD_SHAPE, event);
     }
 
     handleDecreaseSpawnClick() {
-        this.decreaseSpawnBtn.addEventListener("click", () => {
-            console.log("Decrease spawn btn was clicked");
-            this.emit(CUSTOM_EVENTS.DECREASE_SPAWN_AMOUNT)
-        });
+        console.log("Decrease spawn btn was clicked");
+        this.emit(CUSTOM_EVENTS.DECREASE_SPAWN_AMOUNT);
     }
 
     handleIncreaseSpawnClick() {
-        this.increaseSpawnBtn.addEventListener("click", () => {
-            console.log("Increase spawn btn was clicked");
-            this.emit(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT)
-        });
+        console.log("Increase spawn btn was clicked");
+        this.emit(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT);
+    }
+
+    handleDecreaseGravityClick() {
+        console.log("Decrease gravity btn was clicked");
+        this.emit(CUSTOM_EVENTS.DECREASE_GRAVITY);
+    }
+
+    handleIncreaseGravityClick() {
+        console.log("Increase gravity btn was clicked");
+        this.emit(CUSTOM_EVENTS.INCREASE_GRAVITY);
+    }
+
+    handleWindowResize() {
+        this.emit(CUSTOM_EVENTS.WINDOW_RESIZE);
     }
 
     updateSpawnAmountElText(value) {
         console.log("Spawn amount text was updated in view");
         this.spawnAmountEl.textContent = value;
         this.emit(CUSTOM_EVENTS.SPAWN_AMOUNT_UPDATED);
-    }
-
-    handleDecreaseGravityClick() {
-        this.decreaseGravityBtn.addEventListener("click", () => {
-            console.log("Decrease gravity btn was clicked");
-            this.emit(CUSTOM_EVENTS.DECREASE_GRAVITY)
-        });
-    }
-
-    handleIncreaseGravityClick() {
-        this.increaseGravityBtn.addEventListener("click", () => {
-            console.log("Increase gravity btn was clicked");
-            this.emit(CUSTOM_EVENTS.INCREASE_GRAVITY)
-        });
     }
 
     updateGravityElText(value) {
@@ -421,11 +416,6 @@ export default class GameView extends Observable {
         shape.graphics.off("pointerdown");
     }
 
-    resize(dimensions) {
-        this.drawHeaderElements(dimensions);
-        this.drawContentElements(dimensions);
-    }
-
     updateShapesText(value) {
         console.log("Shapes text was updated in view", value);
         this.shapesText.text = `Shapes: ${value}`;
@@ -434,6 +424,14 @@ export default class GameView extends Observable {
     updateAreaText(value) {
         console.log("Area text was updated in view", value);
         this.areaText.text = `Area: ${Math.round(value)} px²`;
+    }
+
+    resizeHeader(dimensions) {
+        this.drawHeaderElements(dimensions);
+    }
+
+    resizeContent(dimensions) {
+        this.drawContentElements(dimensions);
     }
 
     update(model) {

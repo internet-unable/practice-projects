@@ -42,6 +42,15 @@ export default class GameController {
         this.startSpawning();
     }
 
+    handleModelAndViewUpdate() {
+        // this.model.update(); // gravity update
+        // this.view.update(this.model);
+
+        this.model.updateShapesGravity();
+        this.handleShapesRemoveOnOutOfBoard();
+        this.view.update(this.model);
+    }
+
     startSpawning() {
         if (this.spawnLoop) return;
 
@@ -74,15 +83,6 @@ export default class GameController {
 
         // Initial call of spawn
         this.spawnLoop = requestAnimationFrame(spawn);
-    }
-
-    handleModelAndViewUpdate() {
-        // this.model.update(); // gravity update
-        // this.view.update(this.model);
-
-        this.model.updateShapesGravity();
-        this.handleShapesRemoveOnOutOfBoard();
-        this.view.update(this.model);
     }
 
     setupEventHandlers() {
@@ -125,6 +125,7 @@ export default class GameController {
             this.handleViewGravityChange(1)
         );
         // this.view.subscribe(CUSTOM_EVENTS.SET_GRAVITY_TEXT, () => this.handleGravityTextChange());
+        this.view.subscribe(CUSTOM_EVENTS.WINDOW_RESIZE, () => this.handleWindowResize())
     }
 
     // ------------------------------------------------------------
@@ -232,30 +233,51 @@ export default class GameController {
         }
     }
 
-    // Todo: move resise into controller and call this function
-    resizeHeaderAndContent(dimension) {
-        this.view.resize(dimension);
-    }
+    handleWindowResize() {
+        // Get prev canvas width, before resize
+        const oldWidth = this.dimensions.CANVAS_WIDTH;
+        // Update dimensions, because of resize
+        this.dimensions = calculateDimensions();
 
-    // Todo: move resise into controller and call this function
-    adjustShapesPositionX(dimensions, scaleX) {
-        // this.model.adjustShapesPositionX(dimensions, scaleX);
+        // Adjust canvas size
+        this.gameBoard.renderer.resize(
+            this.dimensions.CANVAS_WIDTH,
+            this.dimensions.CANVAS_HEIGHT
+        );
+
+        // Adjust header and content size in View
+        this.view.resizeHeader(this.dimensions);
+        this.view.resizeContent(this.dimensions);
+
+        // Adjust X position for each shape in model
+        const scaleX =
+            this.dimensions.CONTENT_WIDTH / (oldWidth - BASE_SETTINGS.STROKE_WIDTH);
         const contentBounds = {
             left: CONTENT_SETTINGS.OFFSET_X,
-            right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
+            right: CONTENT_SETTINGS.OFFSET_X + this.dimensions.CONTENT_WIDTH,
         };
 
-        this.model.shapes.forEach((shape) => {
-            shape.x = Math.min(
-                Math.max(
-                    shape.x * scaleX,
-                    contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING
-                ),
-                contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
-            );
-
-            shape.graphics.x = shape.x;
-            shape.resize(scaleX);
-        });
+        this.model.adjustShapesPositionX(contentBounds, scaleX);
     }
+
+    // Todo: move resise into controller and call this function
+    // adjustShapesPositionX(dimensions, scaleX) {
+    //     const contentBounds = {
+    //         left: CONTENT_SETTINGS.OFFSET_X,
+    //         right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
+    //     };
+
+    //     this.model.shapes.forEach((shape) => {
+    //         shape.x = Math.min(
+    //             Math.max(
+    //                 shape.x * scaleX,
+    //                 contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING
+    //             ),
+    //             contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
+    //         );
+
+    //         shape.graphics.x = shape.x;
+    //         shape.resize(scaleX);
+    //     });
+    // }
 }

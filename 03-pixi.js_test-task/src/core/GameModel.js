@@ -1,5 +1,8 @@
 import Observable from "../utils/Observable";
-import { BASE_SETTINGS, CONTENT_SETTINGS, CUSTOM_EVENTS } from "../utils/constants";
+import {
+    BASE_SETTINGS,
+    CUSTOM_EVENTS,
+} from "../utils/constants";
 
 export default class GameModel extends Observable {
     constructor() {
@@ -49,30 +52,28 @@ export default class GameModel extends Observable {
         this.notify(CUSTOM_EVENTS.GRAVITY_UPDATED, value);
     }
 
-    // adjustShapesPositionX(dimensions, scaleX) {
-    //     const contentBounds = {
-    //         left: CONTENT_SETTINGS.OFFSET_X,
-    //         right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
-    //     };
+    adjustShapesPositionX(contentBounds, scaleX) {
+        this.shapes.forEach((shape) => {
+            shape.x = Math.min(
+                Math.max(
+                    shape.x * scaleX,
+                    contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING
+                ),
+                contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
+            );
 
-    //     this.shapes.forEach((shape) => {
-    //         shape.x = Math.min(
-    //             Math.max(shape.x * scaleX, contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING),
-    //             contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
-    //         );
-
-    //         shape.graphics.x = shape.x;
-    //         shape.resize(scaleX);
-    //     });
-    // }
+            shape.graphics.x = shape.x;
+            shape.resize(scaleX);
+        });
+    }
 
     updateShapesGravity() {
         this.shapes.forEach((shape) => shape.update(this.gravity));
     }
-    
-    update() {
-        // this.shapes.forEach((shape) => shape.update(this.gravity));
-        // this.removeShapesOnOutOfBoard();
-        // this.updateCounters();
-    }
+
+    // update() {
+    //     this.shapes.forEach((shape) => shape.update(this.gravity));
+    //     this.removeShapesOnOutOfBoard();
+    //     this.updateCounters();
+    // }
 }
