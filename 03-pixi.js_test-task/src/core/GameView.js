@@ -366,20 +366,22 @@ export default class GameView extends Observable {
         this.content.addEventListener("pointerdown", (event) => {
             if (event.target !== this.content) return;
 
-            this.emit(CUSTOM_EVENTS.DRAW_SHAPE, event);
+            this.emit(CUSTOM_EVENTS.ADD_SHAPE, event);
         });
     }
 
     handleDecreaseSpawnClick() {
-        this.decreaseSpawnBtn.addEventListener("click", () =>
+        this.decreaseSpawnBtn.addEventListener("click", () => {
+            console.log("Decrease spawn btn was clicked");
             this.emit(CUSTOM_EVENTS.DECREASE_SPAWN_AMOUNT)
-        );
+        });
     }
 
     handleIncreaseSpawnClick() {
-        this.increaseSpawnBtn.addEventListener("click", () =>
+        this.increaseSpawnBtn.addEventListener("click", () => {
+            console.log("Increase spawn btn was clicked");
             this.emit(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT)
-        );
+        });
     }
 
     updateSpawnAmountElText(value) {
@@ -389,15 +391,17 @@ export default class GameView extends Observable {
     }
 
     handleDecreaseGravityClick() {
-        this.decreaseGravityBtn.addEventListener("click", () =>
+        this.decreaseGravityBtn.addEventListener("click", () => {
+            console.log("Decrease gravity btn was clicked");
             this.emit(CUSTOM_EVENTS.DECREASE_GRAVITY)
-        );
+        });
     }
 
     handleIncreaseGravityClick() {
-        this.increaseGravityBtn.addEventListener("click", () =>
+        this.increaseGravityBtn.addEventListener("click", () => {
+            console.log("Increase gravity btn was clicked");
             this.emit(CUSTOM_EVENTS.INCREASE_GRAVITY)
-        );
+        });
     }
 
     updateGravityElText(value) {

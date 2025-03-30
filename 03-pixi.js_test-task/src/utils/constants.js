@@ -48,19 +48,19 @@ export const CONTENT_SETTINGS = {
 
 export const CUSTOM_EVENTS = {
     SHAPE_ADDED: "shapeAdded",
-    REMOVE_SHAPE: "removeShape",
+    SHAPE_REMOVED: "shapeRemoved",
     TOTAL_COUNT_UPDATED: "totalCountUpdated",
     TOTAL_AREA_UPDATED: "totalAreaUpdated",
     SPAWN_AMOUNT_UPDATED: "spawnAmountUpdated",
     GRAVITY_UPDATED: "gravityUpdated",
-    
-    SHAPE_REMOVED: "shapeRemoved",
-    SHAPES_UPDATED: "shapesUpdated",
-    DRAW_SHAPE: "drawShape",
+
+    ADD_SHAPE: "addShape",
+    REMOVE_SHAPE: "removeShape",
     DECREASE_SPAWN_AMOUNT: "decreaseSpawnAmount",
     INCREASE_SPAWN_AMOUNT: "increaseSpawnAmount",
-    SET_SPAWN_AMOUNT_TEXT: "setSpawnAmountText",
     DECREASE_GRAVITY: "decreaseGravity",
     INCREASE_GRAVITY: "increaseGravity",
+
+    SET_SPAWN_AMOUNT_TEXT: "setSpawnAmountText",
     SET_GRAVITY_TEXT: "setGravityText"
 }
