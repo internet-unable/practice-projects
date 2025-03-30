@@ -63,7 +63,4 @@ export const CUSTOM_EVENTS = {
     INCREASE_GRAVITY: "increaseGravity",
 
     WINDOW_RESIZE: "windowResize",
-
-    SET_SPAWN_AMOUNT_TEXT: "setSpawnAmountText",
-    SET_GRAVITY_TEXT: "setGravityText"
 }

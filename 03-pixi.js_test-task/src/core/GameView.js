@@ -203,14 +203,6 @@ export default class GameView extends Observable {
         // this.contentBorder.fill("yellow"); // for debugging
     }
 
-    initSpawnAmountText() {
-        this.emit(CUSTOM_EVENTS.SET_SPAWN_AMOUNT_TEXT);
-    }
-
-    initGravityText() {
-        this.emit(CUSTOM_EVENTS.SET_GRAVITY_TEXT);
-    }
-
     setupEventHandlers() {
         this.content.addEventListener("pointerdown", (event) =>
             this.onContentClick(event)
