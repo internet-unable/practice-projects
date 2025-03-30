@@ -37,7 +37,6 @@ export default class GameView extends Observable {
         this.header.sortableChildren = true;
         this.header.zIndex = HEADER_SETTINGS.Z_INDEX;
         this.main.addChild(this.header);
-        // this.gameBoard.stage.addChild(this.header);
 
         this.createHeaderElements();
     }
@@ -47,7 +46,6 @@ export default class GameView extends Observable {
         this.content.sortableChildren = true;
         this.content.interactive = true;
         this.main.addChild(this.content);
-        // this.gameBoard.stage.addChild(this.content);
 
         this.createContentElements();
     }
@@ -77,11 +75,6 @@ export default class GameView extends Observable {
         this.createAreaBorderAndText();
 
         this.drawHeaderElements(this.dimensions);
-    }
-
-    createHeaderBorder() {
-        this.headerBorder = new Graphics();
-        this.header.addChild(this.headerBorder);
     }
 
     createHeaderBg() {
@@ -118,31 +111,14 @@ export default class GameView extends Observable {
     createContentElements() {
         this.contentBorder = new Graphics();
         this.main.addChild(this.contentBorder);
-        // this.content.addChild(this.contentBorder);
 
         this.drawContentElements(this.dimensions);
     }
 
     drawHeaderElements(dimensions) {
-        this.drawHeaderBorder(dimensions);
         this.drawHeaderBg(dimensions);
         this.drawShapesBorderAndText();
         this.drawAreaBorderAndText();
-    }
-
-    drawHeaderBorder(dimensions) {
-        // this.headerBorder.clear();
-        // this.headerBorder.rect(
-        //     0,
-        //     1,
-        //     dimensions.HEADER_WIDTH,
-        //     HEADER_SETTINGS.HEIGHT - 2
-        // );
-        // this.headerBorder.setStrokeStyle({
-        //     width: BASE_SETTINGS.STROKE_WIDTH,
-        //     color: BASE_SETTINGS.STROKE_COLOR,
-        // });
-        // this.headerBorder.stroke();
     }
 
     drawHeaderBg(dimensions) {
@@ -214,10 +190,10 @@ export default class GameView extends Observable {
     drawContentBorder(dimensions) {
         this.contentBorder.clear();
         this.contentBorder.rect(
-            BASE_SETTINGS.STROKE_WIDTH / 2,
-            HEADER_SETTINGS.HEIGHT - BASE_SETTINGS.STROKE_WIDTH / 2,
-            dimensions.CANVAS_WIDTH - BASE_SETTINGS.STROKE_WIDTH,
-            dimensions.CANVAS_HEIGHT - HEADER_SETTINGS.HEIGHT
+            CONTENT_SETTINGS.OFFSET_X,
+            CONTENT_SETTINGS.OFFSET_Y,
+            dimensions.CONTENT_WIDTH,
+            dimensions.CONTENT_HEIGHT
         );
         this.contentBorder.setStrokeStyle({
             width: BASE_SETTINGS.STROKE_WIDTH,
@@ -261,22 +237,18 @@ export default class GameView extends Observable {
     }
 
     onDecreaseSpawnClick() {
-        console.log("Decrease spawn btn was clicked");
         this.emit(CUSTOM_EVENTS.DECREASE_SPAWN_AMOUNT);
     }
 
     onIncreaseSpawnClick() {
-        console.log("Increase spawn btn was clicked");
         this.emit(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT);
     }
 
     onDecreaseGravityClick() {
-        console.log("Decrease gravity btn was clicked");
         this.emit(CUSTOM_EVENTS.DECREASE_GRAVITY);
     }
 
     onIncreaseGravityClick() {
-        console.log("Increase gravity btn was clicked");
         this.emit(CUSTOM_EVENTS.INCREASE_GRAVITY);
     }
 
@@ -285,19 +257,15 @@ export default class GameView extends Observable {
     }
 
     updateSpawnAmountElText(value) {
-        console.log("Spawn amount text was updated in view");
         this.spawnAmountEl.textContent = value;
         this.emit(CUSTOM_EVENTS.SPAWN_AMOUNT_UPDATED);
     }
 
     updateGravityElText(value) {
-        console.log("Gravity text was updated in view");
         this.gravityEl.textContent = value;
     }
 
     handleShapeAdded(shape) {
-        console.log("Shape pointerdown handler was created in view", shape);
-
         shape.graphics.on("pointerdown", () => {
             this.emit(CUSTOM_EVENTS.REMOVE_SHAPE, shape);
         });
@@ -305,19 +273,15 @@ export default class GameView extends Observable {
     }
 
     handleShapeRemoved(shape) {
-        console.log("Shape pointerdown handler was removed in view", shape);
-
         shape.graphics.off("pointerdown");
         this.content.removeChild(shape.graphics);
     }
 
     updateShapesText(value) {
-        console.log("Shapes text was updated in view", value);
         this.shapesText.text = `Shapes: ${value}`;
     }
 
     updateAreaText(value) {
-        console.log("Area text was updated in view", value);
         this.areaText.text = `Area: ${Math.round(value)} px²`;
     }
 
