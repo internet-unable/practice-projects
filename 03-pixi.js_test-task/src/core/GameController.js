@@ -1,4 +1,5 @@
-import { HEADER_SETTINGS } from "../utils/constants";
+import { BASE_SETTINGS, HEADER_SETTINGS, CONTENT_SETTINGS, CUSTOM_EVENTS } from "../utils/constants";
+import { getDeviceDimensions, calculateDimensions } from "../utils/helpers";
 
 import Circle from "../shapes/Circle";
 import Ellipse from "../shapes/Ellipse";
@@ -28,30 +29,153 @@ export default class GameController {
         this.dimensions = dimensions;
         this.spawnLoop = null;
 
-        this.gameBoard.ticker.add(() => this.updateModelAndView());
+        this.gameBoard.ticker.add(() => this.handleModelAndViewUpdate());
 
-        this.setSpawnRateText();
-        this.setGravityText();
+        this.setupEventHandlers();
+        // this.view.initSpawnAmountText();
+        // this.view.initGravityText();
         this.startSpawning();
-        // this.handleContentPointerDown();
-        this.setupEventListeners();
     }
 
-    setSpawnRateText() {
-        this.view.setSpawnRateText(`${this.model.spawnCount} shapes/sec`);
+    handleModelAndViewUpdate() {
+        // this.model.update(); // gravity update
+        // this.view.update(this.model);
+
+        this.model.updateShapesGravity();
+        this.handleShapesRemoveOnOutOfBoard();
+        this.view.update(this.model);
     }
 
-    setGravityText() {
-        this.view.setGravityText(this.model.gravity);
+    handleShapesRemoveOnOutOfBoard() {
+        const { CANVAS_HEIGHT } = calculateDimensions();
+
+        if (this.model.shapes.length) {
+            this.model.shapes.forEach((shape) => {
+                if (shape.y > CANVAS_HEIGHT + shape.getSize().height) {
+                    this.model.removeShape(shape);
+                }
+            });
+        }
     }
 
-    setupEventListeners() {
-        this.view.on("addShape", (event) => this.handleAddShape(event));
-        this.view.on("decreaseSpawn", () => this.handleSpawnRateChange(-1));
-        this.view.on("increaseSpawn", () => this.handleSpawnRateChange(1));
-        this.view.on("decreaseGravity", () => this.handleGravityChange(-1));
-        this.view.on("increaseGravity", () => this.handleGravityChange(1));
+    setupEventHandlers() {
+        this.model.subscribe(CUSTOM_EVENTS.SHAPE_ADDED, (shape) => this.handleModelShapeAdded(shape));
+        this.model.subscribe(CUSTOM_EVENTS.SHAPE_REMOVED, (shape) => this.handleModelShapeRemoved(shape));
+        this.model.subscribe(CUSTOM_EVENTS.TOTAL_COUNT_UPDATED, (value) => this.handleModelTotalCountUpdated(value));
+        this.model.subscribe(CUSTOM_EVENTS.TOTAL_AREA_UPDATED, (value) => this.handleModelTotalAreaUpdated(value));
+        this.model.subscribe(CUSTOM_EVENTS.SPAWN_AMOUNT_UPDATED, (value) => this.handleModelSpawnAmountUpdated(value));
+        this.model.subscribe(CUSTOM_EVENTS.GRAVITY_UPDATED, (value) => this.handleModelGravityUpdated(value));
+
+
+        this.view.subscribe(CUSTOM_EVENTS.DRAW_SHAPE, (event) => this.handleAddShape(event));
+        this.view.subscribe(CUSTOM_EVENTS.REMOVE_SHAPE, (shape) => this.handleRemoveShape(shape));
+        this.view.subscribe(CUSTOM_EVENTS.DECREASE_SPAWN_AMOUNT, () => this.handleSpawnAmountChange(-1));
+        this.view.subscribe(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT, () => this.handleSpawnAmountChange(1));
+        // this.view.subscribe(CUSTOM_EVENTS.SET_SPAWN_AMOUNT_TEXT, () => this.handleSpawAmountTextChange());
+        this.view.subscribe(CUSTOM_EVENTS.DECREASE_GRAVITY, () => this.handleGravityChange(-1));
+        this.view.subscribe(CUSTOM_EVENTS.INCREASE_GRAVITY, () => this.handleGravityChange(1));
+        // this.view.subscribe(CUSTOM_EVENTS.SET_GRAVITY_TEXT, () => this.handleGravityTextChange());
     }
+
+    handleModelShapeAdded(shape) {
+        const { totalCount, totalArea } = this.calcTotalCountAndArea();
+
+        this.view.handleShapeAdded(shape);
+        this.model.updateTotalCount(totalCount);
+        this.model.updateTotalArea(totalArea);
+    }
+
+    handleModelShapeRemoved(shape) {
+        this.view.handleShapeRemoved(shape);
+    }
+
+    handleModelTotalCountUpdated(value) {
+        this.view.updateShapesText(value)
+    }
+
+    handleModelTotalAreaUpdated(value) {
+        this.view.updateAreaText(value);
+    }
+
+    handleModelSpawnAmountUpdated() {
+        const word = this.model.spawnAmount === 1 ? "shape" : "shapes"
+
+        this.view.updateSpawnAmountElText(`${this.model.spawnAmount} ${word}/sec`);
+    }
+
+    handleModelGravityUpdated(value) {
+        this.view.updateGravityElText(value);
+    }
+
+    handleRemoveShape(shape) {
+        this.model.removeShape(shape);
+    }
+
+    calcTotalCountAndArea() {
+        let totalVisibleShapesCount = 0;
+        let totalVisibleShapesArea = 0;
+
+        this.model.shapes.forEach((shape) => {
+            if (shape.isVisibleInContent(CONTENT_SETTINGS.OFFSET_Y)) {
+                totalVisibleShapesCount++;
+                totalVisibleShapesArea += shape.getArea();
+            }
+        });
+
+        return { totalCount: totalVisibleShapesCount, totalArea: totalVisibleShapesArea };
+    }
+
+    handleAddShape(event) {
+        const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
+        this.addShape(event.data.global.x, y);
+    }
+
+    handleSpawnAmountChange(value) {
+        this.model.updateSpawnAmount(Math.max(1, this.model.spawnAmount + value));
+        // this.model.spawnCount = Math.max(1, this.model.spawnCount + value);
+        // this.handleSpawAmountTextChange();
+        // this.startSpawning();
+    }
+
+    // handleSpawAmountTextChange() {
+    //     const word = this.model.spawnAmount === 1 ? "shape" : "shapes"
+
+    //     this.view.updateSpawnAmountElText(`${this.model.spawnAmount} ${word}/sec`);
+    //     // this.view.spawnRateEl.textContent = `${this.model.spawnCount} shapes/sec`;
+    // }
+
+    handleGravityChange(value) {
+        this.model.updateGravity(Math.max(1, this.model.gravity + value));
+
+        // this.model.gravity = Math.max(1, this.model.gravity + value);
+        // this.handleGravityTextChange();
+    }
+
+    // handleGravityTextChange() {
+    //     this.view.updateGravityElText(this.model.gravity);
+    //     // this.view.gravityEl.textContent = this.model.gravity;
+    // }
+
+    addShape(x, y) {
+        const ShapeClass = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+        const shape = new ShapeClass(x, y);
+
+        this.model.addShape(shape);
+        // Todo: move shape handler to view
+        // this.handleShapePointerDown(shape);
+    }
+
+    removeShape(shape) {
+        // delete handler for shape, memory performance
+        shape.graphics.off("pointerdown");
+        this.model.removeShape(shape);
+    }
+
+    // handleShapePointerDown(shape) {
+    //     shape.graphics.on("pointerdown", () => {
+    //         this.removeShape(shape);
+    //     });
+    // }
 
     startSpawning() {
         if (this.spawnLoop) return;
@@ -70,7 +194,7 @@ export default class GameController {
             const deltaTime = currentTime - shapeLastSpawnTime;
 
             if (deltaTime >= this.model.spawnRate) {
-                for (let i = 0; i < this.model.spawnCount; i++) {
+                for (let i = 0; i < this.model.spawnAmount; i++) {
                     this.addShape(
                         Math.random() * this.dimensions.EXPERIMENTAL_VALUE,
                         -HEADER_SETTINGS.HEIGHT
@@ -87,61 +211,26 @@ export default class GameController {
         this.spawnLoop = requestAnimationFrame(spawn);
     }
 
-    // handleContentPointerDown() {
-    //     this.view.content.on("pointerdown", (event) => {
-    //         if (event.target !== this.view.content) return;
-
-    //         const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
-    //         this.addShape(event.data.global.x, y);
-    //     });
-    // }
-
-    handleShapePointerDown(shape) {
-        shape.graphics.on("pointerdown", () => {
-            this.removeShape(shape);
-        });
-    }
-
-    addShape(x, y) {
-        const ShapeClass = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-        const shape = new ShapeClass(x, y);
-
-        this.model.addShape(shape);
-        this.handleShapePointerDown(shape);
-    }
-
-    removeShape(shape) {
-        // delete handler for shape, memory performance
-        shape.graphics.off("pointerdown");
-        this.model.removeShape(shape);
-    }
-
-    updateModelAndView() {
-        this.model.update();
-        this.view.render(this.model);
-    }
 
     resizeHeaderAndContent(dimension) {
         this.view.resize(dimension);
     }
 
     adjustShapesPositionX(dimensions, scaleX) {
-        this.model.adjustShapesPositionX(dimensions, scaleX);
-    }
+        // this.model.adjustShapesPositionX(dimensions, scaleX);
+        const contentBounds = {
+            left: CONTENT_SETTINGS.OFFSET_X,
+            right: CONTENT_SETTINGS.OFFSET_X + dimensions.CONTENT_WIDTH,
+        };
 
-    handleAddShape(event) {
-        const y = event.data.global.y - HEADER_SETTINGS.HEIGHT;
-        this.addShape(event.data.global.x, y);
-    }
+        this.model.shapes.forEach((shape) => {
+            shape.x = Math.min(
+                Math.max(shape.x * scaleX, contentBounds.left + BASE_SETTINGS.ENTRY_POINT_PADDING),
+                contentBounds.right - BASE_SETTINGS.ENTRY_POINT_PADDING
+            );
 
-    handleSpawnRateChange(value) {
-        this.model.spawnCount = Math.max(1, this.model.spawnCount + value);
-        this.setSpawnRateText();
-        this.startSpawning();
-    }
-
-    handleGravityChange(value) {
-        this.model.gravity = Math.max(1, this.model.gravity + value);
-        this.setGravityText();
+            shape.graphics.x = shape.x;
+            shape.resize(scaleX);
+        });
     }
 }

@@ -1,4 +1,4 @@
-import { EventEmitter } from "pixi.js";
+import Observable from "../utils/Observable";
 import { Container, Rectangle, Graphics, Text } from "pixi.js";
 import {
     BASE_SETTINGS,
@@ -6,16 +6,18 @@ import {
     SHAPES_SETTINGS,
     AREA_SETTINGS,
     CONTENT_SETTINGS,
+    CUSTOM_EVENTS
 } from "../utils/constants";
 
-export default class GameView extends EventEmitter {
+export default class GameView extends Observable {
     constructor(gameBoard, dimensions) {
         super();
         this.gameBoard = gameBoard;
         this.dimensions = dimensions;
+        // this.visibleShapesCount = 0;
+        // this.totalArea = 0;
 
         this.initializeUI();
-        this.getControlElements();
         this.setupEventHandlers();
     }
 
@@ -40,6 +42,7 @@ export default class GameView extends EventEmitter {
         this.initializeMain();
         this.initializeHeader();
         this.initializeContent();
+        this.initializeControls();
     }
 
     initializeMain() {
@@ -65,6 +68,15 @@ export default class GameView extends EventEmitter {
         // this.gameBoard.stage.addChild(this.content);
 
         this.createContentElements();
+    }
+
+    initializeControls() {
+        this.decreaseSpawnBtn = document.getElementById(BASE_SETTINGS.CTRL_DECREASE_SPAWN);
+        this.increaseSpawnBtn = document.getElementById(BASE_SETTINGS.CTRL_INCREASE_SPAWN);
+        this.spawnAmountEl = document.getElementById(BASE_SETTINGS.CTRL_SPAWN_EL);
+        this.decreaseGravityBtn = document.getElementById(BASE_SETTINGS.CTRL_DECREASE_GRAVITY);
+        this.increaseGravityBtn = document.getElementById(BASE_SETTINGS.CTRL_INCREASE_GRAVITY);
+        this.gravityEl = document.getElementById(BASE_SETTINGS.CTRL_GRAVITY_EL);
     }
 
     createHeaderElements() {
@@ -334,17 +346,12 @@ export default class GameView extends EventEmitter {
         // this.contentBorder.fill("yellow"); // for debugging
     }
 
-    setSpawnRateText(value) {
-        this.spawnRateEl.textContent = value;
+    initSpawnAmountText() {
+        this.emit(CUSTOM_EVENTS.SET_SPAWN_AMOUNT_TEXT);
     }
 
-    setGravityText(value) {
-        this.gravityEl.textContent = value;
-    }
-
-    getControlElements() {
-        this.spawnRateEl = document.getElementById(BASE_SETTINGS.CTRL_SPAWN_EL);
-        this.gravityEl = document.getElementById(BASE_SETTINGS.CTRL_GRAVITY_EL);
+    initGravityText() {
+        this.emit(CUSTOM_EVENTS.SET_GRAVITY_TEXT);
     }
 
     setupEventHandlers() {
@@ -359,32 +366,55 @@ export default class GameView extends EventEmitter {
         this.content.addEventListener("pointerdown", (event) => {
             if (event.target !== this.content) return;
 
-            this.emit("addShape", event);
+            this.emit(CUSTOM_EVENTS.DRAW_SHAPE, event);
         });
     }
 
     handleDecreaseSpawnClick() {
-        document.getElementById(BASE_SETTINGS.CTRL_DECREASE_SPAWN).addEventListener("click", () =>
-            this.emit("decreaseSpawn")
+        this.decreaseSpawnBtn.addEventListener("click", () =>
+            this.emit(CUSTOM_EVENTS.DECREASE_SPAWN_AMOUNT)
         );
     }
 
     handleIncreaseSpawnClick() {
-        document.getElementById(BASE_SETTINGS.CTRL_INCREASE_SPAWN).addEventListener("click", () =>
-            this.emit("increaseSpawn")
+        this.increaseSpawnBtn.addEventListener("click", () =>
+            this.emit(CUSTOM_EVENTS.INCREASE_SPAWN_AMOUNT)
         );
     }
 
+    updateSpawnAmountElText(value) {
+        console.log("Spawn amount text was updated in view");
+        this.spawnAmountEl.textContent = value;
+        this.emit(CUSTOM_EVENTS.SPAWN_AMOUNT_UPDATED);
+    }
+
     handleDecreaseGravityClick() {
-        document.getElementById(BASE_SETTINGS.CTRL_DECREASE_GRAVITY).addEventListener("click", () =>
-            this.emit("decreaseGravity")
+        this.decreaseGravityBtn.addEventListener("click", () =>
+            this.emit(CUSTOM_EVENTS.DECREASE_GRAVITY)
         );
     }
 
     handleIncreaseGravityClick() {
-        document.getElementById(BASE_SETTINGS.CTRL_INCREASE_GRAVITY).addEventListener("click", () =>
-            this.emit("increaseGravity")
+        this.increaseGravityBtn.addEventListener("click", () =>
+            this.emit(CUSTOM_EVENTS.INCREASE_GRAVITY)
         );
+    }
+
+    updateGravityElText(value) {
+        console.log("Gravity text was updated in view");
+        this.gravityEl.textContent = value;
+    }
+
+    handleShapeAdded(shape) {
+        console.log("Shape pointerdown handler was created in view", shape);
+        shape.graphics.on("pointerdown", () => {
+            this.emit(CUSTOM_EVENTS.REMOVE_SHAPE, shape);
+        });
+    }
+
+    handleShapeRemoved(shape) {
+        console.log("Shape pointerdown handler was removed in view", shape);
+        shape.graphics.off("pointerdown");
     }
 
     resize(dimensions) {
@@ -392,12 +422,26 @@ export default class GameView extends EventEmitter {
         this.drawContentElements(dimensions);
     }
 
-    render(model) {
+    updateShapesText(value) {
+        console.log("Shapes text was updated in view", value);
+        this.shapesText.text = `Shapes: ${value}`;
+    }
+
+    updateAreaText(value) {
+        console.log("Area text was updated in view", value);
+        this.areaText.text = `Area: ${Math.round(value)} px²`;
+    }
+
+    update(model) {
+        // Todo: fire custom event
+        // Everything else, move to controller
         model.shapes.forEach((shape) => {
             this.content.addChild(shape.graphics);
         });
 
-        this.shapesText.text = `Shapes: ${model.visibleShapesCount}`;
-        this.areaText.text = `Area: ${Math.round(model.totalArea)} px²`;
+        // this.shapesText.text = `Shapes: ${this.visibleShapesCount}`;
+        // this.areaText.text = `Area: ${Math.round(this.totalArea)} px²`;
+        // this.shapesText.text = `Shapes: ${model.visibleShapesCount}`;
+        // this.areaText.text = `Area: ${Math.round(model.totalArea)} px²`;
     }
 }
