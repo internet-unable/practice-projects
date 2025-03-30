@@ -10,11 +10,11 @@ export const BASE_SETTINGS = {
     GRAVITY: 1,
     SPAWN_RATE: 1000,
     CTRL_GROUP: "ctrlGroup",
-    CTRL_DECREASE_SPAWN: "decreaseSpawn",
-    CTRL_INCREASE_SPAWN: "increaseSpawn",
+    CTRL_DECREASE_SPAWN: "decreaseSpawnAmount",
+    CTRL_INCREASE_SPAWN: "increaseSpawnAmount",
     CTRL_DECREASE_GRAVITY: "decreaseGravity",
     CTRL_INCREASE_GRAVITY: "increaseGravity",
-    CTRL_SPAWN_EL: "spawnRate",
+    CTRL_SPAWN_EL: "spawnAmount",
     CTRL_GRAVITY_EL: "gravity"
 };
 
@@ -45,3 +45,22 @@ export const CONTENT_SETTINGS = {
     OFFSET_X: BASE_SETTINGS.STROKE_WIDTH / 2,
     OFFSET_Y: HEADER_SETTINGS.HEIGHT + BASE_SETTINGS.STROKE_WIDTH / 2,
 };
+
+export const CUSTOM_EVENTS = {
+    SHAPE_ADDED: "shapeAdded",
+    REMOVE_SHAPE: "removeShape",
+    TOTAL_COUNT_UPDATED: "totalCountUpdated",
+    TOTAL_AREA_UPDATED: "totalAreaUpdated",
+    SPAWN_AMOUNT_UPDATED: "spawnAmountUpdated",
+    GRAVITY_UPDATED: "gravityUpdated",
+    
+    SHAPE_REMOVED: "shapeRemoved",
+    SHAPES_UPDATED: "shapesUpdated",
+    DRAW_SHAPE: "drawShape",
+    DECREASE_SPAWN_AMOUNT: "decreaseSpawnAmount",
+    INCREASE_SPAWN_AMOUNT: "increaseSpawnAmount",
+    SET_SPAWN_AMOUNT_TEXT: "setSpawnAmountText",
+    DECREASE_GRAVITY: "decreaseGravity",
+    INCREASE_GRAVITY: "increaseGravity",
+    SET_GRAVITY_TEXT: "setGravityText"
+}
