@@ -85,11 +85,7 @@ export default class GameController {
     }
 
     handleModelShapeAdded(shape) {
-        const { totalCount, totalArea } = this.calcTotalCountAndArea();
-
         this.view.handleShapeAdded(shape);
-        this.model.updateTotalCount(totalCount);
-        this.model.updateTotalArea(totalArea);
     }
 
     handleModelShapeRemoved(shape) {
@@ -105,9 +101,7 @@ export default class GameController {
     }
 
     handleModelSpawnAmountUpdated(value) {
-        const word = value === 1 ? "shape" : "shapes";
-
-        this.view.updateSpawnAmountElText(`${value} ${word}/sec`);
+        this.view.updateSpawnAmountElText(value);
     }
 
     handleModelGravityUpdated(value) {
@@ -115,7 +109,11 @@ export default class GameController {
     }
 
     handleViewShapesYUpdate() {
+        const { totalCount, totalArea } = this.calcTotalCountAndArea();
+
         this.model.updateShapesY();
+        this.model.updateTotalCount(totalCount);
+        this.model.updateTotalArea(totalArea);
     }
 
     handleViewAddShape(event) {
@@ -126,7 +124,7 @@ export default class GameController {
     }
 
     handleViewRemoveShape(shape) {
-        this.removeShape(shape);
+        this.model.removeShape(shape);
     }
 
     handleViewSpawnAmountChange(value) {
@@ -178,10 +176,6 @@ export default class GameController {
         const shape = this.chooseShape(x, y);
 
         this.model.addShape(shape);
-    }
-
-    removeShape(shape) {
-        this.model.removeShape(shape);
     }
 
     chooseShape(x, y) {

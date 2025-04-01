@@ -249,7 +249,9 @@ export default class GameView extends Observable {
     }
 
     updateSpawnAmountElText(value) {
-        this.spawnAmountEl.textContent = value;
+        const word = value > 1 ? "shapes" : "shape";
+
+        this.spawnAmountEl.textContent = `${value} ${word}/sec`;
         this.emit(CUSTOM_EVENTS.SPAWN_AMOUNT_UPDATED);
     }
 
